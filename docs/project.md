@@ -1,33 +1,5 @@
 ### Project MCP Goals
 
-1. Create Directory Structure
-   ```
-   mcp_project/
-   ├── app/
-   │   ├── __init__.py
-   │   ├── main.py
-   │   ├── api/
-   │   │   ├── __init__.py
-   │   │   ├── endpoints/
-   │   │   │   ├── __init__.py
-   │   │   │   └── routes.py
-   │   ├── core/
-   │   │   ├── __init__.py
-   │   │   └── config.py
-   │   ├── models/
-   │   │   ├── __init__.py
-   │   │   └── models.py
-   │   └── services/
-   │       ├── __init__.py
-   │       ├── mcp_client.py
-   │       └── mcp_server.py
-   ├── tests/
-   │   ├── __init__.py
-   │   └── test_api.py
-   ├── requirements.txt
-   └── README.md
-   ```
-
 2. FastAPI Project Scaffold Implementation
    - Set up main FastAPI application
    - Configure CORS, middleware, and error handlers
