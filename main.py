@@ -1,5 +1,7 @@
-from fastapi import FastAPI, HTTPException, Query
-from typing import List, Optional
+from fastapi import FastAPI, HTTPException, Query, status
+from fastapi.responses import JSONResponse
+from typing import List, Optional, Dict
+from pydantic import BaseModel
 import httpx
 import os
 from dotenv import load_dotenv
@@ -9,59 +11,74 @@ from fastapi_mcp import FastApiMCP
 # Load environment variables from .env file
 load_dotenv()
 
-app = FastAPI(title="National Park Alerts API")
+# Create FastAPI app with enhanced documentation
+app = FastAPI(
+    title="AbadIA MCP Server",
+    description="""
+    Master Control Program (MCP) Server API for AbadIA system.
+    
+    ## Features
+    * Real-time event monitoring
+    * MCP command and control interface
+    * System status and health checks
+    * Event broadcasting and notifications
+    
+    ## Authentication
+    This API requires an API key for secure operations.
+    Set your API key in the .env file as `ABADIA_API_KEY`.
+    """,
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+    swagger_ui_parameters={"defaultModelsExpandDepth": -1}
+)
 
+class StatusResponse(BaseModel):
+    """Response model for status endpoint"""
+    status: str
 
-# Get API key from environment variable
-NPS_API_KEY = os.getenv("NPS_API_KEY")
-if not NPS_API_KEY:
-    raise ValueError("NPS_API_KEY environment variable is not set")
+    class Config:
+        schema_extra = {
+            "example": {
+                "status": "OK"
+            }
+        }
 
-@app.get("/alerts")
-async def get_alerts(
-    parkCode: Optional[str] = Query(None, description="Park code (e.g., 'yell' for Yellowstone)"),
-    stateCode: Optional[str] = Query(None, description="State code (e.g., 'wy' for Wyoming)"),
-    q: Optional[str] = Query(None, description="Search term")
-):
+@app.get(
+    "/status",
+    response_model=StatusResponse,
+    status_code=status.HTTP_200_OK,
+    tags=["System"],
+    summary="Get system status",
+    response_description="System operational status"
+)
+async def get_status():
     """
-    Retrieve park alerts from the National Park Service API
+    Retrieve AbadIA API status.
+    
+    Returns:
+        JSONResponse with status "OK" if system is operational.
+        Automatically returns 500 if there's an internal error.
+    
+    Example response:
+        ```json
+        {
+            "status": "OK"
+        }
+        ```
     """
-    url = "https://developer.nps.gov/api/v1/alerts"
-    params = {
-        "api_key": NPS_API_KEY
-    }
-   
-    # Add optional parameters if provided
-    if parkCode:
-        params["parkCode"] = parkCode
-    if stateCode:
-        params["stateCode"] = stateCode
-    if q:
-        params["q"] = q
-   
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(url, params=params)
-            response.raise_for_status()
-            return response.json()
-    except httpx.HTTPStatusError as e:
-        raise HTTPException(
-            status_code=e.response.status_code,
-            detail=f"NPS API error: {e.response.text}"
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Internal server error: {str(e)}"
-        )
+    return StatusResponse(status="OK")
 
+
+# MCP Configuration
 mcp = FastApiMCP(
     app,
-    # Optional parameters
-    name="National Park Alerts API",
-    description="API for retrieving alerts from National Parks",
-    base_url="http://localhost:8000",
+    name="AbadIA MCP Server",
+    description="Master Control Program for AbadIA System",
 )
+
+# Mount MCP routes
 mcp.mount()
 
 if __name__ == "__main__":
