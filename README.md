@@ -27,13 +27,12 @@ uvicorn app.main:app --reload
 
 # AbadIA-MCP
 
-A FastAPI implementation of an MCP (Master Control Program) server with WebSocket support.
+A FastAPI implementation of an MCP (Master Control Program) server using Server-Sent Events (SSE).
 
 ## Features
 
-- Full MCP server implementation using fastMCP
-- Real-time bidirectional communication
-- Message broadcasting and targeted messaging
+- Real-time server-to-client communication using SSE
+- Event broadcasting and targeted messaging
 - Command distribution system
 - Client connection management
 - REST API for server control and monitoring
@@ -58,11 +57,6 @@ APP_NAME=AbadIA-MCP
 DEBUG=True
 HOST=0.0.0.0
 PORT=8000
-MCP_HOST=0.0.0.0
-MCP_PORT=5000
-MCP_MAX_CONNECTIONS=100
-MCP_HEARTBEAT_INTERVAL=30
-MCP_CONNECTION_TIMEOUT=60
 LOG_LEVEL=INFO
 ```
 
@@ -77,7 +71,6 @@ The server will be available at:
 - REST API: http://localhost:8000
 - Swagger Documentation: http://localhost:8000/docs
 - ReDoc Documentation: http://localhost:8000/redoc
-- MCP Server: ws://localhost:5000
 
 ## Project Structure
 
@@ -92,7 +85,7 @@ The server will be available at:
 │   │   └── endpoints.py  # API routes
 │   └── mcp/
 │       ├── __init__.py
-│       └── server.py     # MCP server implementation
+│       └── server.py     # MCP server implementation with SSE
 ├── requirements.txt
 └── README.md
 ```
@@ -108,65 +101,103 @@ The server will be available at:
 
 ### MCP API
 
-- `POST /api/v1/send`: Send MCP message to specific clients or broadcast
+- `POST /api/v1/register`: Register a new client and get a client ID
+- `GET /api/v1/subscribe/{client_id}`: Subscribe to SSE events
+- `POST /api/v1/events/send`: Send event to specific clients or broadcast
 - `GET /api/v1/clients`: Get list of connected clients
 - `POST /api/v1/command`: Send command to all clients
 
-## MCP Protocol
+## Using Server-Sent Events (SSE)
 
-The MCP server accepts WebSocket connections and handles the following message types:
+### 1. Client Registration
 
-### Message Types
+First, register a new client:
 
-1. HELLO
+```bash
+curl -X POST http://localhost:8000/api/v1/register
+```
+
+Response:
 ```json
 {
-    "type": "HELLO",
-    "content": {
-        "client_name": "example"
-    }
+    "client_id": "550e8400-e29b-41d4-a716-446655440000",
+    "status": "registered",
+    "subscribe_url": "/api/v1/subscribe/550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
-2. COMMAND
+### 2. SSE Subscription
+
+Subscribe to events using the client ID:
+
+```javascript
+const eventSource = new EventSource('/api/v1/subscribe/YOUR_CLIENT_ID');
+
+eventSource.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log('Received:', data);
+};
+
+eventSource.addEventListener('command', (event) => {
+    const command = JSON.parse(event.data);
+    console.log('Command received:', command);
+});
+
+eventSource.onerror = (error) => {
+    console.error('SSE error:', error);
+    eventSource.close();
+};
+```
+
+### 3. Sending Events
+
+Send an event to specific clients:
+
+```bash
+curl -X POST http://localhost:8000/api/v1/events/send \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event_type": "update",
+    "data": {"message": "Hello!"},
+    "target_clients": ["client_id_1", "client_id_2"]
+  }'
+```
+
+Broadcast to all clients:
+
+```bash
+curl -X POST http://localhost:8000/api/v1/events/send \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event_type": "broadcast",
+    "data": {"message": "Hello everyone!"}
+  }'
+```
+
+## Event Types
+
+1. Standard Event
 ```json
 {
-    "type": "COMMAND",
-    "content": {
+    "id": "1234",
+    "event": "update",
+    "data": {
+        "message": "Update content"
+    },
+    "timestamp": "2024-03-21T10:00:00Z"
+}
+```
+
+2. Command Event
+```json
+{
+    "id": "5678",
+    "event": "command",
+    "data": {
         "command": "example_command",
         "parameters": {}
-    }
-}
-```
-
-3. STATUS
-```json
-{
-    "type": "STATUS",
-    "content": {
-        "status": "ready"
-    }
-}
-```
-
-### Server Responses
-
-1. WELCOME
-```json
-{
-    "type": "WELCOME",
-    "content": {
-        "server": "AbadIA-MCP",
-        "version": "1.0"
-    }
-}
-```
-
-2. ERROR
-```json
-{
-    "type": "ERROR",
-    "content": "Error message"
+    },
+    "timestamp": "2024-03-21T10:01:00Z"
 }
 ```
 
@@ -176,21 +207,17 @@ The MCP server accepts WebSocket connections and handles the following message t
 |----------|-------------|---------|
 | APP_NAME | Application name | AbadIA-MCP |
 | DEBUG | Debug mode | False |
-| HOST | REST API host | 0.0.0.0 |
-| PORT | REST API port | 8000 |
-| MCP_HOST | MCP server host | 0.0.0.0 |
-| MCP_PORT | MCP server port | 5000 |
-| MCP_MAX_CONNECTIONS | Maximum concurrent connections | 100 |
-| MCP_HEARTBEAT_INTERVAL | Heartbeat interval in seconds | 30 |
-| MCP_CONNECTION_TIMEOUT | Connection timeout in seconds | 60 |
+| HOST | Server host | 0.0.0.0 |
+| PORT | Server port | 8000 |
 | LOG_LEVEL | Logging level | INFO |
 
 ## Security Considerations
 
 1. In production, configure CORS properly by setting specific origins
-2. Use SSL/TLS for both REST API and WebSocket connections
-3. Implement authentication for both REST API and MCP connections
-4. Configure firewall rules to restrict access to the MCP port
+2. Use SSL/TLS for all HTTP connections
+3. Implement authentication for both REST API and SSE connections
+4. Consider implementing event validation and rate limiting
+5. Use secure client ID generation and validation
 
 Surprise!!! The AbadIA project has an MCP server!!!!
 

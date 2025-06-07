@@ -1,45 +1,19 @@
-### Project MCP Goals
+### AbadIA MCP Server
 
-2. FastAPI Project Scaffold Implementation
-   - Set up main FastAPI application
-   - Configure CORS, middleware, and error handlers
-   - Implement dependency injection system
-   - Set up configuration management
+A simple FastAPI-based MCP (Master Control Program) server using Server-Sent Events (SSE).
 
-3. REST API Examples
-   - Implement POST endpoint examples
-   - Implement GET endpoint examples
-   - Add request/response models using Pydantic
-   - Include error handling and validation
+### Setup
 
-4. API Documentation
-   - Configure Swagger UI (OpenAPI)
-   - Add detailed endpoint descriptions
-   - Include request/response examples
-   - Document authentication methods (if needed)
+1. Install dependencies:
+```bash
+pip install fastapi uvicorn python-dotenv fastapi-sse
+```
 
-5. FastMCP Integration
-   - Implement MCP server using fastMCP
-   - Create MCP client implementation
-   - Add MCP protocol handlers
-   - Configure MCP communication settings
+2. Run the server:
+```bash
+uvicorn main:app --reload
+```
 
-### Implementation Steps
-
-1. Install required dependencies:
-   ```bash
-   pip install fastapi uvicorn fastmcp python-dotenv pydantic
-   ```
-
-2. Create the directory structure using the layout above
-
-3. Follow the implementation steps for each goal
-
-4. Run the application:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
-
-5. Access the documentation:
-   - Swagger UI: http://localhost:8000/docs
-   - ReDoc: http://localhost:8000/redoc 
+3. Access:
+- API: http://localhost:8000
+- Docs: http://localhost:8000/docs 
