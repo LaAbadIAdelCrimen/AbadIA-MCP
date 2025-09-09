@@ -71,6 +71,14 @@ path2Pos = {
 
 }
 
+# A dictionary to hold predefined paths for high-level commands.
+# In a real implementation, this would be replaced by a pathfinding algorithm.
+location_paths = {
+    "library": "UP:UP:LEFT:UP",
+    "church": "RIGHT:RIGHT:UP",
+    "cell": "DOWN:DOWN:LEFT"
+}
+
 # Create FastAPI app with enhanced documentation
 app = FastAPI(
     title="AbadIA MCP Server",
@@ -87,6 +95,79 @@ app = FastAPI(
     openapi_url="/openapi.json",
     swagger_ui_parameters={"defaultModelsExpandDepth": -1}
 )
+
+@app.post(
+    "/move_to/{location}",
+    response_model=GameResponse,
+    status_code=status.HTTP_200_OK,
+    tags=["High-Level Commands"],
+    summary="Move to a specific location",
+    response_description="Status of the move action"
+)
+async def move_to(location: str):
+    """
+    Moves the character to a specific location in the abbey.
+    This is a high-level command that will execute a sequence of low-level moves.
+    """
+    if location not in location_paths:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Location '{location}' not found."
+        )
+
+    try:
+        path_commands = location_paths[location].split(':')
+        for cmd in path_commands:
+            sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='POST')
+            # It's good practice to have a small delay between commands
+            import time
+            time.sleep(0.1)
+
+        # Get the final state after moving
+        final_state = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/NONE", mode='POST')
+
+        return GameResponse(
+            status="OK",
+            data=final_state if isinstance(final_state, dict) else {"raw_response": final_state},
+            message=f"Successfully moved to {location}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+@app.post(
+    "/investigate/{location}",
+    response_model=GameResponse,
+    status_code=status.HTTP_200_OK,
+    tags=["High-Level Commands"],
+    summary="Investigate a specific location",
+    response_description="Status of the investigation action"
+)
+async def investigate(location: str):
+    """
+    Investigates a specific location in the abbey.
+    This involves moving to the location and then performing an action to search for clues.
+    """
+    # First, move to the location
+    await move_to(location)
+
+    try:
+        # Now, perform an investigation action (e.g., pressing SPACE to interact)
+        investigation_state = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+
+        return GameResponse(
+            status="OK",
+            data=investigation_state if isinstance(investigation_state, dict) else {"raw_response": investigation_state},
+            message=f"Successfully investigated {location}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
 
 class StatusResponse(BaseModel):
     """Response model for status endpoint"""

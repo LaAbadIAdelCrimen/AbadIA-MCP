@@ -17,54 +17,33 @@ This project implements an AI agent that can play and solve the classic video ga
 
 ## Architecture
 
-The project is composed of two main components: the MCP Server and the AI Agent.
+The project's architecture is centered around a "smart" server and a "strategic" agent, which communicate with each other.
 
-### MCP Server
+### MCP Server (The "Smart" Driver)
 
-The MCP server acts as a bridge between the game and the AI agent. It runs alongside the game and exposes a RESTful API. This API allows the agent to:
+The MCP server has evolved beyond a simple bridge. It now exposes a set of **high-level commands** through its RESTful API. Instead of just handling low-level inputs (like 'UP' or 'DOWN'), the server now understands complex actions.
 
-*   **Read Game State:** Get information about the player's position, inventory, the time of day, the location of other characters, and more.
-*   **Send Commands:** Send commands to the game to control the player character, such as moving, taking objects, and talking to other characters.
+Key responsibilities of the server include:
+*   **Executing High-Level Commands:** The server has endpoints like `/move_to/{location}` and `/investigate/{location}`. It contains the necessary logic (e.g., pathfinding, sequences of actions) to execute these commands.
+*   **Game State Management:** It provides a comprehensive view of the current game state through the `/abadIA/game/current` endpoint.
+*   **Abstracting the Game:** It hides the complexity of the underlying game, allowing the agent to interact with the world through a clean, high-level API.
 
-### AI Agent
+### AI Agent (The "Strategic" Thinker)
 
-The AI agent is the core of the project. It is a Python application that connects to the MCP server to play the game. The agent's decision-making process is based on a set of goals and a knowledge base about the game world.
+The AI agent is now built using the **Google Agents Developer Kit (ADK)**. Its main role is to focus on high-level strategy and decision-making.
 
-the framework of the agent will be google ADK (Agents Developer Kit)
+Key characteristics of the agent include:
+*   **ADK-Powered:** It leverages the ADK to manage the interaction with the language model, including reasoning, planning, and tool use.
+*   **High-Level Tools:** The agent's tools are simple functions that make calls to the MCP server's high-level API. For example, it has a `move_to_location` tool that calls the `/move_to/{location}` endpoint on the server.
+*   **Goal-Oriented:** The agent's behavior is guided by a comprehensive system prompt that includes its persona, the rules of the order, and the high-level goals defined in `game_data/goals.md`. It decides *what* to do, and the server handles *how* to do it.
 
-the system prompt of the agent will be in the prompt.txt file. 
-
-The agent mainly will use the abadIA MCP server but it will need: 
-
-* a local filesystem MCP to create files, directories, logs, outputs files, etc. 
-* a context memory MCP server. We need to have tools for storage the last movements and status, strategies, results of the games, etc. 
-* perhaps be a good idea a reasoning thinking MCP for the planning. 
-
-there will be a file with the goals of the games named goals.md
-
-the agent will read the system prompt from the prompt.txt file. 
-
-The agent will real de goals.md to got the goals to play the game. 
-
-The agent need to be able to start a new game or load a game from a saved state game. 
-
-with the context of the goals.md, and the context of the game the agent will execute a kind of loop like this: 
-
-* A subagent that we will call "planner" with his system prompt will be defined at planner.txt. will examine the context for planning the next strategic steps. This strategic steps are high level actions like: follow abad, follow adso, go to the church, go to a room number, or explore around. Some of this strategies can be at the file strategies.md
-
-* for each of this high level actions will run an subagent named "executor". His system prompt is the file "executor.md". the mission of the executor is create small tasks to solve the action using the available tools (MCP tools + local tools) + the context. Executor will create task and execute each. 
-
-The agent uses a variety of algorithms to achieve its goals, including:
-
-*   **A\* for pathfinding:** To navigate the abbey efficiently.
-*   **A knowledge base:** To store information about the game world, such as the location of key items and the solutions to puzzles.
-*   **A planning system:** To decide what to do next based on the current game state and its long-term goals.
+This architecture makes the system more modular and robust. The agent can focus on strategy, while the server handles the complex details of game interaction.
 
 ## Technologies
 
 *   **Python:** The primary programming language for both the server and the agent.
 *   **FastAPI:** A modern, fast (high-performance) web framework for building the MCP server's API.
-*   **Typer:** For creating the command-line interface.
+*   **Google Agents Developer Kit (ADK):** The framework used to build the AI agent.
 *   **Pydantic:** For data validation and settings management.
 *   **Uvicorn:** An ASGI server for running the FastAPI application.
 
