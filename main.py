@@ -165,6 +165,7 @@ async def reset_game():
     """
     try:
         response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
