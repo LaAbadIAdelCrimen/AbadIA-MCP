@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
@@ -8,6 +12,7 @@ from dotenv import load_dotenv
 from fastapi_mcp import FastApiMCP
 import requests
 import logging
+from agent.core.abadia_mcp import sendCmd
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -22,62 +27,7 @@ logger.info(f"ABADIA_SERVER_URL configured as: {ABADIA_SERVER_URL}")
 # Example of how to use other environment variables with defaults
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() == "true"
 API_VERSION = os.getenv("API_VERSION", "1.0.0")
-# abadia helpers 
-# helper to normalize paths to positions
-        #   1
-        # 2   0
-        #   3
 
-path2Pos = {
-            "0N": "LEFT:UP:UP",
-            "1N": "UP:UP",
-            "2N": "RIGHT:UP:UP",
-            "3N": "RIGHT:RIGHT:UP:UP",
-
-            "0NE": "UP:UP:LEFT:UP:UP",
-            "1NE": "UP:UP:RIGHT:UP:UP",
-            "2NE": "RIGHT:UP:UP:RIGHT:UP:UP",
-            "3NE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
-
-            "0E": "UP:UP",
-            "1E": "RIGHT:UP:UP",
-            "2E": "RIGHT:RIGHT:UP:UP",
-            "3E": "LEFT:UP:UP",
-
-            "0SE": "UP:UP:RIGHT:UP:UP",
-            "1SE": "RIGHT:UP:UP:RIGHT:UP:UP",
-            "2SE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
-            "3SE": "UP:UP:LEFT:UP:UP",
-
-            "0S": "RIGHT:UP:UP",
-            "1S": "RIGHT:RIGHT:UP:UP",
-            "2S": "LEFT:UP:UP",
-            "3S": "UP:UP",
-
-            "0SW": "RIGHT:UP:UP:RIGHT:UP:UP",
-            "1SW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
-            "2SW": "UP:UP:LEFT:UP:UP",
-            "3SW": "UP:UP:RIGHT:UP:UP",
-
-            "0W": "RIGHT:RIGHT:UP:UP",
-            "1W": "LEFT:UP:UP",
-            "2W": "UP:UP",
-            "3W": "RIGHT:UP:UP",
-
-            "0NW": "LEFT:UP:UP:LEFT:UP:UP",
-            "1NW": "UP:UP:LEFT:UP:UP",
-            "2NW": "UP:UP:RIGHT:UP:UP",
-            "3NW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP"
-
-}
-
-# A dictionary to hold predefined paths for high-level commands.
-# In a real implementation, this would be replaced by a pathfinding algorithm.
-location_paths = {
-    "library": "UP:UP:LEFT:UP",
-    "church": "RIGHT:RIGHT:UP",
-    "cell": "DOWN:DOWN:LEFT"
-}
 
 # Create FastAPI app with enhanced documentation
 app = FastAPI(
@@ -96,77 +46,7 @@ app = FastAPI(
     swagger_ui_parameters={"defaultModelsExpandDepth": -1}
 )
 
-@app.post(
-    "/move_to/{location}",
-    response_model=GameResponse,
-    status_code=status.HTTP_200_OK,
-    tags=["High-Level Commands"],
-    summary="Move to a specific location",
-    response_description="Status of the move action"
-)
-async def move_to(location: str):
-    """
-    Moves the character to a specific location in the abbey.
-    This is a high-level command that will execute a sequence of low-level moves.
-    """
-    if location not in location_paths:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Location '{location}' not found."
-        )
 
-    try:
-        path_commands = location_paths[location].split(':')
-        for cmd in path_commands:
-            sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='POST')
-            # It's good practice to have a small delay between commands
-            import time
-            time.sleep(0.1)
-
-        # Get the final state after moving
-        final_state = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/NONE", mode='POST')
-
-        return GameResponse(
-            status="OK",
-            data=final_state if isinstance(final_state, dict) else {"raw_response": final_state},
-            message=f"Successfully moved to {location}"
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        )
-
-@app.post(
-    "/investigate/{location}",
-    response_model=GameResponse,
-    status_code=status.HTTP_200_OK,
-    tags=["High-Level Commands"],
-    summary="Investigate a specific location",
-    response_description="Status of the investigation action"
-)
-async def investigate(location: str):
-    """
-    Investigates a specific location in the abbey.
-    This involves moving to the location and then performing an action to search for clues.
-    """
-    # First, move to the location
-    await move_to(location)
-
-    try:
-        # Now, perform an investigation action (e.g., pressing SPACE to interact)
-        investigation_state = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
-
-        return GameResponse(
-            status="OK",
-            data=investigation_state if isinstance(investigation_state, dict) else {"raw_response": investigation_state},
-            message=f"Successfully investigated {location}"
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
-        )
 
 
 class StatusResponse(BaseModel):
@@ -245,8 +125,8 @@ async def reset_game():
         ```
     """
     try:
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='GET')
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='GET')
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
@@ -303,7 +183,7 @@ async def send_cmd(cmd: str):
         ```
     """
     try:
-        response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='POST')
+        response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='GET')
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
@@ -324,63 +204,7 @@ async def send_cmd(cmd: str):
         )
        
 
-def sendCmd(url, command, type="json", mode="GET"):
-        cmd = "{}/{}".format(url, command)
-        try:
-            if (type == "json"):
-                headers = {'accept': 'application/json'}
-            else:
-                headers = {'accept': 'text/x.abadIA+plain'}
 
-            if mode == "GET":
-                r = requests.get(cmd)
-            if mode == "POST":
-                r = requests.post(cmd)
-            logging.info(f"cmd ---> {cmd} {r.status_code}")
-        except:
-            logging.error(f"Vigasoco comm error {r.status_code}")
-            return None
-        headers = {'accept': 'text/x.abadIA+plain'}
-
-        cmdDump = "{}/abadIA/game/current".format(url)
-        core = requests.get(cmdDump, headers=headers)
-        # logging.info(core.text)
-        # core_dict =check2dict(core.text)
-
-        headers = {'accept': 'application/json'}
-        cmdDump = "{}/abadIA/game/current".format(url)
-        r = requests.get(cmdDump, headers= headers)
-
-        if (type == "json"):
-            tmp = r.json()
-            # tmp['core'] = core_dict
-
-            if r.status_code == 599:
-                tmp['haFracasado'] = True
-            return tmp
-        else:
-            return r.text
-
-def sendMultiCmd(path):
-        logging.info("Path: %s Cmds: %s" % (path, path2Pos[path]))
-        cmds = path2Pos[path].split(":")
-        for step in cmds:
-            sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/{}".format(step), mode='POST')
-
-        headers = {'accept': 'text/x.abadIA+plain'}
-        cmdDump = "{}/abadIA/game/current".format(ABADIA_SERVER_URL)
-        core = requests.get(cmdDump, headers=headers)
-        # logging.info(core.text)
-        core_dict = check2dict(core.text)
-
-        headers = {'accept': 'application/json'}
-        cmdDump = "{}/abadIA/game/current".format(ABADIA_SERVER_URL)
-        r = requests.get(cmdDump, headers=headers)
-        tmp = r.json()
-        tmp['core'] =  core_dict
-        if r.status_code == 599:
-            tmp['haFracasado'] = True
-        return tmp
 
 # MCP Configuration
 mcp = FastApiMCP(
@@ -391,6 +215,10 @@ mcp = FastApiMCP(
 
 # Mount MCP routes
 mcp.mount()
+
+from server.api.v1 import endpoints as v1_endpoints
+
+app.include_router(v1_endpoints.router, prefix="/api/v1", tags=["v1"])
 
 if __name__ == "__main__":
     import uvicorn

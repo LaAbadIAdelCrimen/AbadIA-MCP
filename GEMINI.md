@@ -68,12 +68,13 @@ This architecture makes the system more modular and robust. The agent can focus 
 3.  **Configure the environment:**
     Create a `.env` file in the root of the project and add the necessary environment variables. You can use the `mcp_config.json` as a reference.
 
+
 ### Running the MCP Server
 
 To start the MCP server, run the following command:
 
 ```bash
-python main.py
+python server/main.py
 ```
 
 The server will be available at `http://localhost:8000`.

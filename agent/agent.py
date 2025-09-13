@@ -1,6 +1,7 @@
 import agent
 import httpx
 import os
+from agent.core.abadia_mcp import location_paths, character_locations
 
 # --- Configuration ---
 MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://localhost:8000")
@@ -24,11 +25,22 @@ def move_to_location(location: str) -> dict:
     Moves the character to a named location in the abbey (e.g., 'library', 'church').
     This is a high-level action that may take some time.
     """
+    if location not in location_paths:
+        return {"error": f"Location '{location}' not found."}
+
     try:
-        response = mcp_client.post(f"/move_to/{location}")
-        response.raise_for_status()
-        return response.json()
-    except httpx.RequestError as e:
+        path_commands = location_paths[location].split(':')
+        for cmd in path_commands:
+            send_game_command(cmd)
+            # It's good practice to have a small delay between commands
+            import time
+            time.sleep(0.1)
+
+        # Get the final state after moving
+        final_state = get_full_game_state()
+
+        return {"status": "OK", "data": final_state, "message": f"Successfully moved to {location}"}
+    except Exception as e:
         return {"error": str(e)}
 
 @agent.tool
@@ -38,10 +50,28 @@ def investigate_location(location: str) -> dict:
     Use this to search for clues or interact with the environment.
     """
     try:
-        response = mcp_client.post(f"/investigate/{location}")
-        response.raise_for_status()
-        return response.json()
-    except httpx.RequestError as e:
+        move_to_location(location)
+        send_game_command("SPACE")
+        final_state = get_full_game_state()
+        return {"status": "OK", "data": final_state, "message": f"Successfully investigated {location}"}
+    except Exception as e:
+        return {"error": str(e)}
+
+@agent.tool
+def talk_to_character(character: str) -> dict:
+    """
+    Moves to a character and initiates a conversation (e.g., 'abbot', 'jorge').
+    """
+    if character not in character_locations:
+        return {"error": f"Character '{character}' not found."}
+
+    try:
+        location = character_locations[character]
+        move_to_location(location)
+        send_game_command("SPACE")
+        final_state = get_full_game_state()
+        return {"status": "OK", "data": final_state, "message": f"Successfully initiated conversation with {character}"}
+    except Exception as e:
         return {"error": str(e)}
 
 @agent.tool
@@ -64,7 +94,7 @@ def send_game_command(command: str) -> dict:
     Use this for fine-grained control when high-level actions are not precise enough.
     """
     try:
-        response = mcp_client.post(f"/abadIA/game/current/actions/{command}")
+        response = mcp_client.get(f"/cmd/{command}")
         response.raise_for_status()
         return response.json()
     except httpx.RequestError as e:
@@ -95,7 +125,7 @@ def run_abadia_agent():
     Follow these steps in a loop:
     1.  **Analyze:** Use the `get_full_game_state` tool to understand your current situation.
     2.  **Plan:** Based on the game state and your goals, choose a high-level strategy.
-    3.  **Execute:** Use `investigate_location` to explore areas for clues, `move_to_location` for simple navigation, and `send_game_command` for other specific actions.
+    3.  **Execute:** Use `talk_to_character` to interact with people, `investigate_location` to explore, `move_to_location` for navigation, and `send_game_command` for other specific actions.
 
     Now, begin.
     """

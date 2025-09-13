@@ -1,227 +1,106 @@
-# MCP Project
+# AbadIA-MCP: An AI Agent for "The Abbey of Crime"
 
-FastAPI-based MCP (Master Control Program) implementation.
+## Overview
 
-## Setup
-
-1. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the application:
-```bash
-uvicorn app.main:app --reload
-```
-
-## Documentation
-
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
-
-# AbadIA-MCP
-
-A FastAPI implementation of an MCP (Master Control Program) server using Server-Sent Events (SSE).
+This project implements an AI agent that can play and solve the classic video game "The Abbey of Crime" (La Abadía del Crimen). It uses a Model Control Program (MCP) server to interface with the game and a sophisticated agent to make decisions and navigate the game world.
 
 ## Features
 
-- Real-time server-to-client communication using SSE
-- Event broadcasting and targeted messaging
-- Command distribution system
-- Client connection management
-- REST API for server control and monitoring
-- Swagger documentation
+*   **MCP Server:** A robust server that provides a clean interface for interacting with the game.
+*   **AI Agent:** An intelligent agent with capabilities for:
+    *   Pathfinding
+    *   Object interaction
+    *   Puzzle solving
+    *   Following the game's narrative
+*   **Real-time Game State Monitoring:** The agent has access to the complete and real-time state of the game.
+*   **Extensible Architecture:** The project is designed to be modular, allowing for the easy addition of new skills and behaviors to the agent.
 
-## Setup
+## Architecture
 
-1. Create a virtual environment and activate it:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-```
+The project's architecture is centered around a "smart" server and a "strategic" agent, which communicate with each other.
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+### MCP Server (The "Smart" Driver)
 
-3. Create a `.env` file in the root directory with the following content:
-```
-APP_NAME=AbadIA-MCP
-DEBUG=True
-HOST=0.0.0.0
-PORT=8000
-LOG_LEVEL=INFO
-```
+The MCP server has evolved beyond a simple bridge. It now exposes a set of **high-level commands** through its RESTful API. Instead of just handling low-level inputs (like 'UP' or 'DOWN'), the server now understands complex actions.
 
-## Running the Application
+Key responsibilities of the server include:
+*   **Executing High-Level Commands:** The server has endpoints like `/move_to/{location}` and `/investigate/{location}`. It contains the necessary logic (e.g., pathfinding, sequences of actions) to execute these commands.
+*   **Game State Management:** It provides a comprehensive view of the current game state through the `/abadIA/game/current` endpoint.
+*   **Abstracting the Game:** It hides the complexity of the underlying game, allowing the agent to interact with the world through a clean, high-level API.
 
-Start the server with:
-```bash
-uvicorn app.main:app --reload
-```
+### AI Agent (The "Strategic" Thinker)
 
-The server will be available at:
-- REST API: http://localhost:8000
-- Swagger Documentation: http://localhost:8000/docs
-- ReDoc Documentation: http://localhost:8000/redoc
+The AI agent is now built using the **Google Agents Developer Kit (ADK)**. Its main role is to focus on high-level strategy and decision-making.
 
-## Project Structure
+Key characteristics of the agent include:
+*   **ADK-Powered:** It leverages the ADK to manage the interaction with the language model, including reasoning, planning, and tool use.
+*   **High-Level Tools:** The agent's tools are simple functions that make calls to the MCP server's high-level API. For example, it has a `move_to_location` tool that calls the `/move_to/{location}` endpoint on the server.
+*   **Goal-Oriented:** The agent's behavior is guided by a comprehensive system prompt that includes its persona, the rules of the order, and the high-level goals defined in `game_data/goals.md`. It decides *what* to do, and the server handles *how* to do it.
 
-```
-.
-├── app/
-│   ├── __init__.py
-│   ├── main.py           # FastAPI application instance
-│   ├── config.py         # Configuration management
-│   ├── api/
-│   │   ├── __init__.py
-│   │   └── endpoints.py  # API routes
-│   └── mcp/
-│       ├── __init__.py
-│       └── server.py     # MCP server implementation with SSE
-├── requirements.txt
-└── README.md
-```
+This architecture makes the system more modular and robust. The agent can focus on strategy, while the server handles the complex details of game interaction.
 
-## API Endpoints
+## Technologies
 
-### REST API
+*   **Python:** The primary programming language for both the server and the agent.
+*   **FastAPI:** A modern, fast (high-performance) web framework for building the MCP server's API.
+*   **Google Agents Developer Kit (ADK):** The framework used to build the AI agent.
+*   **Pydantic:** For data validation and settings management.
+*   **Uvicorn:** An ASGI server for running the FastAPI application.
 
-- `GET /`: Welcome message and server status
-- `GET /health`: Health check endpoint
-- `GET /mcp/status`: Get MCP server status
-- `POST /mcp/broadcast`: Broadcast message to all clients
+## Getting Started
 
-### MCP API
+### Prerequisites
 
-- `POST /api/v1/register`: Register a new client and get a client ID
-- `GET /api/v1/subscribe/{client_id}`: Subscribe to SSE events
-- `POST /api/v1/events/send`: Send event to specific clients or broadcast
-- `GET /api/v1/clients`: Get list of connected clients
-- `POST /api/v1/command`: Send command to all clients
+*   Python 3.9+
+*   An emulator running "The Abbey of Crime"
 
-## Using Server-Sent Events (SSE)
+### Installation
 
-### 1. Client Registration
+1.  **Create a virtual environment and activate it:**
+    ```bash
+    uv venv
+    source .venv/bin/activate # On Windows use: .venv\Scripts\activate
+    ```
+2.  **Install the dependencies:**
+    ```bash
+    uv pip install -r requirements.txt
+    ```
+3.  **Configure the environment:**
+    Create a `.env` file in the root of the project and add the necessary environment variables. You can use the `mcp_config.json` as a reference.
 
-First, register a new client:
+
+### Running the MCP Server
+
+To start the MCP server, run the following command:
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/register
+python server/main.py
 ```
 
-Response:
-```json
-{
-    "client_id": "550e8400-e29b-41d4-a716-446655440000",
-    "status": "registered",
-    "subscribe_url": "/api/v1/subscribe/550e8400-e29b-41d4-a716-446655440000"
-}
-```
+The server will be available at `http://localhost:8000`.
 
-### 2. SSE Subscription
+## Usage
 
-Subscribe to events using the client ID:
-
-```javascript
-const eventSource = new EventSource('/api/v1/subscribe/YOUR_CLIENT_ID');
-
-eventSource.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log('Received:', data);
-};
-
-eventSource.addEventListener('command', (event) => {
-    const command = JSON.parse(event.data);
-    console.log('Command received:', command);
-});
-
-eventSource.onerror = (error) => {
-    console.error('SSE error:', error);
-    eventSource.close();
-};
-```
-
-### 3. Sending Events
-
-Send an event to specific clients:
+Once the MCP server is running and the game is active in the emulator, you can start the AI agent.
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/events/send \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event_type": "update",
-    "data": {"message": "Hello!"},
-    "target_clients": ["client_id_1", "client_id_2"]
-  }'
+python agent.py
 ```
 
-Broadcast to all clients:
+The agent will connect to the MCP server, and you will see it start to control the character in the game. The agent's progress and decisions will be logged to the console.
 
-```bash
-curl -X POST http://localhost:8000/api/v1/events/send \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event_type": "broadcast",
-    "data": {"message": "Hello everyone!"}
-  }'
-```
+## Contributing
 
-## Event Types
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Standard Event
-```json
-{
-    "id": "1234",
-    "event": "update",
-    "data": {
-        "message": "Update content"
-    },
-    "timestamp": "2024-03-21T10:00:00Z"
-}
-```
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 
-2. Command Event
-```json
-{
-    "id": "5678",
-    "event": "command",
-    "data": {
-        "command": "example_command",
-        "parameters": {}
-    },
-    "timestamp": "2024-03-21T10:01:00Z"
-}
-```
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
-## Environment Variables
+## License
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| APP_NAME | Application name | AbadIA-MCP |
-| DEBUG | Debug mode | False |
-| HOST | Server host | 0.0.0.0 |
-| PORT | Server port | 8000 |
-| LOG_LEVEL | Logging level | INFO |
-
-## Security Considerations
-
-1. In production, configure CORS properly by setting specific origins
-2. Use SSL/TLS for all HTTP connections
-3. Implement authentication for both REST API and SSE connections
-4. Consider implementing event validation and rate limiting
-5. Use secure client ID generation and validation
-
-Surprise!!! The AbadIA project has an MCP server!!!!
-
-We starting to work with the AbadIA agent and as everybody knows: an agent can't live without an (or more) MCP server.
-
-
-
+Distributed under the MIT License. See `LICENSE` for more information.
