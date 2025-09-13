@@ -1,7 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
@@ -33,7 +29,7 @@ API_VERSION = os.getenv("API_VERSION", "1.0.0")
 app = FastAPI(
     title="AbadIA MCP Server",
     description="""
-    Master Control Program (MCP) Server API for AbadIA system.
+    Model Control Program (MCP) Server API for AbadIA system.
     
     ## Features
     * MCP command and control interface
