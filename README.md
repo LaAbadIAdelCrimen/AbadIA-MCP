@@ -141,6 +141,114 @@ The expected output is a JSON object with the current game state.
 }
 ```
 
+## Accessing the MCP Server from AI Assistants
+
+To allow AI assistants like Gemini CLI, Claude, or Cursor to access the MCP server, you need to expose the server to the internet. This can be done using a tunneling service like `ngrok`.
+
+### 1. Running the Server Locally
+
+First, make sure the AbadIA MCP server is running locally.
+
+```bash
+python server/main.py
+```
+
+The server will be available at `http://localhost:8000`.
+
+### 2. Exposing the Server with ngrok
+
+If you don't have `ngrok` installed, you can download it from the official website: [https://ngrok.com/download](https://ngrok.com/download)
+
+Open a new terminal and run the following command to create a public URL for your local server:
+
+```bash
+ngrok http 8000
+```
+
+`ngrok` will display a public URL (e.g., `https://<random-string>.ngrok.io`). This URL now points to your local MCP server.
+
+### 3. Configuring AI Assistants
+
+Now you can use the public URL provided by `ngrok` to configure your AI assistant.
+
+#### Gemini CLI
+
+For the Gemini CLI, you can use the `--tools_url` flag to specify the MCP server's URL.
+
+```bash
+gemini chat --tools_url https://<random-string>.ngrok.io/mcp
+```
+
+Replace `https://<random-string>.ngrok.io` with the public URL from `ngrok`.
+
+**Example Usage:**
+
+Once configured, you can interact with the game through the Gemini CLI:
+
+```
+> gemini chat --tools_url https://<random-string>.ngrok.io/mcp
+> What is the status of the game?
+> reset the game
+> send the command UP
+```
+
+#### Claude
+
+To configure Claude, you would typically define the tools in a JSON or similar format when initializing the agent. Here is a conceptual example of what the configuration might look like:
+
+```json
+{
+  "tools": [
+    {
+      "name": "abadia_mcp",
+      "description": "Tools for interacting with the AbadIA MCP server.",
+      "schema": {
+        "type": "openapi",
+        "url": "https://<random-string>.ngrok.io/openapi.json"
+      }
+    }
+  ]
+}
+```
+
+Replace `https://<random-string>.ngrok.io` with your public `ngrok` URL.
+
+**Example Usage:**
+
+```
+> What is the status of the game?
+> Reset the game.
+> Send the command "UP".
+```
+
+#### Cursor
+
+For Cursor, you would configure the tools in the `.vscode/settings.json` file of your project. The configuration would look something like this:
+
+```json
+{
+  "cursor.tools": [
+    {
+      "name": "AbadIA MCP",
+      "url": "https://<random-string>.ngrok.io/mcp",
+      "description": "Tools for controlling the AbadIA game."
+    }
+  ]
+}
+```
+
+Replace `https://<random-string>.ngrok.io` with your public `ngrok` URL.
+
+**Example Usage:**
+
+In a chat window in Cursor, you can then use the tools:
+
+```
+@AbadIA MCP what is the game status?
+@AbadIA MCP reset the game
+@AbadIA MCP send the command UP
+```
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.

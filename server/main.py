@@ -180,14 +180,14 @@ async def reset_game():
         )
        
 @app.get(
-    "/cmd/{cmd}",
+    "/game/cmd/{cmd}",
     response_model=GameResponse,
     status_code=status.HTTP_200_OK,
     tags=["System"],
     summary="send a command to AbadIA game",
     response_description="send a command to AbadIA game and get the status as response"
 )
-async def send_cmd(cmd: str):
+async def send_game_cmd(cmd: str):
     """
     send a command to AbadIA game.
     
@@ -238,6 +238,96 @@ async def send_cmd(cmd: str):
        
 
 
+
+from server.game_data import location_paths, character_locations
+import time
+
+@app.post("/tools/move_to_location")
+def move_to_location(location: str) -> dict:
+    """
+    Moves the character to a named location in the abbey (e.g., 'library', 'church').
+    This is a high-level action that may take some time.
+    """
+    if location not in location_paths:
+        raise HTTPException(status_code=404, detail=f"Location '{location}' not found.")
+
+    try:
+        path_commands = location_paths[location].split(':')
+        for cmd in path_commands:
+            send_game_command(cmd)
+            time.sleep(0.1)
+
+        final_state = get_full_game_state()
+
+        return {"status": "OK", "data": final_state, "message": f"Successfully moved to {location}"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/tools/investigate_location")
+def investigate_location(location: str) -> dict:
+    """
+    Moves to and investigates a named location in the abbey (e.g., 'library', 'church').
+    Use this to search for clues or interact with the environment.
+    """
+    try:
+        move_to_location(location)
+        send_game_command("SPACE")
+        final_state = get_full_game_state()
+        return {"status": "OK", "data": final_state, "message": f"Successfully investigated {location}"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/tools/talk_to_character")
+def talk_to_character(character: str) -> dict:
+    """
+    Moves to a character and initiates a conversation (e.g., 'abbot', 'jorge').
+    """
+    if character not in character_locations:
+        raise HTTPException(status_code=404, detail=f"Character '{character}' not found.")
+
+    try:
+        location = character_locations[character]
+        move_to_location(location)
+        send_game_command("SPACE")
+        final_state = get_full_game_state()
+        return {"status": "OK", "data": final_state, "message": f"Successfully initiated conversation with {character}"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/tools/get_full_game_state")
+def get_full_game_state() -> dict:
+    """
+    Gets the complete current state of the game from the MCP server,
+    including character position, time, inventory, etc.
+    """
+    try:
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", type="json", mode='GET')
+        if response is None:
+            raise HTTPException(
+                status_code=status.HTTP_502_BAD_GATEWAY,
+                detail="Failed to communicate with game server"
+            )
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/tools/send_game_command")
+def send_game_command(command: str) -> dict:
+    """
+    Sends a single, low-level command to the game (e.g., 'UP', 'DOWN', 'SPACE').
+    Use this for fine-grained control when high-level actions are not precise enough.
+    """
+    try:
+        response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{command}", mode='GET')
+        if response is None:
+            raise HTTPException(
+                status_code=status.HTTP_502_BAD_GATEWAY,
+                detail="Failed to communicate with game server"
+            )
+        
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # MCP Configuration
 mcp = FastApiMCP(
