@@ -19,37 +19,3 @@ character_locations = {
     "abbot": "church",
     "jorge": "library"
 }
-
-def sendCmd(url, command, type="json", mode="GET"):
-        cmd = "{}/{}".format(url, command)
-        try:
-            if (type == "json"):
-                headers = {'accept': 'application/json'}
-            else:
-                headers = {'accept': 'text/x.abadIA+plain'}
-
-            if mode == "GET":
-                r = requests.get(cmd)
-            if mode == "POST":
-                r = requests.post(cmd)
-            logging.info(f"cmd ---> {cmd} {r.status_code}")
-        except:
-            logging.error(f"Vigasoco comm error {r.status_code}")
-            return None
-        headers = {'accept': 'text/x.abadIA+plain'}
-
-        cmdDump = "{}/abadIA/game/current".format(url)
-        core = requests.get(cmdDump, headers=headers)
-
-        headers = {'accept': 'application/json'}
-        cmdDump = "{}/abadIA/game/current".format(url)
-        r = requests.get(cmdDump, headers= headers)
-
-        if (type == "json"):
-            tmp = r.json()
-
-            if r.status_code == 599:
-                tmp['haFracasado'] = True
-            return tmp
-        else:
-            return r.text

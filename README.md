@@ -56,14 +56,14 @@ This architecture makes the system more modular and robust. The agent can focus 
 
 ### Installation
 
-1.  **Create a virtual environment and activate it:**
+1.  **Clone the repository:**
     ```bash
-    uv venv
-    source .venv/bin/activate # On Windows use: .venv\Scripts\activate
+    git clone https://github.com/your-username/AbadIA-MCP.git
+    cd AbadIA-MCP
     ```
 2.  **Install the dependencies:**
     ```bash
-    uv pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 3.  **Configure the environment:**
     Create a `.env` file in the root of the project and add the necessary environment variables. You can use the `mcp_config.json` as a reference.
@@ -88,6 +88,58 @@ python agent.py
 ```
 
 The agent will connect to the MCP server, and you will see it start to control the character in the game. The agent's progress and decisions will be logged to the console.
+
+## Testing the Game Server
+
+You can test the connection to the game server using `curl`.
+
+```bash
+curl -H "accept: application/json" http://localhost:4477/abadIA/game/current
+```
+
+The expected output is a JSON object with the current game state.
+
+```json
+{
+  "Objetos": [],
+  "Personajes": [
+    {
+      "altura": 0,
+      "id": 0,
+      "nombre": "Guillermo",
+      "objetos": 32,
+      "orientacion": 0,
+      "posX": 136,
+      "posY": 168
+    },
+    {
+      "altura": 0,
+      "id": 1,
+      "nombre": "Adso",
+      "objetos": 0,
+      "orientacion": 1,
+      "posX": 134,
+      "posY": 169
+    }
+  ],
+  "Rejilla": [
+    [14, 14, 14, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 14, 14, 14],
+    ...
+  ],
+  "bonus": 0,
+  "dia": 1,
+  "frases": [56, 56],
+  "haFracasado": false,
+  "investigacionCompleta": false,
+  "momentoDia": 4,
+  "numPantalla": 23,
+  "numeroRomano": 0,
+  "obsequium": 31,
+  "planta": 0,
+  "porcentaje": 0,
+  "sonidos": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
+```
 
 ## Contributing
 

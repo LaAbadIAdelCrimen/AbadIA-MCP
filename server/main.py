@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
@@ -8,7 +12,40 @@ from dotenv import load_dotenv
 from fastapi_mcp import FastApiMCP
 import requests
 import logging
-from agent.core.abadia_mcp import sendCmd
+
+def sendCmd(url, command, type="json", mode="GET"):
+        cmd = "{}/{}"
+        try:
+            if (type == "json"):
+                headers = {'accept': 'application/json'}
+            else:
+                headers = {'accept': 'text/x.abadIA+plain'}
+
+            if mode == "GET":
+                r = requests.get(cmd.format(url, command))
+            if mode == "POST":
+                r = requests.post(cmd.format(url, command))
+            logging.info(f"cmd ---> {cmd} {r.status_code}")
+        except:
+            logging.error(f"Vigasoco comm error {r.status_code}")
+            return None
+        headers = {'accept': 'text/x.abadIA+plain'}
+
+        cmdDump = "{}/abadIA/game/current"
+        core = requests.get(cmdDump.format(url), headers=headers)
+
+        headers = {'accept': 'application/json'}
+        cmdDump = "{}/abadIA/game/current"
+        r = requests.get(cmdDump.format(url), headers= headers)
+
+        if (type == "json"):
+            tmp = r.json()
+
+            if r.status_code == 599:
+                tmp['haFracasado'] = True
+            return tmp
+        else:
+            return r.text
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -50,7 +87,7 @@ class StatusResponse(BaseModel):
     status: str
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "status": "OK"
             }
@@ -63,7 +100,7 @@ class GameResponse(BaseModel):
     message: Optional[str] = None
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "status": "OK",
                 "data": {
@@ -210,7 +247,7 @@ mcp = FastApiMCP(
 )
 
 # Mount MCP routes
-mcp.mount()
+mcp.mount_http()
 
 from server.api.v1 import endpoints as v1_endpoints
 
