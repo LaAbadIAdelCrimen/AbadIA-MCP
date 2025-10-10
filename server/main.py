@@ -14,37 +14,45 @@ from fastapi_mcp import FastApiMCP
 import requests
 import logging
 
+session_id = None
+
 def sendCmd(url, command, type="json", mode="GET"):
+        # global session_id
         cmd = "{}/{}"
-        try:
-            if (type == "json"):
-                headers = {'accept': 'application/json'}
-            else:
-                headers = {'accept': 'text/x.abadIA+plain'}
+        headers = {}
 
-            if mode == "GET":
-                r = requests.get(cmd.format(url, command))
-            if mode == "POST":
-                r = requests.post(cmd.format(url, command))
-            logging.info(f"cmd ---> {cmd} {r.status_code}")
-        except:
-            logging.error(f"Vigasoco comm error {r.status_code}")
-            return None
-        headers = {'accept': 'text/x.abadIA+plain'}
-
-        cmdDump = "{}/abadIA/game/current"
-        core = requests.get(cmdDump.format(url), headers=headers)
-
-        headers = {'accept': 'application/json'}
-        cmdDump = "{}/abadIA/game/current"
-        r = requests.get(cmdDump.format(url), headers= headers)
+        # if session_idr:
+        #    headers['X-Session-Id'] = session_id
 
         if (type == "json"):
-            tmp = r.json()
+            headers['accept'] = 'application/json'
+        else:
+            headers['accept'] = 'text/x.abadIA+plain'
 
-            if r.status_code == 599:
-                tmp['haFracasado'] = True
-            return tmp
+        try:
+            if mode == "GET":
+                r = requests.get(cmd.format(url, command), headers=headers)
+            if mode == "POST":
+                r = requests.post(cmd.format(url, command), headers=headers)
+            logging.info(f"cmd ---> {cmd.format(url, command)} {mode} {r.status_code} {r.json()}")
+
+            # if command == "abadIA/game" and r.status_code == 200:
+            #    session_id = r.headers.get('X-Session-Id')
+            #    logging.info(f"New session ID: {session_id}")
+
+        except requests.exceptions.RequestException as e:
+            logging.error(f"Vigasoco comm error: {e}")
+            return None
+
+        if (type == "json"):
+            try:
+                tmp = r.json()
+                if r.status_code == 599:
+                    tmp['haFracasado'] = True
+                return tmp
+            except ValueError:
+                logging.error("Failed to decode JSON from response")
+                return None
         else:
             return r.text
 
@@ -115,7 +123,7 @@ class GameResponse(BaseModel):
 @app.get(
     "/status",
     operation_id="get_status",
-    response_model=StatusResponse,
+    response_model=GameResponse,
     status_code=status.HTTP_200_OK,
     tags=["System"],
     summary="Get system status",
@@ -129,7 +137,22 @@ async def get_status():
         JSONResponse with status "OK" if system is operational.
         Automatically returns 500 if there's an internal error.
     """
-    return StatusResponse(status="OK")
+    response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", mode='GET')
+    print(f"response ---> {response}")
+    save_game_status(response)
+
+    if response is None:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Failed to communicate with game server"
+        )
+        
+    return GameResponse(
+        status="OK",
+        data=response if isinstance(response, dict) else {"raw_response": response},
+        message="Game Status successfully"
+    )
+    
 
 @app.get(
     "/reset",
@@ -162,10 +185,12 @@ async def reset_game():
     """
     try:
 
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        # don't touch the order of the commands
+        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
         time.sleep(1)
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
         response = sendCmd(ABADIA_SERVER_URL, "abadIA/game", mode='POST')
+        save_game_status(response)
 
         if response is None:
             raise HTTPException(
@@ -225,6 +250,7 @@ async def send_game_cmd(cmd: str):
     """
     try:
         response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='GET')
+        save_game_status(response)
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
@@ -247,7 +273,7 @@ async def send_game_cmd(cmd: str):
 
 
 
-from server.game_data import location_paths, character_locations
+from server.game_data import location_paths, character_locations, save_game_status
 import time
 
 @app.post("/tools/move_to_location", operation_id="move_to_location")
@@ -310,6 +336,7 @@ def get_full_game_state() -> dict:
     """
     try:
         response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", type="json", mode='GET')
+        save_game_status(response)
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
@@ -327,6 +354,7 @@ def send_game_command(command: str) -> dict:
     """
     try:
         response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{command}", mode='GET')
+        save_game_status(response)
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
