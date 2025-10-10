@@ -6,13 +6,23 @@ This project implements an AI agent that can play and solve the classic video ga
 
 ## Features
 
-*   **MCP Server:** A robust server that provides a clean interface for interacting with the game.
+*   **MCP Server:** A robust server that provides a clean interface for interacting with the game. The server exposes the following tools:
+    *   `move_to_location`: Moves the character to a named location.
+    *   `investigate_location`: Investigates a named location.
+    *   `talk_to_character`: Initiates a conversation with a character.
+    *   `get_full_game_state`: Gets the complete current state of the game.
+    *   `send_game_command`: Sends a single, low-level command to the game.
+
 *   **AI Agent:** An intelligent agent with capabilities for:
     *   Pathfinding
     *   Object interaction
     *   Puzzle solving
     *   Following the game's narrative
+    *   The primitive tools must be provided by the MCP server
+    *   Planning differents strategies based in the game context.
+
 *   **Real-time Game State Monitoring:** The agent has access to the complete and real-time state of the game.
+
 *   **Extensible Architecture:** The project is designed to be modular, allowing for the easy addition of new skills and behaviors to the agent.
 
 ## Architecture
@@ -23,9 +33,9 @@ The project's architecture is centered around a "smart" server and a "strategic"
 
 The MCP server has evolved beyond a simple bridge. It now exposes a set of **high-level commands** through its RESTful API. Instead of just handling low-level inputs (like 'UP' or 'DOWN'), the server now understands complex actions.
 
-Key responsibilities of the server include:
+Key responsibilities of the server include provide tools like this:
 *   **Executing High-Level Commands:** The server has endpoints like `/move_to/{location}` and `/investigate/{location}`. It contains the necessary logic (e.g., pathfinding, sequences of actions) to execute these commands.
-*   **Game State Management:** It provides a comprehensive view of the current game state through the `/abadIA/game/current` endpoint.
+*   **Game State Management:** It provides a comprehensive view of the current game state through the `/tools/get_full_game_state` endpoint.
 *   **Abstracting the Game:** It hides the complexity of the underlying game, allowing the agent to interact with the world through a clean, high-level API.
 
 ### AI Agent (The "Strategic" Thinker)
@@ -34,7 +44,7 @@ The AI agent is now built using the **Google Agents Developer Kit (ADK)**. Its m
 
 Key characteristics of the agent include:
 *   **ADK-Powered:** It leverages the ADK to manage the interaction with the language model, including reasoning, planning, and tool use.
-*   **High-Level Tools:** The agent's tools are simple functions that make calls to the MCP server's high-level API. For example, it has a `move_to_location` tool that calls the `/move_to/{location}` endpoint on the server.
+*   **High-Level Tools:** The agent's tools are simple functions that make calls to the MCP server's high-level API. For example, it has a `move_to_location` tool that calls the `/move_to/{location}` endpoint on the MCP server.
 *   **Goal-Oriented:** The agent's behavior is guided by a comprehensive system prompt that includes its persona, the rules of the order, and the high-level goals defined in `game_data/goals.md`. It decides *what* to do, and the server handles *how* to do it.
 
 This architecture makes the system more modular and robust. The agent can focus on strategy, while the server handles the complex details of game interaction.
@@ -61,20 +71,33 @@ This architecture makes the system more modular and robust. The agent can focus 
     git clone https://github.com/your-username/AbadIA-MCP.git
     cd AbadIA-MCP
     ```
-2.  **Install the dependencies:**
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+3.  **Install the dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
-3.  **Configure the environment:**
+4.  **Configure the environment:**
     Create a `.env` file in the root of the project and add the necessary environment variables. You can use the `mcp_config.json` as a reference.
 
+
+### The emulator of the game must be running
+
+Default configuration is localhost:4477 
+
+You need to define an environment var to point to the emulator: 
+
+export ABADIA_SERVER_URL="http://localhost:4477/"
 
 ### Running the MCP Server
 
 To start the MCP server, run the following command:
 
 ```bash
-python server/main.py
+.venv/bin/python server/main.py
 ```
 
 The server will be available at `http://localhost:8000`.

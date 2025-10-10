@@ -25,7 +25,7 @@ The MCP server has evolved beyond a simple bridge. It now exposes a set of **hig
 
 Key responsibilities of the server include:
 *   **Executing High-Level Commands:** The server has endpoints like `/move_to/{location}` and `/investigate/{location}`. It contains the necessary logic (e.g., pathfinding, sequences of actions) to execute these commands.
-*   **Game State Management:** It provides a comprehensive view of the current game state through the `/abadIA/game/current` endpoint.
+*   **Game State Management:** It provides a comprehensive view of the current game state through the `/tools/get_full_game_state` endpoint.
 *   **Abstracting the Game:** It hides the complexity of the underlying game, allowing the agent to interact with the world through a clean, high-level API.
 
 ### AI Agent (The "Strategic" Thinker)
@@ -61,11 +61,16 @@ This architecture makes the system more modular and robust. The agent can focus 
     git clone https://github.com/your-username/AbadIA-MCP.git
     cd AbadIA-MCP
     ```
-2.  **Install the dependencies:**
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+3.  **Install the dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
-3.  **Configure the environment:**
+4.  **Configure the environment:**
     Create a `.env` file in the root of the project and add the necessary environment variables. You can use the `mcp_config.json` as a reference.
 
 
@@ -74,7 +79,7 @@ This architecture makes the system more modular and robust. The agent can focus 
 To start the MCP server, run the following command:
 
 ```bash
-python server/main.py
+.venv/bin/python server/main.py
 ```
 
 The server will be available at `http://localhost:8000`.
