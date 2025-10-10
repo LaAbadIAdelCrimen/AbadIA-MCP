@@ -8,6 +8,7 @@ from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 import httpx
 import os
+import time
 from dotenv import load_dotenv
 from fastapi_mcp import FastApiMCP
 import requests
@@ -113,6 +114,7 @@ class GameResponse(BaseModel):
 
 @app.get(
     "/status",
+    operation_id="get_status",
     response_model=StatusResponse,
     status_code=status.HTTP_200_OK,
     tags=["System"],
@@ -131,6 +133,7 @@ async def get_status():
 
 @app.get(
     "/reset",
+    operation_id="reset_game",
     response_model=GameResponse,
     status_code=status.HTTP_200_OK,
     tags=["System"],
@@ -158,8 +161,12 @@ async def reset_game():
         ```
     """
     try:
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='GET')
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='GET')
+
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        time.sleep(1)
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game", mode='POST')
+
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
@@ -181,6 +188,7 @@ async def reset_game():
        
 @app.get(
     "/game/cmd/{cmd}",
+    operation_id="send_game_cmd",
     response_model=GameResponse,
     status_code=status.HTTP_200_OK,
     tags=["System"],
@@ -242,7 +250,7 @@ async def send_game_cmd(cmd: str):
 from server.game_data import location_paths, character_locations
 import time
 
-@app.post("/tools/move_to_location")
+@app.post("/tools/move_to_location", operation_id="move_to_location")
 def move_to_location(location: str) -> dict:
     """
     Moves the character to a named location in the abbey (e.g., 'library', 'church').
@@ -263,7 +271,7 @@ def move_to_location(location: str) -> dict:
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/tools/investigate_location")
+@app.post("/tools/investigate_location", operation_id="investigate_location")
 def investigate_location(location: str) -> dict:
     """
     Moves to and investigates a named location in the abbey (e.g., 'library', 'church').
@@ -277,7 +285,7 @@ def investigate_location(location: str) -> dict:
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/tools/talk_to_character")
+@app.post("/tools/talk_to_character", operation_id="talk_to_character")
 def talk_to_character(character: str) -> dict:
     """
     Moves to a character and initiates a conversation (e.g., 'abbot', 'jorge').
@@ -294,7 +302,7 @@ def talk_to_character(character: str) -> dict:
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/tools/get_full_game_state")
+@app.get("/tools/get_full_game_state", operation_id="get_full_game_state")
 def get_full_game_state() -> dict:
     """
     Gets the complete current state of the game from the MCP server,
@@ -311,7 +319,7 @@ def get_full_game_state() -> dict:
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/tools/send_game_command")
+@app.post("/tools/send_game_command", operation_id="send_game_command")
 def send_game_command(command: str) -> dict:
     """
     Sends a single, low-level command to the game (e.g., 'UP', 'DOWN', 'SPACE').
