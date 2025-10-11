@@ -25,15 +25,14 @@ server/
 ├── __init__.py
 ├── api/
 │   └── v1/
-│       ├── __init__.py
-│       └── endpoints.py
+│       └── __init__.py
 ├── game_data.py
 └── main.py
 ```
 
 *   `main.py`: This is the entry point of the application. It initializes the FastAPI app, defines the API endpoints, and contains the core logic for communicating with the game emulator.
 *   `game_data.py`: This file contains game-specific data, such as the paths to different locations in the game and the locations of characters. It also includes functions for managing the game's state.
-*   `api/v1/endpoints.py`: This file is intended for version 1 of the API, but it is currently not in use.
+*   `api/v1/`: This directory is intended for version 1 of the API, but it is currently not in use.
 
 ## 4. API Endpoints
 

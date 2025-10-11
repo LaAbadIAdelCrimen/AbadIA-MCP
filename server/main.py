@@ -375,9 +375,7 @@ mcp = FastApiMCP(
 # Mount MCP routes
 mcp.mount_http()
 
-from server.api.v1 import endpoints as v1_endpoints
 
-app.include_router(v1_endpoints.router, prefix="/api/v1", tags=["v1"])
 
 if __name__ == "__main__":
     import uvicorn
