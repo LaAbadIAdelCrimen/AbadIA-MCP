@@ -154,6 +154,9 @@ async def get_status():
     )
     
 
+from server.game_data import location_paths, character_locations, save_game_status, reset_game_data
+import time
+
 @app.get(
     "/reset",
     operation_id="reset_game",
@@ -176,7 +179,7 @@ async def reset_game():
         {
             "status": "OK",
             "data": {
-                "game_state": "reset", m 
+                "game_state": "reset",
                 "timestamp": "2024-03-21T10:00:00Z"
             },
             "message": "Game reset successfully"
@@ -184,6 +187,8 @@ async def reset_game():
         ```
     """
     try:
+        # Reset all game data, including internal state
+        reset_game_data()
 
         # don't touch the order of the commands
         sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
@@ -274,7 +279,16 @@ async def send_game_cmd(cmd: str):
 
 
 from server.game_data import location_paths, character_locations, save_game_status
+from server.internal_game_data import get_internal_game_data
 import time
+
+@app.get("/internal_status", tags=["System"])
+def get_internal_status():
+    """
+    Returns the server's internal representation of the game state.
+    This is useful for debugging and understanding the AI's perspective.
+    """
+    return get_internal_game_data()
 
 @app.post("/tools/move_to_location", operation_id="move_to_location")
 def move_to_location(location: str) -> dict:

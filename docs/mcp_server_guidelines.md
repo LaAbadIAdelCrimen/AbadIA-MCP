@@ -27,146 +27,56 @@ server/
 │   └── v1/
 │       └── __init__.py
 ├── game_data.py
+├── internal_game_data.py
 └── main.py
 ```
 
-*   `main.py`: This is the entry point of the application. It initializes the FastAPI app, defines the API endpoints, and contains the core logic for communicating with the game emulator.
-*   `game_data.py`: This file contains game-specific data, such as the paths to different locations in the game and the locations of characters. It also includes functions for managing the game's state.
+*   `main.py`: The entry point of the application.
+*   `game_data.py`: Contains game-specific data like location paths and character locations.
+*   `internal_game_data.py`: Manages the server's internal representation of the game state.
 *   `api/v1/`: This directory is intended for version 1 of the API, but it is currently not in use.
 
 ## 4. API Endpoints
 
-The MCP server exposes the following endpoints:
-
 ### System Endpoints
-
-These endpoints are used for managing the state of the MCP server and the game.
 
 #### `GET /status`
 
-*   **Description:** Retrieves the current status of the game.
-*   **Parameters:** None.
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Game Status successfully"
-    }
-    ```
+*   **Description:** Retrieves the current status of the game from the emulator.
+
+#### `GET /internal_status`
+
+*   **Description:** Retrieves the server's internal representation of the game state.
 
 #### `GET /reset`
 
 *   **Description:** Resets the game to its initial state.
-*   **Parameters:** None.
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Game reset successfully"
-    }
-    ```
 
 #### `GET /game/cmd/{cmd}`
 
 *   **Description:** Sends a low-level command to the game.
-*   **Parameters:**
-    *   `cmd` (string): The command to send (e.g., `UP`, `DOWN`, `LEFT`, `RIGHT`, `SPACE`).
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Command UP sent successfully"
-    }
-    ```
 
 ### Tool Endpoints
 
-These endpoints provide high-level control over the game and are intended to be used by the AI agent.
-
-#### `POST /tools/move_to_location`
-
-*   **Description:** Moves the character to a named location in the abbey.
-*   **Parameters:**
-    *   `location` (string): The name of the location to move to (e.g., `library`, `church`).
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Successfully moved to library"
-    }
-    ```
-
-#### `POST /tools/investigate_location`
-
-*   **Description:** Moves to and investigates a named location.
-*   **Parameters:**
-    *   `location` (string): The name of the location to investigate.
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Successfully investigated library"
-    }
-    ```
-
-#### `POST /tools/talk_to_character`
-
-*   **Description:** Moves to a character and initiates a conversation.
-*   **Parameters:**
-    *   `character` (string): The name of the character to talk to (e.g., `abbot`, `jorge`).
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Successfully initiated conversation with abbot"
-    }
-    ```
-
-#### `GET /tools/get_full_game_state`
-
-*   **Description:** Gets the complete current state of the game.
-*   **Parameters:** None.
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Successfully initiated conversation with abbot"
-    }
-    ```
-
-#### `POST /tools/send_game_command`
-
-*   **Description:** Sends a single, low-level command to the game.
-*   **Parameters:**
-    *   `command` (string): The command to send.
-*   **Example Response:**
-    ```json
-    {
-      "status": "OK",
-      "data": { ... },
-      "message": "Successfully initiated conversation with abbot"
-    }
-    ```
+...
 
 ## 5. Game Data Management
 
-The `server/game_data.py` file is central to the server's operation. It contains the following key data structures:
+The server uses two main files for data management:
 
-*   `location_paths`: A dictionary that maps location names to a sequence of commands required to reach that location.
-*   `character_locations`: A dictionary that maps character names to their current location.
+*   `server/game_data.py`:
+    *   `location_paths`: Maps location names to command sequences.
+    *   `character_locations`: Maps character names to their locations.
+    *   `game_status`: Stores the latest game state from the emulator.
+    *   `save_game_status(response)`: Updates the `game_status`.
+    *   `get_game_status()`: Retrieves the current `game_status`.
+    *   `reset_game_data()`: Resets all game-related data.
 
-This file also includes a simple in-memory store for the game's state:
-
-*   `game_status`: A global variable that holds the most recent game state received from the emulator.
-*   `save_game_status(response)`: A function to update the `game_status` variable.
-*   `get_game_status()`: A function to retrieve the current `game_status`.
+*   `server/internal_game_data.py`:
+    *   `internal_game_data`: A dictionary holding the server's internal state (e.g., current day, completed goals).
+    *   `get_internal_game_data()`: Returns the internal game data.
+    *   `update_internal_game_data(game_state)`: Updates the internal data based on the game state.
+    *   `reset_internal_game_data()`: Resets the internal data.
 
 ## 6. Game Communication
 
