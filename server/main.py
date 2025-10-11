@@ -282,7 +282,7 @@ from server.game_data import location_paths, character_locations, save_game_stat
 from server.internal_game_data import get_internal_game_data
 import time
 
-@app.get("/internal_status", tags=["System"])
+@app.get("/internal_status", operation_id="get_internal_status", tags=["System"])
 def get_internal_status():
     """
     Returns the server's internal representation of the game state.
