@@ -56,6 +56,15 @@ server/
 
 *   **Description:** Sends a low-level command to the game.
 
+Valid cmd are: LEFT, RIGHT, UP, DOWN, SPACE
+
+UP is for going a step ahead.
+LEFT is just for turn left.
+RIGHT is just for turn right.
+DOWN for picking an object.
+
+When you want to make an step need to send UP twice. 
+
 ### Tool Endpoints
 
 ...

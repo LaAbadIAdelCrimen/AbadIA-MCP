@@ -237,10 +237,21 @@ async def send_game_cmd(cmd: str):
         If there's an error, returns appropriate error status.
     
     Example usage:
-        GET /cmd/UP
-        GET /cmd/DOWN
-        GET /cmd/SPACE
     
+        GET /game/cmd/UP
+        GET /game/cmd/DOWN
+        GET /game/cmd/SPACE
+        GET /game/cmd/LEFT
+        GET /game/cmd/RIGHT
+    
+    Valid cmd are: LEFT, RIGHT, UP, DOWN, SPACE
+
+    UP is for going a step ahead.
+    LEFT is just for turn left.
+    RIGHT is just for turn right.
+    DOWN for picking an object.
+
+When you want to make an step need to send UP twice. 
     Example response:
         ```json
         {
@@ -254,10 +265,13 @@ async def send_game_cmd(cmd: str):
         ```
     """
     try:
-        response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='GET')
+        response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{cmd}", mode='POST')
+        print(f"response CMD --> ({response})")
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", mode='GET')
+        print(f"response ---> {response}")
         save_game_status(response)
         if response is None:
-            raise HTTPException(
+            raise HTTPException (
                 status_code=status.HTTP_502_BAD_GATEWAY,
                 detail="Failed to communicate with game server"
             )
@@ -393,4 +407,4 @@ mcp.mount_http()
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

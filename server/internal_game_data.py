@@ -27,6 +27,10 @@ def update_internal_game_data(game_state: Dict[str, Any]):
     """
     global internal_game_data
 
+    # Ensure game_state is a dictionary before processing
+    if not isinstance(game_state, dict):
+        return
+
     # Example logic: Update current day based on game state
     if "dia" in game_state:
         internal_game_data["current_day"] = game_state["dia"]
@@ -47,9 +51,6 @@ def update_internal_game_data(game_state: Dict[str, Any]):
     for key, value in game_state.items():
         if key not in internal_game_data:
             internal_game_data[key] = value
-
-    # TODO: Add more sophisticated logic to track goals based on game events.
-    # For example, check inventory, character interactions, or specific locations.
 
 def reset_internal_game_data():
     """Resets the internal game data to its initial state."""
