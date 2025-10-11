@@ -43,6 +43,11 @@ def update_internal_game_data(game_state: Dict[str, Any]):
         if screen not in internal_game_data["map_discovered"]:
             internal_game_data["map_discovered"].append(screen)
 
+    # Add any new keys from game_state to internal_game_data
+    for key, value in game_state.items():
+        if key not in internal_game_data:
+            internal_game_data[key] = value
+
     # TODO: Add more sophisticated logic to track goals based on game events.
     # For example, check inventory, character interactions, or specific locations.
 
