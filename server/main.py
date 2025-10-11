@@ -283,7 +283,7 @@ from server.internal_game_data import get_internal_game_data
 import time
 
 @app.get("/internal_status", operation_id="get_internal_status", tags=["System"])
-def get_internal_status():
+def get_internal_status_data():
     """
     Returns the server's internal representation of the game state.
     This is useful for debugging and understanding the AI's perspective.
