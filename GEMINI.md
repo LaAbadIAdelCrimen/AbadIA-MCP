@@ -57,6 +57,14 @@ This architecture makes the system more modular and robust. The agent can focus 
 *   **Pydantic:** For data validation and settings management.
 *   **Uvicorn:** An ASGI server for running the FastAPI application.
 
+# Guidelines of the project 
+
+You must need this guidelines and the files are in the docs directory:
+    * project.md include los design guidelines of the project.
+    * agent_guidelines.md for the agent. 
+    * mcp_server_guidelines.md for the MCP server. 
+
+
 ## Getting Started
 
 ### Prerequisites
