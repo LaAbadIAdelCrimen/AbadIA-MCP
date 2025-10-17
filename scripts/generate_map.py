@@ -8,28 +8,35 @@ from server.map_utils import save_map
 
 def generate_default_map():
     """
-    Generates a default 10x10 map on a single floor and saves it.
+    Generates a large, multi-floor default map (3 floors, 400x400 each) and saves it.
     """
-    print("Generating default map...")
-    # Floor 0
-    floor_0 = []
-    for y in range(10):
-        row = []
-        for x in range(10):
-            # Default cell data
-            cell = {
-                "height": 0,
-                "character": 0,
-                "object": 0,
-                "room": 0
-            }
-            row.append(cell)
-        floor_0.append(row)
+    print("Generating large default map (3 floors, 400x400)...")
+    
+    map_data = []
+    num_floors = 3
+    width = 400
+    height = 400
 
-    map_data = [floor_0] # The full map is a list of floors
+    for floor_num in range(num_floors):
+        print(f"Generating floor {floor_num}...")
+        floor = []
+        for y in range(height):
+            row = []
+            for x in range(width):
+                # Default cell data
+                cell = {
+                    "height": 0,
+                    "character": 0,
+                    "object": 0,
+                    "room": 0
+                }
+                row.append(cell)
+            floor.append(row)
+        map_data.append(floor)
 
+    print("Saving map to storage/default_map.json...")
     save_map("default_map", map_data)
-    print("Default map saved to storage/default_map.json")
+    print("Default map saved successfully.")
 
 if __name__ == "__main__":
     generate_default_map()

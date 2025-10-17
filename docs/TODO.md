@@ -37,3 +37,4 @@
         - Load the sample game status.
         - Call the `update_map_from_game_state` function.
         - Use `draw_map_ascii` to print the result, allowing us to visually verify that height, room number, characters, and objects are all placed correctly on the right floor.
+4. [x] Modify the function `generate_default_map` to create 3 floors and a 400x400 array instead of 10x10.
