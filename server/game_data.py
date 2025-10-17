@@ -24,6 +24,14 @@ def get_game_map():
     """Returns the current game map."""
     return game_map
 
+def update_map_from_game_state(game_status: dict):
+    """
+    Updates the absolute game_map with data from the latest game_status.
+    This is the main orchestrator for translating relative game data to the absolute map.
+    """
+    # This function will be implemented in the next subtasks.
+    pass
+
 def reset_game_data():
     """Resets all game-related data."""
     global game_status, game_map
