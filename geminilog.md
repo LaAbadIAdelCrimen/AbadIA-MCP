@@ -1,3 +1,13 @@
-25-1-17 00:04 - Intent: Create the store directory for map files. - Action: Create directory store
+25-1-17 00:04 - Intent: Create the store directory for map files - Action: Create directory store
 
-25-10-17 00:05 - Intent: Create the map_utils.py module. - Action: Write to server/map_utils.py
+25-10-17 00:05 - Intent: Create the map_utils.py module - Action: Write to server/map_utils.py
+
+25-10-17 00:06 - Intent: Create the scripts directory for housing scripts - Action: Create directory scripts
+
+25-10-17 00:07 - Intent: Create the generate_map.py script. - Action: Write to scripts/generate_map.py
+
+25-10-17 00:08 - Intent: Execute the generate_map.py script to create the default map. - Action: Run python scripts/generate_map.py
+
+25-10-17 00:09 - Intent: Execute the generate_map.py script with the venv. - Action: Run .venv/bin/python scripts/generate_map.py
+
+25-10-17 00:10 - Intent: Update TODO.md and commit changes. - Action: git add and commit
