@@ -32,3 +32,5 @@
 25-10-17 00:21 - Intent: Update map_utils.py to import from map_definitions.py. - Action: Write to server/map_utils.py
 
 25-10-17 00:22 - Intent: Implement the /map/ascii endpoint. - Action: Modify server/main.py
+
+25-10-17 00:23 - Intent: Create the test_draw_map.py script. - Action: Write to scripts/test_draw_map.py

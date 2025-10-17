@@ -13,7 +13,7 @@
         - Use the height from the map data to represent terrain (e.g., height > 0 is a wall '#', height 0 is empty ' ').
         - Handle coordinates that are outside the map's boundaries (drawing them as void space).
         - Return a single multi-line string representing the map view.
-   2.3. [ ] Create a test script `scripts/test_draw_map.py` that:
+   2.3. [x] Create a test script `scripts/test_draw_map.py` that:
         - Loads the `default_map.json`.
         - Manually adds a few characters and objects to the map data for testing purposes.
         - Calls `draw_map_ascii` and prints the result to the console to verify the visual output.
