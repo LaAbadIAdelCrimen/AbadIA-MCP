@@ -36,3 +36,5 @@
 25-10-17 00:23 - Intent: Create the test_draw_map.py script. - Action: Write to scripts/test_draw_map.py
 
 25-10-17 00:24 - Intent: Add new detailed task for filling map from game state. - Action: Write to docs/TODO.md
+
+25-10-17 00:25 - Intent: Rephrase subtask 3.4 in TODO.md for clarity. - Action: Write to docs/TODO.md
