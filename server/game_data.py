@@ -5,11 +5,15 @@ game_status = None
 game_map = []
 
 def save_game_status(response: dict):
-    """Saves the game status response and updates internal game data."""
+    """
+    Saves the game status response, updates the internal game data,
+    and updates the master game map.
+    """
     global game_status
     game_status = response
     if game_status:
         update_internal_game_data(game_status)
+        update_map_from_game_state(game_status) # This is the new line
 
 def get_game_status():
     """Returns the current game status."""
