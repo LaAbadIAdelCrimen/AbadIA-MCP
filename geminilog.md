@@ -20,3 +20,7 @@
 25-10-17 00:14 - Intent: Integrate map module into main.py. - Action: Write to server/main.py
 
 25-10-17 00:15 - Intent: Add new task to draw map in ASCII to TODO.md. - Action: Write to docs/TODO.md
+
+25-10-17 00:16 - Intent: Add character and object ASCII symbol mappings. - Action: Append to server/game_data.py
+
+25-10-17 00:17 - Intent: Update TODO.md with detailed ASCII map subtasks. - Action: Write to docs/TODO.md
