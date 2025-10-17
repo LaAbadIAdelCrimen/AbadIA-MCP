@@ -20,3 +20,20 @@
    2.4. [x] Add a new API endpoint `GET /map/ascii` to `server/main.py` that:
         - Accepts optional query parameters for `floor`, `center_x`, `center_y`, and `cells`.
         - Returns the ASCII map string within a JSON response, preserving formatting.
+3. [ ] Fill the map with all data from the game state (rejilla, characters, objects, etc.).
+   3.1. [ ] Create a new function `update_map_from_game_state(game_status)` in `server/game_data.py` which will be the main orchestrator for this process.
+   3.2. [ ] Inside this function, implement the logic to update the static map data (terrain and rooms) from the `rejilla`:
+        - Extract key global data from `game_status`: `rejilla`, `personajes`, `objetos`, `planta` (the current floor), and `numPantalla` (the current room/screen number).
+        - Find Guillermo's `posX` and `posY` to determine the player's absolute position.
+        - Calculate the screen's top-left corner on the absolute map (`offsetX`, `offsetY`) using the formula: `(pos // 24) * 24`.
+        - Loop through the 24x24 `rejilla`. For each cell, calculate its absolute `map_x` and `map_y`.
+        - Access the correct cell in `game_map[planta][map_y][map_x]` and update its `height` with the value from the `rejilla` and its `room` with the `numPantalla`.
+   3.3. [ ] Create a helper function to update dynamic entities (characters and objects) on the map:
+        - This function should first clear all existing `character` and `object` IDs from the current screen area on the `game_map` (using the calculated offsets and 24x24 size) to prevent entities from leaving trails.
+        - Then, iterate through the `personajes` list from `game_status`. For each character, update the `character` ID in the `game_map` at their absolute `posX`, `posY` on the correct `planta`.
+        - Do the same for the `objetos` list, updating the `object` ID for each item.
+   3.4. [ ] Integrate the new logic by calling `update_map_from_game_state` from within the `save_game_status` function in `server/game_data.py`, ensuring the map is updated automatically with every game state refresh.
+   3.5. [ ] Create a comprehensive test script `scripts/test_map_update.py` and a corresponding `storage/sample_game_status.json` file. The script will:
+        - Load the sample game status.
+        - Call the `update_map_from_game_state` function.
+        - Use `draw_map_ascii` to print the result, allowing us to visually verify that height, room number, characters, and objects are all placed correctly on the right floor.

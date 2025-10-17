@@ -34,3 +34,5 @@
 25-10-17 00:22 - Intent: Implement the /map/ascii endpoint. - Action: Modify server/main.py
 
 25-10-17 00:23 - Intent: Create the test_draw_map.py script. - Action: Write to scripts/test_draw_map.py
+
+25-10-17 00:24 - Intent: Add new detailed task for filling map from game state. - Action: Write to docs/TODO.md
