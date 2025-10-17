@@ -20,7 +20,7 @@
    2.4. [x] Add a new API endpoint `GET /map/ascii` to `server/main.py` that:
         - Accepts optional query parameters for `floor`, `center_x`, `center_y`, and `cells`.
         - Returns the ASCII map string within a JSON response, preserving formatting.
-3. [ ] Fill the map with all data from the game state (rejilla, characters, objects, etc.).
+3. [x] Fill the map with all data from the game state (rejilla, characters, objects, etc.).
    3.1. [x] Create a new function `update_map_from_game_state(game_status)` in `server/game_data.py` which will be the main orchestrator for this process.
    3.2. [x] Inside this function, implement the logic to update the static map data (terrain and rooms) from the `rejilla`:
         - Extract key global data from `game_status`: `rejilla`, `personajes`, `objetos`, `planta` (the current floor), and `numPantalla` (the current room/screen number).
