@@ -42,3 +42,5 @@
 25-10-17 00:26 - Intent: Add placeholder for update_map_from_game_state function. - Action: Modify server/game_data.py
 
 25-10-17 00:27 - Intent: Implement rejilla-to-map translation logic. - Action: Modify server/game_data.py
+
+25-10-17 00:28 - Intent: Implement dynamic entity update logic. - Action: Modify server/game_data.py

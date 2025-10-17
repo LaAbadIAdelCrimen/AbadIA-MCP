@@ -28,7 +28,7 @@
         - Calculate the screen's top-left corner on the absolute map (`offsetX`, `offsetY`) using the formula: `(pos // 24) * 24`.
         - Loop through the 24x24 `rejilla`. For each cell, calculate its absolute `map_x` and `map_y`.
         - Access the correct cell in `game_map[planta][map_y][map_x]` and update its `height` with the value from the `rejilla` and its `room` with the `numPantalla`.
-   3.3. [ ] Create a helper function to update dynamic entities (characters and objects) on the map:
+   3.3. [x] Create a helper function to update dynamic entities (characters and objects) on the map:
         - This function should first clear all existing `character` and `object` IDs from the current screen area on the `game_map` (using the calculated offsets and 24x24 size) to prevent entities from leaving trails.
         - Then, iterate through the `personajes` list from `game_status`. For each character, update the `character` ID in the `game_map` at their absolute `posX`, `posY` on the correct `planta`.
         - Do the same for the `objetos` list, updating the `object` ID for each item.

@@ -24,6 +24,48 @@ def get_game_map():
     """Returns the current game map."""
     return game_map
 
+def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
+    """
+    Clears old entity positions and places new characters and objects on the map.
+    """
+    global game_map
+    
+    planta = game_status.get('planta', 0)
+    personajes = game_status.get('personajes', [])
+    objetos = game_status.get('objetos', [])
+
+    # Clear all character and object data from the current screen
+    for y_rejilla in range(24):
+        for x_rejilla in range(24):
+            map_x = offset_x + x_rejilla
+            map_y = offset_y + y_rejilla
+            if (planta < len(game_map) and
+                map_y < len(game_map[planta]) and
+                map_x < len(game_map[planta][map_y])):
+                game_map[planta][map_y][map_x]['character'] = 0
+                game_map[planta][map_y][map_x]['object'] = 0
+
+    # Place current characters on the map
+    for personaje in personajes:
+        p_x = personaje['posX']
+        p_y = personaje['posY']
+        p_id = personaje['id']
+        if (planta < len(game_map) and
+            p_y < len(game_map[planta]) and
+            p_x < len(game_map[planta][p_y])):
+            game_map[planta][p_y][p_x]['character'] = p_id
+
+    # Place current objects on the map
+    for objeto in objetos:
+        o_x = objeto['posX']
+        o_y = objeto['posY']
+        o_id = objeto['id']
+        if (planta < len(game_map) and
+            o_y < len(game_map[planta]) and
+            o_x < len(game_map[planta][o_y])):
+            game_map[planta][o_y][o_x]['object'] = o_id
+
+
 def update_map_from_game_state(game_status: dict):
     """
     Updates the absolute game_map with data from the latest game_status.
@@ -75,6 +117,9 @@ def update_map_from_game_state(game_status: dict):
             else:
                 # This would be the place to dynamically expand the map if we wanted to
                 pass
+    
+    # Update characters and objects
+    _update_dynamic_entities(game_status, offset_x, offset_y)
 
 def reset_game_data():
     """Resets all game-related data."""
