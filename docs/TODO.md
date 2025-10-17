@@ -3,7 +3,7 @@
    1.2. [x] Create a module to handle map loading and saving from the `storage` directory.
    1.3. [x] Implement the logic to populate the map data (floors, coordinates, rooms, etc.).
    1.4. [x] Integrate the map module with the server's game state management.
-2. [ ] Create a method to draw the map in ASCII.
+2. [x] Create a method to draw the map in ASCII.
    2.1. [x] In `server/game_data.py`, define mappings for characters and objects to their ASCII symbols (e.g., `CHARACTER_SYMBOLS = {1: 'G', 2: 'a'}`).
    2.2. [x] Implement the `draw_map_ascii` function in `server/map_utils.py`. This function will:
         - Take `map_data`, `floor`, `center_x`, `center_y`, and `cells` as input.
