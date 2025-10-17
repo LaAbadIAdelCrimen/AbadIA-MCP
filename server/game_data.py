@@ -29,8 +29,52 @@ def update_map_from_game_state(game_status: dict):
     Updates the absolute game_map with data from the latest game_status.
     This is the main orchestrator for translating relative game data to the absolute map.
     """
-    # This function will be implemented in the next subtasks.
-    pass
+    global game_map
+    if not game_status or 'rejilla' not in game_status or 'personajes' not in game_status:
+        return
+
+    # Extract key data
+    rejilla = game_status['rejilla']
+    personajes = game_status['personajes']
+    planta = game_status.get('planta', 0)
+    num_pantalla = game_status.get('numPantalla', 0)
+
+    # Find Guillermo to get the reference position
+    guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
+    if not guillermo:
+        return
+
+    pos_x = guillermo['posX']
+    pos_y = guillermo['posY']
+
+    # Calculate the top-left corner of the current screen on the absolute map
+    offset_x = (pos_x // 24) * 24
+    offset_y = (pos_y // 24) * 24
+
+    # Ensure the map is large enough for the current floor
+    if planta >= len(game_map):
+        # For now, we can't dynamically expand the map. We'll assume it's pre-generated.
+        # In a future task, we could add logic here to expand the map if needed.
+        print(f"Warning: Floor {planta} is out of bounds for the current map.")
+        return
+
+    # Loop through the 24x24 rejilla and update the game_map
+    for y_rejilla, row in enumerate(rejilla):
+        for x_rejilla, cell_value in enumerate(row):
+            map_x = offset_x + x_rejilla
+            map_y = offset_y + y_rejilla
+
+            # Ensure the coordinates are within the map boundaries
+            if (planta < len(game_map) and
+                map_y < len(game_map[planta]) and
+                map_x < len(game_map[planta][map_y])):
+                
+                # Update height and room number
+                game_map[planta][map_y][map_x]['height'] = cell_value
+                game_map[planta][map_y][map_x]['room'] = num_pantalla
+            else:
+                # This would be the place to dynamically expand the map if we wanted to
+                pass
 
 def reset_game_data():
     """Resets all game-related data."""
