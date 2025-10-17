@@ -66,3 +66,5 @@
 25-10-17 00:39 - Intent: Run generate_map.py to create the new large map file. - Action: Run .venv/bin/python scripts/generate_map.py
 
 25-10-17 00:40 - Intent: Add new task for auto-saving map on screen change. - Action: Append to docs/TODO.md
+
+25-10-17 00:41 - Intent: Add detailed height drawing logic to TODO.md. - Action: Modify docs/TODO.md

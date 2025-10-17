@@ -10,7 +10,7 @@
         - Calculate the drawing boundaries from the center and `cells` parameters.
         - Loop through the coordinates, building a string for each row.
         - For each cell, decide what to draw based on a priority: Character > Object > Terrain.
-        - Use the height from the map data to represent terrain (e.g., height > 0 is a wall '#', height 0 is empty ' ').
+        - Use the height from the map data to represent terrain. If height is 0, draw '.'. If height is > 0 and < 16, draw '#'. If height is >= 16, draw 'P'.
         - Handle coordinates that are outside the map's boundaries (drawing them as void space).
         - Return a single multi-line string representing the map view.
    2.3. [x] Create a test script `scripts/test_draw_map.py` that:
