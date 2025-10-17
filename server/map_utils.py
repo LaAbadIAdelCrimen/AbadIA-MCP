@@ -1,11 +1,11 @@
 import json
 import os
 
-STORE_PATH = "store"
+STORE_PATH = "storage"
 
 def load_map(map_name: str) -> list:
     """
-    Loads a map from a JSON file in the store directory.
+    Loads a map from a JSON file in the storage directory.
 
     Args:
         map_name: The name of the map to load (without the .json extension).
@@ -21,7 +21,7 @@ def load_map(map_name: str) -> list:
 
 def save_map(map_name: str, map_data: list):
     """
-    Saves map data to a JSON file in the store directory.
+    Saves map data to a JSON file in the storage directory.
 
     Args:
         map_name: The name of the map to save (without the .json extension).

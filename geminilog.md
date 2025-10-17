@@ -11,3 +11,7 @@
 25-10-17 00:09 - Intent: Execute the generate_map.py script with the venv. - Action: Run .venv/bin/python scripts/generate_map.py
 
 25-10-17 00:10 - Intent: Update TODO.md and commit changes. - Action: git add and commit
+
+25-10-17 00:11 - Intent: Rename store directory to storage. - Action: mv store storage
+
+25-10-17 00:12 - Intent: Update all references of 'store' to 'storage'. - Action: Replace in multiple files

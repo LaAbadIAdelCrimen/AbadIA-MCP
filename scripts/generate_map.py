@@ -29,7 +29,7 @@ def generate_default_map():
     map_data = [floor_0] # The full map is a list of floors
 
     save_map("default_map", map_data)
-    print("Default map saved to store/default_map.json")
+    print("Default map saved to storage/default_map.json")
 
 if __name__ == "__main__":
     generate_default_map()

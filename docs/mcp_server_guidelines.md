@@ -71,6 +71,22 @@ When you want to make an step need to send UP twice.
 
 ## 5. Game Data Management
 
+### 5.1 Map of the game 
+
+create a map of the game. Must be a json object with these features: 
+* one object for every floor and coordenates x, y 
+* this object will have the next atributes: 
+    - height of the position
+    - character id if any
+    - object if any
+    - room number 
+
+one example of this could be: 
+map[0][23][12][{"height":12, "character": 1, "object": 0, "room": 23 }]
+the map object must be a valid json
+
+we must be able to load and save a map by name from the directory named storage 
+
 The server uses two main files for data management:
 
 *   `server/game_data.py`:
