@@ -1,7 +1,7 @@
 import logging
 import os
 from server.internal_game_data import update_internal_game_data, reset_internal_game_data
-from server.map_utils import load_map, STORE_PATH
+from server.map_utils import load_map, STORE_PATH, save_map
 
 # Configure logger
 logging.basicConfig(level=logging.INFO)
@@ -112,6 +112,8 @@ def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     logger.info("--- DYNAMIC ENTITY UPDATE COMPLETE ---")
 
 
+from server.map_utils import save_map
+
 def update_map_from_game_state(game_status: dict):
     """
     Updates the absolute game_map with data from the latest game_status.
@@ -141,6 +143,17 @@ def update_map_from_game_state(game_status: dict):
     pos_x = guillermo['posX']
     pos_y = guillermo['posY']
     logger.info(f"Guillermo's absolute position: ({pos_x}, {pos_y}).")
+
+    # --- Auto-save logic ---
+    if (planta < len(game_map) and
+        pos_y < len(game_map[planta]) and
+        pos_x < len(game_map[planta][pos_y])):
+        
+        current_room = game_map[planta][pos_y][pos_x].get('room', 0)
+        if current_room != 0 and current_room != num_pantalla:
+            logger.info(f"Screen change detected (from {current_room} to {num_pantalla}). Auto-saving map to 'current_map.json'.")
+            save_map("current_map", game_map)
+    # --- End auto-save logic ---
 
     # Calculate the top-left corner of the current screen on the absolute map
     offset_x = (pos_x // 24) * 24

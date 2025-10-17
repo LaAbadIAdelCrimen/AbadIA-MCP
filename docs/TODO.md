@@ -42,7 +42,7 @@
    5.1. [x] Create a new function `initialize_map()` in `server/game_data.py`.
    5.2. [x] Inside `initialize_map()`, implement the loading logic: check if `storage/current_map.json` exists. If yes, load "current_map"; if no, load "default_map". Add logging to indicate which map is being loaded.
    5.3. [x] Modify the `startup_event` in `server/main.py` to call the new `initialize_map()` function instead of `load_game_map("default_map")`.
-6. [ ] Implement auto-saving of the map when the player changes screens.
+6. [x] Implement auto-saving of the map when the player changes screens.
    6.1. [ ] Modify the `update_map_from_game_state` function in `server/game_data.py`.
    6.2. [ ] Before any updates are made, get the `numPantalla` from the incoming `game_status` and find Guillermo's `posX` and `posY`.
    6.3. [ ] Check the `room` number currently stored in `game_map` at Guillermo's position.
