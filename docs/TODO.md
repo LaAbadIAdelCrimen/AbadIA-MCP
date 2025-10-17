@@ -40,7 +40,7 @@
 4. [x] Modify the function `generate_default_map` to create 3 floors and a 400x400 array instead of 10x10.
 5. [ ] Prioritize loading `current_map.json` over `default_map.json` on startup.
    5.1. [x] Create a new function `initialize_map()` in `server/game_data.py`.
-   5.2. [ ] Inside `initialize_map()`, implement the loading logic: check if `storage/current_map.json` exists. If yes, load "current_map"; if no, load "default_map". Add logging to indicate which map is being loaded.
+   5.2. [x] Inside `initialize_map()`, implement the loading logic: check if `storage/current_map.json` exists. If yes, load "current_map"; if no, load "default_map". Add logging to indicate which map is being loaded.
    5.3. [ ] Modify the `startup_event` in `server/main.py` to call the new `initialize_map()` function instead of `load_game_map("default_map")`.
 6. [ ] Implement auto-saving of the map when the player changes screens.
    6.1. [ ] Modify the `update_map_from_game_state` function in `server/game_data.py`.

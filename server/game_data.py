@@ -1,6 +1,7 @@
 import logging
+import os
 from server.internal_game_data import update_internal_game_data, reset_internal_game_data
-from server.map_utils import load_map
+from server.map_utils import load_map, STORE_PATH
 
 # Configure logger
 logging.basicConfig(level=logging.INFO)
@@ -43,13 +44,22 @@ def get_game_map():
         logger.info("Accessing game_map, but it is currently empty.")
     return game_map
 
+import os
+from server.map_utils import STORE_PATH
+
 def initialize_map():
     """
     Initializes the game map, loading 'current_map.json' if it exists,
     otherwise falling back to 'default_map.json'.
     """
-    # This function will be implemented in the next subtask.
-    pass
+    current_map_path = os.path.join(STORE_PATH, "current_map.json")
+    
+    if os.path.exists(current_map_path):
+        logger.info("Found 'current_map.json'. Loading persistent map state.")
+        load_game_map("current_map")
+    else:
+        logger.info("'current_map.json' not found. Loading 'default_map.json'.")
+        load_game_map("default_map")
 
 def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     """
