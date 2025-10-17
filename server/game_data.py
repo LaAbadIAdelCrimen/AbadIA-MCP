@@ -40,9 +40,9 @@ def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     """
     global game_map
     
-    planta = game_status.get('planta', 0)
-    personajes = game_status.get('personajes', [])
-    objetos = game_status.get('objetos', [])
+    planta = game_status.get('Planta', 0)
+    personajes = game_status.get('Personajes', [])
+    objetos = game_status.get('Objetos', [])
 
     logger.info(f"Clearing entities for screen at offset ({offset_x}, {offset_y}) on floor {planta}.")
     # Clear all character and object data from the current screen
@@ -88,20 +88,20 @@ def update_map_from_game_state(game_status: dict):
     """
     global game_map
     logger.info("Attempting to update map from game state...")
-    if not game_status or 'rejilla' not in game_status or 'personajes' not in game_status:
-        logger.warning("Map update skipped: game_status is missing required keys ('rejilla' or 'personajes').")
+    if not game_status or 'Rejilla' not in game_status or 'Personajes' not in game_status:
+        logger.warning("Map update skipped: game_status is missing required keys ('Rejilla' or 'Personajes').")
         return
 
     # Extract key data
-    rejilla = game_status['rejilla']
-    personajes = game_status['personajes']
-    planta = game_status.get('planta', 0)
-    num_pantalla = game_status.get('numPantalla', 0)
+    rejilla = game_status['Rejilla']
+    personajes = game_status['Personajes']
+    planta = game_status.get('Planta', 0)
+    num_pantalla = game_status.get('NumPantalla', 0)
 
     # Find Guillermo to get the reference position
     guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
     if not guillermo:
-        logger.warning("Map update skipped: Guillermo not found in 'personajes' list.")
+        logger.warning("Map update skipped: Guillermo not found in 'Personajes' list.")
         return
 
     pos_x = guillermo['posX']
