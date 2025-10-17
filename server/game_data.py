@@ -1,5 +1,10 @@
+import logging
 from server.internal_game_data import update_internal_game_data, reset_internal_game_data
 from server.map_utils import load_map
+
+# Configure logger
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 game_status = None
 game_map = []
@@ -13,7 +18,7 @@ def save_game_status(response: dict):
     game_status = response
     if game_status:
         update_internal_game_data(game_status)
-        update_map_from_game_state(game_status) # This is the new line
+        update_map_from_game_state(game_status)
 
 def get_game_status():
     """Returns the current game status."""
@@ -23,6 +28,7 @@ def load_game_map(map_name: str):
     """Loads the game map from the storage directory."""
     global game_map
     game_map = load_map(map_name)
+    logger.info(f"Loaded map '{map_name}' with {len(game_map)} floors.")
 
 def get_game_map():
     """Returns the current game map."""
@@ -38,6 +44,7 @@ def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     personajes = game_status.get('personajes', [])
     objetos = game_status.get('objetos', [])
 
+    logger.info(f"Clearing entities for screen at offset ({offset_x}, {offset_y}) on floor {planta}.")
     # Clear all character and object data from the current screen
     for y_rejilla in range(24):
         for x_rejilla in range(24):
@@ -50,20 +57,24 @@ def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
                 game_map[planta][map_y][map_x]['object'] = 0
 
     # Place current characters on the map
+    logger.info(f"Updating {len(personajes)} characters on the map.")
     for personaje in personajes:
         p_x = personaje['posX']
         p_y = personaje['posY']
         p_id = personaje['id']
+        logger.debug(f"Placing character {p_id} at ({p_x}, {p_y}) on floor {planta}.")
         if (planta < len(game_map) and
             p_y < len(game_map[planta]) and
             p_x < len(game_map[planta][p_y])):
             game_map[planta][p_y][p_x]['character'] = p_id
 
     # Place current objects on the map
+    logger.info(f"Updating {len(objetos)} objects on the map.")
     for objeto in objetos:
         o_x = objeto['posX']
         o_y = objeto['posY']
         o_id = objeto['id']
+        logger.debug(f"Placing object {o_id} at ({o_x}, {o_y}) on floor {planta}.")
         if (planta < len(game_map) and
             o_y < len(game_map[planta]) and
             o_x < len(game_map[planta][o_y])):
@@ -76,7 +87,9 @@ def update_map_from_game_state(game_status: dict):
     This is the main orchestrator for translating relative game data to the absolute map.
     """
     global game_map
+    logger.info("Attempting to update map from game state...")
     if not game_status or 'rejilla' not in game_status or 'personajes' not in game_status:
+        logger.warning("Map update skipped: game_status is missing required keys ('rejilla' or 'personajes').")
         return
 
     # Extract key data
@@ -88,6 +101,7 @@ def update_map_from_game_state(game_status: dict):
     # Find Guillermo to get the reference position
     guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
     if not guillermo:
+        logger.warning("Map update skipped: Guillermo not found in 'personajes' list.")
         return
 
     pos_x = guillermo['posX']
@@ -96,12 +110,11 @@ def update_map_from_game_state(game_status: dict):
     # Calculate the top-left corner of the current screen on the absolute map
     offset_x = (pos_x // 24) * 24
     offset_y = (pos_y // 24) * 24
+    logger.info(f"Updating map for screen {num_pantalla} at offset ({offset_x}, {offset_y}) on floor {planta}.")
 
     # Ensure the map is large enough for the current floor
     if planta >= len(game_map):
-        # For now, we can't dynamically expand the map. We'll assume it's pre-generated.
-        # In a future task, we could add logic here to expand the map if needed.
-        print(f"Warning: Floor {planta} is out of bounds for the current map.")
+        logger.error(f"Map update failed: Floor {planta} is out of bounds for the current map (size: {len(game_map)} floors).")
         return
 
     # Loop through the 24x24 rejilla and update the game_map
@@ -121,9 +134,11 @@ def update_map_from_game_state(game_status: dict):
             else:
                 # This would be the place to dynamically expand the map if we wanted to
                 pass
+    logger.info("Rejilla data (height and room) updated on the map.")
     
     # Update characters and objects
     _update_dynamic_entities(game_status, offset_x, offset_y)
+    logger.info("Dynamic entities (characters and objects) updated on the map.")
 
 def reset_game_data():
     """Resets all game-related data."""
