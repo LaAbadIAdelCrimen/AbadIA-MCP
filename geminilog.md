@@ -30,3 +30,5 @@
 25-10-17 00:19 - Intent: Fix circular import by creating map_definitions.py. - Action: Write to server/map_definitions.py
 25-10-17 00:20 - Intent: Remove symbol definitions from game_data.py. - Action: Write to server/game_data.py
 25-10-17 00:21 - Intent: Update map_utils.py to import from map_definitions.py. - Action: Write to server/map_utils.py
+
+25-10-17 00:22 - Intent: Implement the /map/ascii endpoint. - Action: Modify server/main.py

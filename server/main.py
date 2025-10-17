@@ -2,8 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from fastapi.responses import JSONResponse, PlainTextResponse
+from server.map_utils import draw_map_ascii
 from fastapi import FastAPI, HTTPException, Query, status
-from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 import httpx
@@ -23,6 +24,7 @@ from server.game_data import (
     get_game_map
 )
 from server.internal_game_data import get_internal_game_data
+from server.map_utils import draw_map_ascii
 
 session_id = None
 
@@ -314,6 +316,25 @@ def get_map_data():
     Returns the currently loaded game map.
     """
     return get_game_map()
+
+@app.get("/map/ascii", operation_id="get_map_ascii", tags=["System"], response_class=PlainTextResponse)
+def get_map_ascii_data(
+    floor: int = 0, 
+    center_x: int = 134, 
+    center_y: int = 170, 
+    cells: int = 30
+):
+    """
+    Returns an ASCII representation of the current game map.
+    """
+    game_map = get_game_map()
+    return draw_map_ascii(
+        map_data=game_map,
+        floor=floor,
+        center_x=center_x,
+        center_y=center_y,
+        cells=cells
+    )
 
 @app.post("/tools/move_to_location", operation_id="move_to_location")
 def move_to_location(location: str) -> dict:

@@ -17,6 +17,6 @@
         - Loads the `default_map.json`.
         - Manually adds a few characters and objects to the map data for testing purposes.
         - Calls `draw_map_ascii` and prints the result to the console to verify the visual output.
-   2.4. [ ] Add a new API endpoint `GET /map/ascii` to `server/main.py` that:
+   2.4. [x] Add a new API endpoint `GET /map/ascii` to `server/main.py` that:
         - Accepts optional query parameters for `floor`, `center_x`, `center_y`, and `cells`.
         - Returns the ASCII map string within a JSON response, preserving formatting.
