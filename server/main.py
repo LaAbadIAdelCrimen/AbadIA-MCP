@@ -7,12 +7,22 @@ from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 import httpx
-import os
 import time
 from dotenv import load_dotenv
 from fastapi_mcp import FastApiMCP
 import requests
 import logging
+
+# Correctly import from server.game_data
+from server.game_data import (
+    location_paths, 
+    character_locations, 
+    save_game_status, 
+    reset_game_data,
+    load_game_map,
+    get_game_map
+)
+from server.internal_game_data import get_internal_game_data
 
 session_id = None
 
@@ -88,7 +98,12 @@ app = FastAPI(
     swagger_ui_parameters={"defaultModelsExpandDepth": -1}
 )
 
-
+@app.on_event("startup")
+async def startup_event():
+    """Load the default game map on server startup."""
+    logger.info("Loading default game map...")
+    load_game_map("default_map")
+    logger.info("Default game map loaded.")
 
 
 class StatusResponse(BaseModel):
@@ -153,10 +168,6 @@ async def get_status():
         message="Game Status successfully"
     )
     
-
-from server.game_data import location_paths, character_locations, save_game_status, reset_game_data
-import time
-
 @app.get(
     "/reset",
     operation_id="reset_game",
@@ -289,13 +300,6 @@ When you want to make an step need to send UP twice.
             detail=str(e)
         )
        
-
-
-
-from server.game_data import location_paths, character_locations, save_game_status
-from server.internal_game_data import get_internal_game_data
-import time
-
 @app.get("/internal_status", operation_id="get_internal_status", tags=["System"])
 def get_internal_status_data():
     """
@@ -303,6 +307,13 @@ def get_internal_status_data():
     This is useful for debugging and understanding the AI's perspective.
     """
     return get_internal_game_data()
+
+@app.get("/map", operation_id="get_map", tags=["System"])
+def get_map_data():
+    """
+    Returns the currently loaded game map.
+    """
+    return get_game_map()
 
 @app.post("/tools/move_to_location", operation_id="move_to_location")
 def move_to_location(location: str) -> dict:

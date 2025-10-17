@@ -1,6 +1,8 @@
 from server.internal_game_data import update_internal_game_data, reset_internal_game_data
+from server.map_utils import load_map
 
 game_status = None
+game_map = []
 
 def save_game_status(response: dict):
     """Saves the game status response and updates internal game data."""
@@ -13,23 +15,21 @@ def get_game_status():
     """Returns the current game status."""
     return game_status
 
+def load_game_map(map_name: str):
+    """Loads the game map from the storage directory."""
+    global game_map
+    game_map = load_map(map_name)
+
+def get_game_map():
+    """Returns the current game map."""
+    return game_map
+
 def reset_game_data():
     """Resets all game-related data."""
-    global game_status
+    global game_status, game_map
     game_status = None
+    game_map = []
     reset_internal_game_data()
-
-location_paths = {
-    "library": "UP:UP:LEFT:UP",
-    "church": "RIGHT:RIGHT:UP",
-    "cell": "DOWN:DOWN:LEFT"
-}
-
-character_locations = {
-    "abbot": "church",
-    "jorge": "library"
-}
-
 
 location_paths = {
     "library": "UP:UP:LEFT:UP",

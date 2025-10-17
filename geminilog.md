@@ -15,3 +15,6 @@
 25-10-17 00:11 - Intent: Rename store directory to storage. - Action: mv store storage
 
 25-10-17 00:12 - Intent: Update all references of 'store' to 'storage'. - Action: Replace in multiple files
+
+25-10-17 00:13 - Intent: Integrate map module into game_data.py. - Action: Write to server/game_data.py
+25-10-17 00:14 - Intent: Integrate map module into main.py. - Action: Write to server/main.py
