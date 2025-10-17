@@ -1,0 +1,1 @@
+- [ ] create the map of the game
