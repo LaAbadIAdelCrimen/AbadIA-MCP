@@ -26,3 +26,7 @@
 25-10-17 00:17 - Intent: Update TODO.md with detailed ASCII map subtasks. - Action: Write to docs/TODO.md
 
 25-10-17 00:18 - Intent: Implement the draw_map_ascii function. - Action: Modify server/map_utils.py
+
+25-10-17 00:19 - Intent: Fix circular import by creating map_definitions.py. - Action: Write to server/map_definitions.py
+25-10-17 00:20 - Intent: Remove symbol definitions from game_data.py. - Action: Write to server/game_data.py
+25-10-17 00:21 - Intent: Update map_utils.py to import from map_definitions.py. - Action: Write to server/map_utils.py

@@ -1,6 +1,6 @@
 import json
 import os
-from server.game_data import CHARACTER_SYMBOLS, OBJECT_SYMBOLS
+from server.map_definitions import CHARACTER_SYMBOLS, OBJECT_SYMBOLS
 
 STORE_PATH = "storage"
 
