@@ -1,1 +1,5 @@
 - [ ] create the map of the game
+  - [ ] Define the JSON structure for the game map.
+  - [ ] Create a module to handle map loading and saving from the `store` directory.
+  - [ ] Implement the logic to populate the map data (floors, coordinates, rooms, etc.).
+  - [ ] Integrate the map module with the server's game state management.
