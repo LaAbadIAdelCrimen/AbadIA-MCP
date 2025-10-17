@@ -1,2 +1,1 @@
-
-25-10-17 00:02 - Intent: Create the map.json file with the defined structure. - Action: Write to game_data/map.json
+25-10-17 00:03 - Intent: Number the tasks and subtasks in TODO.md. - Action: Replace content in docs/TODO.md
