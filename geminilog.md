@@ -24,3 +24,5 @@
 25-10-17 00:16 - Intent: Add character and object ASCII symbol mappings. - Action: Append to server/game_data.py
 
 25-10-17 00:17 - Intent: Update TODO.md with detailed ASCII map subtasks. - Action: Write to docs/TODO.md
+
+25-10-17 00:18 - Intent: Implement the draw_map_ascii function. - Action: Modify server/map_utils.py
