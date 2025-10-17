@@ -33,7 +33,7 @@
         - Then, iterate through the `personajes` list from `game_status`. For each character, update the `character` ID in the `game_map` at their absolute `posX`, `posY` on the correct `planta`.
         - Do the same for the `objetos` list, updating the `object` ID for each item.
    3.4. [x] Modify the `save_game_status` function in `server/game_data.py`. Since this function is called immediately upon receiving any new game data from the server, it's the perfect trigger. It will be updated to call `update_map_from_game_state` to ensure our `game_map` is dynamically updated in real-time.
-   3.5. [ ] Create a comprehensive test script `scripts/test_map_update.py` and a corresponding `storage/sample_game_status.json` file. The script will:
+   3.5. [x] Create a comprehensive test script `scripts/test_map_update.py` and a corresponding `storage/sample_game_status.json` file. The script will:
         - Load the sample game status.
         - Call the `update_map_from_game_state` function.
         - Use `draw_map_ascii` to print the result, allowing us to visually verify that height, room number, characters, and objects are all placed correctly on the right floor.
