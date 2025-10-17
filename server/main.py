@@ -20,7 +20,7 @@ from server.game_data import (
     character_locations, 
     save_game_status, 
     reset_game_data,
-    load_game_map,
+    initialize_map,
     get_game_map
 )
 from server.internal_game_data import get_internal_game_data
@@ -102,10 +102,10 @@ app = FastAPI(
 
 @app.on_event("startup")
 async def startup_event():
-    """Load the default game map on server startup."""
-    logger.info("Loading default game map...")
-    load_game_map("default_map")
-    logger.info("Default game map loaded.")
+    """Initializes the map on server startup."""
+    logger.info("Initializing game map...")
+    initialize_map()
+    logger.info("Map initialization complete.")
 
 
 class StatusResponse(BaseModel):

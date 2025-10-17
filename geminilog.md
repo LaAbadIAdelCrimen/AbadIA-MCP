@@ -72,3 +72,5 @@
 25-10-17 00:42 - Intent: Add placeholder for initialize_map function. - Action: Modify server/game_data.py
 
 25-10-17 00:43 - Intent: Implement map initialization logic. - Action: Modify server/game_data.py
+
+25-10-17 00:44 - Intent: Update startup event to use initialize_map. - Action: Modify server/main.py
