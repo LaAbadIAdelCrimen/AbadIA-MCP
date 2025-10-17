@@ -43,6 +43,14 @@ def get_game_map():
         logger.info("Accessing game_map, but it is currently empty.")
     return game_map
 
+def initialize_map():
+    """
+    Initializes the game map, loading 'current_map.json' if it exists,
+    otherwise falling back to 'default_map.json'.
+    """
+    # This function will be implemented in the next subtask.
+    pass
+
 def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     """
     Clears old entity positions and places new characters and objects on the map.
