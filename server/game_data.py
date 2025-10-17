@@ -32,6 +32,15 @@ def load_game_map(map_name: str):
 
 def get_game_map():
     """Returns the current game map."""
+    if game_map:
+        num_floors = len(game_map)
+        # Assuming a rectangular map for simplicity to get y and x dimensions
+        first_floor = game_map[0] if num_floors > 0 else []
+        y_dim = len(first_floor)
+        x_dim = len(first_floor[0]) if y_dim > 0 else 0
+        logger.info(f"Accessing game_map. Dimensions: Floors={num_floors}, Y={y_dim}, X={x_dim}.")
+    else:
+        logger.info("Accessing game_map, but it is currently empty.")
     return game_map
 
 def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
