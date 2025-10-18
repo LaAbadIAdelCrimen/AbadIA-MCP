@@ -100,3 +100,9 @@
 25-10-17 00:56 - Intent: Add new task for map load/save endpoints. - Action: Append to docs/TODO.md
 
 25-10-17 00:57 - Intent: Implement /map/save and /map/load endpoints. - Action: Modify server/main.py
+
+25-10-17 00:58 - Intent: Correctly mark subtasks for task #10 as complete. - Action: Modify docs/TODO.md
+
+25-10-17 00:59 - Intent: Re-open and rephrase subtask 6.3 for improved logic. - Action: Modify docs/TODO.md
+
+25-10-17 01:00 - Intent: Add corrected auto-save task to TODO.md. - Action: Append to docs/TODO.md
