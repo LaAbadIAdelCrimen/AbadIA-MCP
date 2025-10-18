@@ -94,3 +94,7 @@
 25-10-17 00:53 - Intent: Add new task for detailed logging in /map/ascii. - Action: Append to docs/TODO.md
 
 25-10-17 00:54 - Intent: Add detailed logging to /map/ascii endpoint. - Action: Modify server/main.py
+
+25-10-17 00:55 - Intent: Correctly mark subtasks for task #9 as complete. - Action: Modify docs/TODO.md
+
+25-10-17 00:56 - Intent: Add new task for map load/save endpoints. - Action: Append to docs/TODO.md

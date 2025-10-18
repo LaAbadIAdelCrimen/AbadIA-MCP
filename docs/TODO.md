@@ -14,7 +14,7 @@
 8. [x] Centralize logger configuration and refactor its usage.
    (subtasks completed)
 9. [x] Add detailed logging to the `/map/ascii` endpoint for debugging.
-   9.1. [x] Modify the `get_map_ascii_data` function in `server/main.py`.
-   9.2. [x] If `center_on_guillermo` is true and Guillermo is found, log his name and the coordinates being used as the center.
-   9.3. [x] If Guillermo is *not* found, log a warning and also log the entire `game_status` content to help with debugging why he is missing.
-   9.4. [x] Log the final parameters (floor, center_x, center_y, cells) that are being passed to the `draw_map_ascii` function.
+   (subtasks completed)
+10. [ ] Create API endpoints for loading and saving the game map.
+    10.1. [ ] Create a `POST /map/save/{map_name}` endpoint in `server/main.py` that saves the current `game_map` to a file named `{map_name}.json` in the `storage` directory.
+    10.2. [ ] Create a `POST /map/load/{map_name}` endpoint in `server/main.py` that loads the specified map file into the active `game_map`.
