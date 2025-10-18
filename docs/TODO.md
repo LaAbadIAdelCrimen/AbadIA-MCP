@@ -10,6 +10,10 @@
 6. [x] Implement auto-saving of the map when the player changes screens.
    (subtasks completed)
 7. [x] Add a parameter to the `/map/ascii` endpoint to center the map on Guillermo.
-   7.1. [x] Modify the `get_map_ascii_data` function in `server/main.py` to accept a new boolean query parameter `center_on_guillermo`, defaulting to `True`.
-   7.2. [x] Inside the function, if `center_on_guillermo` is `True`, find Guillermo in the current `game_status` to get his `posX` and `posY`.
-   7.3. [x] If Guillermo is found, use his coordinates as the `center_x` and `center_y` for the `draw_map_ascii` function call, overriding any other parameters. If he is not found, fall back to the default center coordinates.
+   (subtasks completed)
+8. [ ] Centralize logger configuration and refactor its usage.
+   8.1. [ ] Create a new file `server/logger_config.py` to house the global logger setup.
+   8.2. [ ] In this new file, configure a single, project-wide logger (e.g., named "AbadIA") with a consistent format and level (INFO).
+   8.3. [ ] In `server/main.py`, remove the local logger setup and instead import the configured logger from `server.logger_config`.
+   8.4. [ ] In `server/game_data.py`, remove the local logger setup and import the global logger as well.
+   8.5. [ ] Go through both `server/main.py` and `server/game_data.py` and ensure all logging calls use the new, imported global logger.
