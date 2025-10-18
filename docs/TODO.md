@@ -16,4 +16,4 @@
    8.2. [x] In this new file, configure a single, project-wide logger (e.g., named "AbadIA") with a consistent format and level (INFO).
    8.3. [x] In `server/main.py`, remove the local logger setup and instead import the configured logger from `server.logger_config`.
    8.4. [x] In `server/game_data.py`, remove the local logger setup and import the global logger as well.
-   8.5. [ ] Go through both `server/main.py` and `server/game_data.py` and ensure all logging calls use the new, imported global logger.
+   8.5. [x] Go through both `server/main.py` and `server/game_data.py` and ensure all logging calls use the new, imported global logger.
