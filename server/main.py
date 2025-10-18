@@ -12,7 +12,7 @@ import time
 from dotenv import load_dotenv
 from fastapi_mcp import FastApiMCP
 import requests
-import logging
+from server.logger_config import log
 
 # Correctly import from server.game_data
 from server.game_data import (
@@ -47,14 +47,14 @@ def sendCmd(url, command, type="json", mode="GET"):
                 r = requests.get(cmd.format(url, command), headers=headers)
             if mode == "POST":
                 r = requests.post(cmd.format(url, command), headers=headers)
-            logging.info(f"cmd ---> {cmd.format(url, command)} {mode} {r.status_code} {r.json()}")
+            log.info(f"cmd ---> {cmd.format(url, command)} {mode} {r.status_code} {r.json()}")
 
             # if command == "abadIA/game" and r.status_code == 200:
             #    session_id = r.headers.get('X-Session-Id')
-            #    logging.info(f"New session ID: {session_id}")
+            #    log.info(f"New session ID: {session_id}")
 
         except requests.exceptions.RequestException as e:
-            logging.error(f"Vigasoco comm error: {e}")
+            log.error(f"Vigasoco comm error: {e}")
             return None
 
         if (type == "json"):
@@ -64,20 +64,17 @@ def sendCmd(url, command, type="json", mode="GET"):
                     tmp['haFracasado'] = True
                 return tmp
             except ValueError:
-                logging.error("Failed to decode JSON from response")
+                log.error("Failed to decode JSON from response")
                 return None
         else:
             return r.text
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 # Get environment variables with fallback values
 ABADIA_SERVER_URL = os.getenv("ABADIA_SERVER_URL")
 if not ABADIA_SERVER_URL:
     raise ValueError("ABADIA_SERVER_URL environment variable is not set.")
 
-logger.info(f"ABADIA_SERVER_URL configured as: {ABADIA_SERVER_URL}")
+log.info(f"ABADIA_SERVER_URL configured as: {ABADIA_SERVER_URL}")
 
 # Example of how to use other environment variables with defaults
 DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() == "true"
@@ -104,9 +101,9 @@ app = FastAPI(
 @app.on_event("startup")
 async def startup_event():
     """Initializes the map on server startup."""
-    logger.info("Initializing game map...")
+    log.info("Initializing game map...")
     initialize_map()
-    logger.info("Map initialization complete.")
+    log.info("Map initialization complete.")
 
 
 class StatusResponse(BaseModel):
