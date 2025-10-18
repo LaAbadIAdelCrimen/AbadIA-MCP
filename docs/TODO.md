@@ -16,5 +16,5 @@
 
 10. [ ] Create a global definition for ANSI color codes.
     10.1. [x] Create a new file for the color definitions.
-    10.2. [ ] Add the provided ANSI escape codes to the file.
+    10.2. [x] Add the provided ANSI escape codes to the file.
     10.3. [ ] Refactor the project to use the new color definitions.
