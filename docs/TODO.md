@@ -16,5 +16,5 @@
 9. [x] Add detailed logging to the `/map/ascii` endpoint for debugging.
    (subtasks completed)
 10. [x] Create API endpoints for loading and saving the game map.
-    10.1. [ ] Create a `POST /map/save/{map_name}` endpoint in `server/main.py` that saves the current `game_map` to a file named `{map_name}.json` in the `storage` directory.
-    10.2. [ ] Create a `POST /map/load/{map_name}` endpoint in `server/main.py` that loads the specified map file into the active `game_map`.
+    10.1. [x] Create a `POST /map/save/{map_name}` endpoint in `server/main.py` that saves the current `game_map` to a file named `{map_name}.json` in the `storage` directory.
+    10.2. [x] Create a `POST /map/load/{map_name}` endpoint in `server/main.py` that loads the specified map file into the active `game_map`.
