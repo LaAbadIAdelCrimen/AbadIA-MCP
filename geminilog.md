@@ -78,3 +78,5 @@
 25-10-17 00:45 - Intent: Implement auto-saving logic on screen change. - Action: Modify server/game_data.py
 
 25-10-17 00:46 - Intent: Add new task to center ASCII map on Guillermo. - Action: Append to docs/TODO.md
+
+25-10-17 00:47 - Intent: Implement center_on_guillermo feature. - Action: Modify server/main.py

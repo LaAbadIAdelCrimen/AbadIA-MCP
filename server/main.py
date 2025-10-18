@@ -21,7 +21,8 @@ from server.game_data import (
     save_game_status, 
     reset_game_data,
     initialize_map,
-    get_game_map
+    get_game_map,
+    get_game_status
 )
 from server.internal_game_data import get_internal_game_data
 from server.map_utils import draw_map_ascii
@@ -317,17 +318,31 @@ def get_map_data():
     """
     return get_game_map()
 
+from server.game_data import get_game_status
+
 @app.get("/map/ascii", operation_id="get_map_ascii", tags=["System"], response_class=PlainTextResponse)
 def get_map_ascii_data(
     floor: int = 0, 
     center_x: int = 134, 
     center_y: int = 170, 
-    cells: int = 30
+    cells: int = 30,
+    center_on_guillermo: bool = True
 ):
     """
     Returns an ASCII representation of the current game map.
     """
     game_map = get_game_map()
+    
+    # If requested, center the map on Guillermo's current position
+    if center_on_guillermo:
+        game_status = get_game_status()
+        if game_status and 'Personajes' in game_status:
+            personajes = game_status['Personajes']
+            guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
+            if guillermo:
+                center_x = guillermo['posX']
+                center_y = guillermo['posY']
+
     return draw_map_ascii(
         map_data=game_map,
         floor=floor,
