@@ -9,3 +9,7 @@
     8.2. [x] If a cell has the value {"h":0,"c":0,"o":0,"r":0}, substitute it for null.
     8.3. [x] Refactor every part of the code that interacts with the game map to check if a cell is null and, if so, act as if it were {"h":0,"c":0,"o":0,"r":0}.
     8.4. [x] Update all the code involved in the refactoring.
+
+9. [x] Convert old map formats to the new compact format upon loading.
+    9.1. [x] After loading a map, check for cells with default values.
+    9.2. [x] If a cell is `{"h":0,"c":0,"o":0,"r":0}` or `{"height":0,"character":0,"object":0,"room":0}`, convert it to `None`.

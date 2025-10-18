@@ -4,21 +4,43 @@ from server.map_definitions import CHARACTER_SYMBOLS, OBJECT_SYMBOLS
 
 STORE_PATH = "storage"
 
+def _convert_and_compact_map(map_data: list) -> list:
+    """
+    Converts a map to the new compact format in place.
+    - Replaces default empty cells with None.
+    - Ensures keys are the new shortened versions.
+    """
+    default_old = {"height": 0, "character": 0, "object": 0, "room": 0}
+    default_new = {"h": 0, "c": 0, "o": 0, "r": 0}
+
+    for floor_idx, floor in enumerate(map_data):
+        for y, row in enumerate(floor):
+            for x, cell in enumerate(row):
+                if cell == default_old or cell == default_new:
+                    map_data[floor_idx][y][x] = None
+                elif isinstance(cell, dict):
+                    # Ensure keys are converted to the new format
+                    if "height" in cell:
+                        cell["h"] = cell.pop("height")
+                    if "character" in cell:
+                        cell["c"] = cell.pop("character")
+                    if "object" in cell:
+                        cell["o"] = cell.pop("object")
+                    if "room" in cell:
+                        cell["r"] = cell.pop("room")
+    return map_data
+
 def load_map(map_name: str) -> list:
     """
-    Loads a map from a JSON file in the storage directory.
-
-    Args:
-        map_name: The name of the map to load (without the .json extension).
-
-    Returns:
-        The map data as a list, or an empty list if the file doesn't exist.
+    Loads a map from a JSON file and converts it to the compact format.
     """
     map_path = os.path.join(STORE_PATH, f"{map_name}.json")
     if not os.path.exists(map_path):
         return []
     with open(map_path, "r") as f:
-        return json.load(f)
+        map_data = json.load(f)
+    
+    return _convert_and_compact_map(map_data)
 
 def save_map(map_name: str, map_data: list):
     """
