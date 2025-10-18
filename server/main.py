@@ -1,3 +1,4 @@
+import heapq
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -464,6 +465,117 @@ def send_game_command(command: str) -> dict:
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/tools/find_path_to_location", operation_id="find_path_to_location")
+def find_path_to_location(dest_x: int, dest_y: int, floor: int = 0) -> dict:
+    """
+    Finds a path from the character's current location to a destination.
+    This is a high-level action that may take some time.
+    """
+    game_map = get_game_map()
+    game_status = get_game_status()
+
+    if not game_status or 'Personajes' not in game_status:
+        raise HTTPException(status_code=409, detail="Game status not available.")
+
+    personajes = game_status['Personajes']
+    guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
+
+    if not guillermo:
+        raise HTTPException(status_code=409, detail="Guillermo not found.")
+
+    start_x = guillermo['posX']
+    start_y = guillermo['posY']
+
+    path = a_star_search(game_map, floor, (start_x, start_y), (dest_x, dest_y))
+
+    if not path:
+        raise HTTPException(status_code=404, detail="Path not found.")
+
+    commands = path_to_commands(path)
+
+    return {"status": "OK", "data": commands, "message": "Path found successfully."}
+
+
+def a_star_search(game_map, floor, start, end):
+    """
+    A* pathfinding algorithm.
+    """
+    open_list = []
+    heapq.heappush(open_list, (0, start))
+    came_from = {}
+    g_score = {start: 0}
+    f_score = {start: heuristic(start, end)}
+
+    while open_list:
+        _, current = heapq.heappop(open_list)
+
+        if current == end:
+            return reconstruct_path(came_from, current)
+
+        for neighbor in get_neighbors(game_map, floor, current):
+            tentative_g_score = g_score[current] + 1
+
+            if tentative_g_score < g_score.get(neighbor, float('inf')):
+                came_from[neighbor] = current
+                g_score[neighbor] = tentative_g_score
+                f_score[neighbor] = tentative_g_score + heuristic(neighbor, end)
+                if neighbor not in [i[1] for i in open_list]:
+                    heapq.heappush(open_list, (f_score[neighbor], neighbor))
+
+    return None
+
+
+def heuristic(a, b):
+    """
+    Heuristic function for A*.
+    """
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+
+def get_neighbors(game_map, floor, node):
+    """
+    Get neighbors of a node, compatible with compact map format.
+    """
+    neighbors = []
+    for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+        x, y = node[0] + dx, node[1] + dy
+        if 0 <= x < len(game_map[floor][0]) and 0 <= y < len(game_map[floor]):
+            cell = game_map[floor][y][x]
+            # A cell is navigable if it's None (empty) or its height is less than 16.
+            if cell is None or cell.get('h', 0) < 16:
+                neighbors.append((x, y))
+    return neighbors
+
+
+def reconstruct_path(came_from, current):
+    """
+    Reconstruct path from came_from map.
+    """
+    total_path = [current]
+    while current in came_from:
+        current = came_from[current]
+        total_path.append(current)
+    return total_path[::-1]
+
+
+def path_to_commands(path):
+    """
+    Convert a path to a list of commands.
+    """
+    commands = []
+    for i in range(len(path) - 1):
+        dx = path[i+1][0] - path[i][0]
+        dy = path[i+1][1] - path[i][1]
+        if dx == 1:
+            commands.append("RIGHT")
+        elif dx == -1:
+            commands.append("LEFT")
+        elif dy == 1:
+            commands.append("DOWN")
+        elif dy == -1:
+            commands.append("UP")
+    return commands
 
 # MCP Configuration
 mcp = FastApiMCP(

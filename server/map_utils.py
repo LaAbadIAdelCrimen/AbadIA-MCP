@@ -36,17 +36,7 @@ def save_map(map_name: str, map_data: list):
 
 def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: int = 5, cells: int = 10) -> str:
     """
-    Draws a portion of the map in ASCII.
-
-    Args:
-        map_data: The full map data.
-        floor: The floor number to draw.
-        center_x: The x-coordinate of the center of the view.
-        center_y: The y-coordinate of the center of the view.
-        cells: The number of cells to show from the center (radius).
-
-    Returns:
-        A string containing the ASCII representation of the map.
+    Draws a portion of the map in ASCII using the compact format.
     """
     if not map_data or floor >= len(map_data):
         return "Map data is not available for this floor."
@@ -54,37 +44,33 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
     floor_data = map_data[floor]
     output = ""
     
-    # Calculate boundaries
-    min_y = center_y - cells
-    max_y = center_y + cells
-    min_x = center_x - cells
-    max_x = center_x + cells
+    min_y, max_y = center_y - cells, center_y + cells
+    min_x, max_x = center_x - cells, center_x + cells
 
     for y in range(min_y, max_y):
         row_str = ""
         for x in range(min_x, max_x):
-            # Check boundaries of the map data
-            if y < 0 or y >= len(floor_data) or x < 0 or x >= len(floor_data[y]):
-                row_str += " "  # Void space
+            if not (0 <= y < len(floor_data) and 0 <= x < len(floor_data[y])):
+                row_str += " "
                 continue
 
             cell = floor_data[y][x]
-            if not cell:
-                row_str += " " # Void space
+            if cell is None:
+                row_str += "."  # Empty space is floor
                 continue
 
-            char_id = cell.get("character", 0)
-            obj_id = cell.get("object", 0)
-            height = cell.get("height", 0)
+            char_id = cell.get("c", 0)
+            obj_id = cell.get("o", 0)
+            height = cell.get("h", 0)
 
             if char_id in CHARACTER_SYMBOLS:
                 row_str += CHARACTER_SYMBOLS[char_id]
             elif obj_id in OBJECT_SYMBOLS:
                 row_str += OBJECT_SYMBOLS[obj_id]
             elif height > 0:
-                row_str += "#"  # Wall
+                row_str += "#"
             else:
-                row_str += "."  # Floor
+                row_str += "."
         output += row_str + "\n"
         
     return output
