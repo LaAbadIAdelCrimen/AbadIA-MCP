@@ -110,6 +110,7 @@ def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
         p_x, p_y, p_id = personaje['posX'], personaje['posY'], personaje['id']
         cell = get_cell(planta, p_x, p_y)
         cell['c'] = p_id
+        log.info(f"personaje {personaje}")
         set_cell(planta, p_x, p_y, cell)
 
     log.info(f"Placing {len(objetos)} objects on the map.")

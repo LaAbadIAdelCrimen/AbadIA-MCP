@@ -70,7 +70,7 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
     min_x, max_x = center_x - cells, center_x + cells
 
     for y in range(min_y, max_y):
-        row_str = ""
+        row_str = "{}|".format(format(y, '03d'))
         for x in range(min_x, max_x):
             if not (0 <= y < len(floor_data) and 0 <= x < len(floor_data[y])):
                 row_str += " "
@@ -89,10 +89,20 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
                 row_str += CHARACTER_SYMBOLS[char_id]
             elif obj_id in OBJECT_SYMBOLS:
                 row_str += OBJECT_SYMBOLS[obj_id]
-            elif height > 0:
+            elif height == 0:
+                row_str += " "
+            elif height >= 16:
+                row_str += "P"
+            elif height >0 and height < 16:
                 row_str += "#"
+        row_str += "|" 
+        for x in range(min_x, max_x):
+            cell = floor_data[y][x]
+            if cell is None:
+                row_str += "  "  # Empty space is floor
             else:
-                row_str += "."
-        output += row_str + "\n"
+                height = cell.get("h", 0)
+                row_str +=  "{}".format(format(height, '02x'))
+        output += row_str + "|\n"
         
     return output
