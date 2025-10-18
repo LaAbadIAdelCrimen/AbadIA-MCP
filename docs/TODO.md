@@ -11,7 +11,7 @@
    (subtasks completed)
 7. [x] Add a parameter to the `/map/ascii` endpoint to center the map on Guillermo.
    (subtasks completed)
-8. [ ] Centralize logger configuration and refactor its usage.
+8. [x] Centralize logger configuration and refactor its usage.
    8.1. [x] Create a new file `server/logger_config.py` to house the global logger setup.
    8.2. [x] In this new file, configure a single, project-wide logger (e.g., named "AbadIA") with a consistent format and level (INFO).
    8.3. [x] In `server/main.py`, remove the local logger setup and instead import the configured logger from `server.logger_config`.
