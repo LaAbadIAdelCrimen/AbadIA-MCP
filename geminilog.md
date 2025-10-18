@@ -88,3 +88,5 @@
 25-10-17 00:50 - Intent: Create centralized logger configuration. - Action: Write to server/logger_config.py
 
 25-10-17 00:51 - Intent: Refactor main.py to use the global logger. - Action: Modify server/main.py
+
+25-10-17 00:52 - Intent: Refactor game_data.py to use the global logger. - Action: Modify server/game_data.py
