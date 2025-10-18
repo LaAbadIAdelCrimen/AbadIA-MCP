@@ -339,7 +339,14 @@ def get_map_ascii_data(
             if guillermo:
                 center_x = guillermo['posX']
                 center_y = guillermo['posY']
+                log.info(f"Centering map on Guillermo at ({center_x}, {center_y}).")
+            else:
+                log.warning("'center_on_guillermo' is True, but Guillermo was not found in the current game status.")
+                log.warning(f"Full game status for debugging: {game_status}")
+        else:
+            log.warning("'center_on_guillermo' is True, but no game status or 'Personajes' list is available.")
 
+    log.info(f"Generating ASCII map with parameters: floor={floor}, center_x={center_x}, center_y={center_y}, cells={cells}.")
     return draw_map_ascii(
         map_data=game_map,
         floor=floor,
