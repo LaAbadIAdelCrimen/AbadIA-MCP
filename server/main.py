@@ -23,7 +23,8 @@ from server.game_data import (
     reset_game_data,
     initialize_map,
     get_game_map,
-    get_game_status
+    get_game_status,
+    load_game_map
 )
 from server.internal_game_data import get_internal_game_data
 from server.map_utils import draw_map_ascii
