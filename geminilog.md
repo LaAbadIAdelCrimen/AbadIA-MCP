@@ -80,3 +80,5 @@
 25-10-17 00:46 - Intent: Add new task to center ASCII map on Guillermo. - Action: Append to docs/TODO.md
 
 25-10-17 00:47 - Intent: Implement center_on_guillermo feature. - Action: Modify server/main.py
+
+25-10-17 00:48 - Intent: Correctly mark subtasks for task #7 as complete. - Action: Modify docs/TODO.md
