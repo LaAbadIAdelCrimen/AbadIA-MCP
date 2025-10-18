@@ -84,3 +84,5 @@
 25-10-17 00:48 - Intent: Correctly mark subtasks for task #7 as complete. - Action: Modify docs/TODO.md
 
 25-10-17 00:49 - Intent: Add new task to centralize logger. - Action: Append to docs/TODO.md
+
+25-10-17 00:50 - Intent: Create centralized logger configuration. - Action: Write to server/logger_config.py

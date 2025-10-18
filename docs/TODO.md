@@ -12,8 +12,8 @@
 7. [x] Add a parameter to the `/map/ascii` endpoint to center the map on Guillermo.
    (subtasks completed)
 8. [ ] Centralize logger configuration and refactor its usage.
-   8.1. [ ] Create a new file `server/logger_config.py` to house the global logger setup.
-   8.2. [ ] In this new file, configure a single, project-wide logger (e.g., named "AbadIA") with a consistent format and level (INFO).
+   8.1. [x] Create a new file `server/logger_config.py` to house the global logger setup.
+   8.2. [x] In this new file, configure a single, project-wide logger (e.g., named "AbadIA") with a consistent format and level (INFO).
    8.3. [ ] In `server/main.py`, remove the local logger setup and instead import the configured logger from `server.logger_config`.
    8.4. [ ] In `server/game_data.py`, remove the local logger setup and import the global logger as well.
    8.5. [ ] Go through both `server/main.py` and `server/game_data.py` and ensure all logging calls use the new, imported global logger.
