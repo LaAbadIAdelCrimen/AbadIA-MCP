@@ -1,7 +1,7 @@
 import json
 import os
 from server.map_definitions import CHARACTER_SYMBOLS, OBJECT_SYMBOLS
-from server.ansi_colors import GREEN, RESET, BLUE
+from server.ansi_colors import GREEN, RED, RESET, BLUE, WHITE
 
 STORE_PATH = "storage"
 
@@ -75,36 +75,35 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
         for x in range(min_x, max_x):
             if not (0 <= y < len(floor_data) and 0 <= x < len(floor_data[y])):
                 if (y % 24) == 0 and (x % 24) == 0:
-                    row_str += "+"
+                    row_str += f"{GREEN}{"+"}{RESET}"
                 else:
-                    row_str += " "
+                    row_str += f"{WHITE}{"-"}{RESET}" 
                 continue
 
             cell = floor_data[y][x]
             if cell is None:
                 if (y % 24) == 0 and (x % 24) == 0:
-                    row_str += "+"
+                    row_str += f"{GREEN}{"+"}{RESET}"
                 else:
-                    row_str += " "
+                    row_str += f"{WHITE}{"-"}{RESET}" 
                 continue
 
             char_id = cell.get("c", 0)
-            obj_id = cell.get("o", 0)
-            height = cell.get("h", 0)
+            obj_id  = cell.get("o", 0)
+            height  = cell.get("h", 0)
             tmp = ""
-
-            
-            if height == 0:
-                tmp = " "
             
             if height >= 16:
                 tmp = "P"
             
-            if height >0 and height < 16:
-                tmp = "#"
+            if height >= 0 and height < 12:
+                tmp = f"{GREEN}{"."}{RESET}"
+            
+            if height >= 12 and height < 16:
+                tmp = f"{RED}{"#"}{RESET}"
             
             if (y % 24) == 0 and (x % 24) == 0:
-                tmp = f"{GREEN}+{RESET}"
+                tmp = f"{GREEN}{"+"}{RESET}"
 
             if char_id in CHARACTER_SYMBOLS:
                 tmp = f"{BLUE}{CHARACTER_SYMBOLS[char_id]}{RESET}"
@@ -117,10 +116,17 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
         for x in range(min_x, max_x):
             cell = floor_data[y][x]
             if cell is None:
-                row_str += "  "  # Empty space is floor
+                row_str += f"{GREEN}{".."}{RESET}"
             else:
-                height = cell.get("h", 0)
-                row_str +=  "{}".format(format(height, '02x'))
+                height    = cell.get("h", 0)
+                character = cell.get("c", 0) << 4
+                if height >= 0 and height < 12:
+                    row_str +=  f"{GREEN}{format(height+character, '02x')}{RESET}"
+                else:
+                    if character >= 16: 
+                        row_str +=  f"{BLUE}{format(height+character, '02x')}{RESET}"
+                    else:
+                        row_str +=  f"{RED}{format(height+character, '02x')}{RESET}"
         output += row_str + "|\n"
         
     return output

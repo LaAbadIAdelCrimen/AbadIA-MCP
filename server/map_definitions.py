@@ -5,7 +5,7 @@ CHARACTER_SYMBOLS = {
     2: "a",  # Adso
     3: "A",  # Abad
     4: "?",  # Jorge
-    5: "J",  # Jorge
+    5: "?",  # Jorge
     6: "?",  # Jorge
     7: "?",  # Jorge
     8: "?",  # Jorge

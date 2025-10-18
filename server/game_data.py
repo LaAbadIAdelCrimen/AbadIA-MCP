@@ -33,10 +33,10 @@ def set_cell(floor, x, y, cell_data):
         y < len(game_map[floor]) and
         x < len(game_map[floor][y])):
         
-        if cell_data == EMPTY_CELL:
-            game_map[floor][y][x] = None
-        else:
-            game_map[floor][y][x] = cell_data
+        # if cell_data == EMPTY_CELL:
+        #    game_map[floor][y][x] = None
+        #else:
+        game_map[floor][y][x] = cell_data
 
 def save_game_status(response: dict):
     """
