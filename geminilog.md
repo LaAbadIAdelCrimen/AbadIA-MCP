@@ -90,3 +90,5 @@
 25-10-17 00:51 - Intent: Refactor main.py to use the global logger. - Action: Modify server/main.py
 
 25-10-17 00:52 - Intent: Refactor game_data.py to use the global logger. - Action: Modify server/game_data.py
+
+25-10-17 00:53 - Intent: Add new task for detailed logging in /map/ascii. - Action: Append to docs/TODO.md

@@ -12,8 +12,9 @@
 7. [x] Add a parameter to the `/map/ascii` endpoint to center the map on Guillermo.
    (subtasks completed)
 8. [x] Centralize logger configuration and refactor its usage.
-   8.1. [x] Create a new file `server/logger_config.py` to house the global logger setup.
-   8.2. [x] In this new file, configure a single, project-wide logger (e.g., named "AbadIA") with a consistent format and level (INFO).
-   8.3. [x] In `server/main.py`, remove the local logger setup and instead import the configured logger from `server.logger_config`.
-   8.4. [x] In `server/game_data.py`, remove the local logger setup and import the global logger as well.
-   8.5. [x] Go through both `server/main.py` and `server/game_data.py` and ensure all logging calls use the new, imported global logger.
+   (subtasks completed)
+9. [ ] Add detailed logging to the `/map/ascii` endpoint for debugging.
+   9.1. [ ] Modify the `get_map_ascii_data` function in `server/main.py`.
+   9.2. [ ] If `center_on_guillermo` is true and Guillermo is found, log his name and the coordinates being used as the center.
+   9.3. [ ] If Guillermo is *not* found, log a warning and also log the entire `game_status` content to help with debugging why he is missing.
+   9.4. [ ] Log the final parameters (floor, center_x, center_y, cells) that are being passed to the `draw_map_ascii` function.
