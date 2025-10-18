@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from fastapi.responses import JSONResponse, PlainTextResponse
-from server.map_utils import draw_map_ascii
+from server.map_utils import draw_map_ascii, save_map
 from fastapi import FastAPI, HTTPException, Query, status
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
@@ -354,6 +354,27 @@ def get_map_ascii_data(
         center_y=center_y,
         cells=cells
     )
+
+from server.map_utils import save_map
+
+@app.post("/map/save/{map_name}", operation_id="save_map", tags=["System"])
+def save_map_data(map_name: str):
+    """
+    Saves the current in-memory game map to a file in the 'storage' directory.
+    """
+    log.info(f"Received request to save current map to '{map_name}.json'.")
+    game_map = get_game_map()
+    save_map(map_name, game_map)
+    return {"status": "OK", "message": f"Map successfully saved to {map_name}.json"}
+
+@app.post("/map/load/{map_name}", operation_id="load_map", tags=["System"])
+def load_map_data(map_name: str):
+    """
+    Loads a map from a file in the 'storage' directory into the active in-memory map.
+    """
+    log.info(f"Received request to load map '{map_name}.json' into memory.")
+    load_game_map(map_name)
+    return {"status": "OK", "message": f"Map '{map_name}.json' loaded into memory."}
 
 @app.post("/tools/move_to_location", operation_id="move_to_location")
 def move_to_location(location: str) -> dict:

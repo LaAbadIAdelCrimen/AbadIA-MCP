@@ -87,7 +87,7 @@
 
 25-10-17 00:50 - Intent: Create centralized logger configuration. - Action: Write to server/logger_config.py
 
-25-10-17 00:51 - Intent: Refactor main.py to use the global logger. - Action: Modify server/main.py
+25-1-17 00:51 - Intent: Refactor main.py to use the global logger. - Action: Modify server/main.py
 
 25-10-17 00:52 - Intent: Refactor game_data.py to use the global logger. - Action: Modify server/game_data.py
 
@@ -98,3 +98,5 @@
 25-10-17 00:55 - Intent: Correctly mark subtasks for task #9 as complete. - Action: Modify docs/TODO.md
 
 25-10-17 00:56 - Intent: Add new task for map load/save endpoints. - Action: Append to docs/TODO.md
+
+25-10-17 00:57 - Intent: Implement /map/save and /map/load endpoints. - Action: Modify server/main.py
