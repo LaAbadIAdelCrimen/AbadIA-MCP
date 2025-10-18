@@ -13,3 +13,8 @@
 9. [x] Convert old map formats to the new compact format upon loading.
     9.1. [x] After loading a map, check for cells with default values.
     9.2. [x] If a cell is `{"h":0,"c":0,"o":0,"r":0}` or `{"height":0,"character":0,"object":0,"room":0}`, convert it to `None`.
+
+10. [ ] Create a global definition for ANSI color codes.
+    10.1. [x] Create a new file for the color definitions.
+    10.2. [ ] Add the provided ANSI escape codes to the file.
+    10.3. [ ] Refactor the project to use the new color definitions.
