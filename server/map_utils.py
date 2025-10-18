@@ -1,6 +1,7 @@
 import json
 import os
 from server.map_definitions import CHARACTER_SYMBOLS, OBJECT_SYMBOLS
+from server.ansi_colors import GREEN, RESET, BLUE
 
 STORE_PATH = "storage"
 
@@ -91,18 +92,26 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
             obj_id = cell.get("o", 0)
             height = cell.get("h", 0)
             tmp = ""
-            if char_id in CHARACTER_SYMBOLS:
-                tmp = CHARACTER_SYMBOLS[char_id]
-            elif obj_id in OBJECT_SYMBOLS:
-                tmp = OBJECT_SYMBOLS[obj_id]
-            elif height == 0:
+
+            
+            if height == 0:
                 tmp = " "
-            elif height >= 16:
+            
+            if height >= 16:
                 tmp = "P"
-            elif height >0 and height < 16:
+            
+            if height >0 and height < 16:
                 tmp = "#"
+            
             if (y % 24) == 0 and (x % 24) == 0:
-                tmp = "+"
+                tmp = f"{GREEN}+{RESET}"
+
+            if char_id in CHARACTER_SYMBOLS:
+                tmp = f"{BLUE}{CHARACTER_SYMBOLS[char_id]}{RESET}"
+
+            if obj_id in OBJECT_SYMBOLS:
+                tmp = tmp = f"{BLUE}{OBJECT_SYMBOLS[obj_id]}{RESET}"
+            
             row_str += tmp
         row_str += "|" 
         for x in range(min_x, max_x):
