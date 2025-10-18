@@ -4,7 +4,11 @@ CHARACTER_SYMBOLS = {
     1: "G",  # Guillermo
     2: "a",  # Adso
     3: "A",  # Abad
-    4: "J",  # Jorge
+    4: "?",  # Jorge
+    5: "J",  # Jorge
+    6: "?",  # Jorge
+    7: "?",  # Jorge
+    8: "?",  # Jorge
     # Add other characters as needed
 }
 

@@ -154,7 +154,11 @@ def update_map_from_game_state(game_status: dict):
         for x_rejilla, cell_value in enumerate(row):
             map_x, map_y = offset_x + x_rejilla, offset_y + y_rejilla
             cell = get_cell(planta, map_x, map_y)
-            cell['h'] = cell_value
+            cell['h'] = cell_value % 16
+            if (cell_value >> 4)  > 0:
+                cell['c'] = (cell_value >> 4)
+            else: 
+                cell['c'] = None
             cell['r'] = num_pantalla
             set_cell(planta, map_x, map_y, cell)
             
