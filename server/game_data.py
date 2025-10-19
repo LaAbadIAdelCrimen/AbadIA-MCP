@@ -149,8 +149,8 @@ def update_map_from_game_state(game_status: dict):
         log.info(f"Screen change detected. Auto-saving map.")
         save_map("current_map", game_map)
 
-    offset_x = (pos_x // 24) * 24
-    offset_y = (pos_y // 24) * 24
+    offset_x = (pos_x // 16) * 16 - 4
+    offset_y = (pos_y // 16) * 16 - 4
 
     for y_rejilla, row in enumerate(game_status['Rejilla']):
         for x_rejilla, cell_value in enumerate(row):

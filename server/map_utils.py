@@ -120,27 +120,23 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
         row_str += "|" 
         # for x in range(min_x, max_x):
         for x in range(24):
-            row_str += f"{GREEN}{format(st['Rejilla'][YY][x], '02x')}{RESET}"
+            if yy in range(24):
+                tmp = f"{GREEN}{format(st['Rejilla'][yy][x], '02x')}{RESET}"
             
-        #     cell = floor_data[y][x]
-        #     if cell is None:
-        #         row_str += f"{GREEN}{"--"}{RESET}"
-        #         continue
-        #     else:
-        #         height    = cell.get("h", 0)
-        #         character = cell.get("c", 0) << 4
+                height =  st['Rejilla'][yy][x] % 16
+                character = st['Rejilla'][yy][x] >> 4
                 
-        #     if height >= 0 and height < 12:
-        #         tmp = f"{GREEN}{format(height+character, '02x')}{RESET}"
+                if height >= 0 and height < 12:
+                    tmp = f"{GREEN}{format(height+character<<4, '02x')}{RESET}"
             
-        #     if character >= 16: 
-        #         tmp = f"{YELLOW}{FONDO_AZUL}{format(height+character, '02x')}{RESET}"
+                if character >= 1: 
+                    tmp = f"{YELLOW}{FONDO_AZUL}{format(height+(character<<4), '02x')}{RESET}"
 
-        #     if height >= 12:
-        #         tmp = f"{BLUE}{FONDO_BLANCO}{format(height+character, '02x')}{RESET}"
-        #     row_str += tmp
+                if height >= 12:
+                    tmp = f"{BLUE}{FONDO_BLANCO}{format(height, '02x')}{RESET}"
+                row_str += tmp
 
         output += row_str + "|\n"
-        YY += 1
+        yy += 1
         
     return output
