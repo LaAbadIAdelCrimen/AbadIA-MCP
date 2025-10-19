@@ -183,6 +183,8 @@ async def reset_game():
     """
     Resets the game by creating a new session and then sending reset commands.
     """
+    global session_id
+    session_id = None
     try:
         # Reset all internal MCP data first
         reset_game_data()
