@@ -20,8 +20,8 @@ async def connect_and_get_tools():
     # 2. Create an instance of MCPToolset (the ADK client)
     # MCPToolset handles the MCP handshake and fetching capabilities (tools).
     try:
-        mcp_toolset, exit_stack = await McpToolset.from_server(
-            connection_params=connection_params
+        mcp_toolset, exit_stack = await McpToolset.from_config(
+            {'type': 'streamable_http', 'url': MCP_SERVER_URL}
         )
 
         print("\n✅ Successful connection and Tools retrieved.")
