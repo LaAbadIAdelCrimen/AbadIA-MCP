@@ -181,49 +181,38 @@ async def get_status():
 )
 async def reset_game():
     """
-    Reset AbadIA game.
-    
-    Returns:
-        GameResponse with status and game data.
-        If there's an error, returns appropriate error status.
-    
-    Example response:
-        ```json
-        {
-            "status": "OK",
-            "data": {
-                "game_state": "reset",
-                "timestamp": "2024-03-21T10:00:00Z"
-            },
-            "message": "Game reset successfully"
-        }
-        ```
+    Resets the game by creating a new session and then sending reset commands.
     """
     try:
-        # Reset all game data, including internal state
+        # Reset all internal MCP data first
         reset_game_data()
 
-        # don't touch the order of the commands
-        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
-        time.sleep(1)
-        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        # Create a new game, which is essential for getting a new session ID
         response = sendCmd(ABADIA_SERVER_URL, "abadIA/game", mode='POST')
+        
+        # Now, send the SPACE commands to navigate the game's main menu
+        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        time.sleep(0.5) # A small delay can help prevent race conditions
+        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        time.sleep(0.5)
+
+        # Final status check
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", mode='GET')
         save_game_status(response)
 
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
-                detail="Failed to communicate with game server"
+                detail="Failed to communicate with game server after reset."
             )
         
         return GameResponse(
             status="OK",
-            data=response if isinstance(response, dict) else {"raw_response": response},
+            data=response,
             message="Game reset successfully"
         )
-    except HTTPException:
-        raise
     except Exception as e:
+        log.error(f"An error occurred during game reset: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
