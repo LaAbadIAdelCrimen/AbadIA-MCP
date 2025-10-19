@@ -42,7 +42,8 @@ def create_tool_function(name, description, params):
 def load_tools_from_mcp():
     """Fetches the tool definitions from the MCP server and creates them dynamically."""
     try:
-        response = mcp_client.get("/mcp")
+        headers = {"Accept": "application/mcp+json"}
+        response = mcp_client.get("/mcp", headers=headers)
         response.raise_for_status()
         tool_schemas = response.json()["tools"]
 
