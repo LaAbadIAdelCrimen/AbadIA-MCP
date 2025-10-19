@@ -1,5 +1,5 @@
 import asyncio
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StreamableHTTPConnectionParams
+from google.adk.tools.mcp_tool.mcp_toolset import McpToolset, StreamableHTTPConnectionParams
 
 # URL of the FastMCP server (must match the one in server.py)
 MCP_SERVER_URL = "http://127.0.0.1:8000/mcp"
