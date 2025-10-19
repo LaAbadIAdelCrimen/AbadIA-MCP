@@ -79,7 +79,7 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
         row_str = "{}|".format(format(y, '03d'))
         for x in range(min_x, max_x):
             if not (0 <= y < len(floor_data) and 0 <= x < len(floor_data[y])):
-                if (y % 24) == 0 and (x % 24) == 0:
+                if (y % 16) == 0 and (x % 16) == 0:
                     row_str += f"{GREEN}{"+"}{RESET}"
                 else:
                     row_str += f"{WHITE}{"-"}{RESET}" 
@@ -87,7 +87,7 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
 
             cell = floor_data[y][x]
             if cell is None:
-                if (y % 24) == 0 and (x % 24) == 0:
+                if (y % 16) == 0 and (x % 16) == 0:
                     row_str += f"{GREEN}{"+"}{RESET}"
                 else:
                     row_str += f"{WHITE}{"-"}{RESET}" 
