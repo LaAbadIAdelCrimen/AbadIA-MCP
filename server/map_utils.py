@@ -120,7 +120,7 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
         row_str += "|" 
         # for x in range(min_x, max_x):
         for x in range(24):
-            row_str += f"{GREEN}{format(st.Rejilla[YY][x], '02x')}{RESET}"
+            row_str += f"{GREEN}{format(st['Rejilla'][YY][x], '02x')}{RESET}"
             
         #     cell = floor_data[y][x]
         #     if cell is None:
