@@ -19,11 +19,11 @@
     10.2. [x] Add the provided ANSI escape codes to the file.
     10.3. [x] Refactor the project to use the new color definitions.
 
-11. [ ] Implement map loading and truncation after game reset.
+11. [x] Implement map loading and truncation after game reset.
     11.1. [x] Modify the `reset_game` function in `server/main.py` to call a new map loading and processing function after `reset_game_data()`.
     11.2. [x] Create a new function in `server/game_data.py` (e.g., `initialize_and_truncate_map`) that handles the loading logic.
     11.3. [x] In this new function, implement the logic to load `current_map.json` if it exists, otherwise fall back to loading `default_map.json`.
     11.4. [x] After the map is loaded, add logic to truncate the map data:
         - Truncate the grid for `game_map[0]` to 256x256.
         - Truncate the grids for `game_map[1]` and `game_map[2]` to 100x100.
-    11.5. [ ] Review and confirm that the auto-save logic in `update_map_from_game_state` correctly saves the `game_map` to `current_map.json` whenever `numPantalla` changes.
+    11.5. [x] Review and confirm that the auto-save logic in `update_map_from_game_state` correctly saves the `game_map` to `current_map.json` whenever `numPantalla` changes.
