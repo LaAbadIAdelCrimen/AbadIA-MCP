@@ -1,5 +1,5 @@
 import asyncio
-from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StreamableHTTPServerParams
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StreamableHTTPConnectionParams
 
 # URL of the FastMCP server (must match the one in server.py)
 MCP_SERVER_URL = "http://127.0.0.1:8000/mcp"
@@ -11,9 +11,9 @@ async def connect_and_get_tools():
     print(f"🔗 Connecting to MCP server at: {MCP_SERVER_URL}")
     
     # 1. Define the connection parameters for Streamable HTTP
-    connection_params = StreamableHTTPServerParams(
+    connection_params = StreamableHTTPConnectionParams(
         url=MCP_SERVER_URL 
-        # NOTE: In ADK, the 'StreamableHTTPServerParams' class encapsulates
+        # NOTE: In ADK, the 'StreamableHTTPConnectionParams' class encapsulates
         # the client logic for using this protocol.
     )
 
