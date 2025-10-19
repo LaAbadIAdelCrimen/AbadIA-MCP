@@ -188,6 +188,7 @@ async def reset_game():
     try:
         # Reset all internal MCP data first
         reset_game_data()
+        initialize_map()
 
         # Create a new game, which is essential for getting a new session ID
         response = sendCmd(ABADIA_SERVER_URL, "abadIA/game", mode='POST')
