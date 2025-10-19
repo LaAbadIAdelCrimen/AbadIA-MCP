@@ -1,7 +1,9 @@
 import json
 import os
 from server.map_definitions import CHARACTER_SYMBOLS, OBJECT_SYMBOLS
-from server.ansi_colors import GREEN, RED, RESET, BLUE, WHITE
+from server.ansi_colors import GREEN, RED, RESET, BLUE, YELLOW, WHITE
+FONDO_BLANCO = "\033[47m"
+FONDO_AZUL = "\033[44m"
 
 STORE_PATH = "storage"
 
@@ -61,10 +63,13 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
     """
     Draws a portion of the map in ASCII using the compact format.
     """
+    from server.game_data import get_game_status
     if not map_data or floor >= len(map_data):
         return "Map data is not available for this floor."
 
     floor_data = map_data[floor]
+    st = get_game_status()
+    yy = 0
     output = ""
     
     min_y, max_y = center_y - cells, center_y + cells
@@ -100,33 +105,42 @@ def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: 
                 tmp = f"{GREEN}{"."}{RESET}"
             
             if height >= 12 and height < 16:
-                tmp = f"{RED}{"#"}{RESET}"
+                tmp = f"{BLUE}{FONDO_BLANCO}{"#"}{RESET}"
             
             if (y % 24) == 0 and (x % 24) == 0:
                 tmp = f"{GREEN}{"+"}{RESET}"
 
             if char_id in CHARACTER_SYMBOLS:
-                tmp = f"{BLUE}{CHARACTER_SYMBOLS[char_id]}{RESET}"
+                tmp = f"{YELLOW}{FONDO_AZUL}{CHARACTER_SYMBOLS[char_id]}{RESET}"
 
             if obj_id in OBJECT_SYMBOLS:
                 tmp = tmp = f"{BLUE}{OBJECT_SYMBOLS[obj_id]}{RESET}"
             
             row_str += tmp
         row_str += "|" 
-        for x in range(min_x, max_x):
-            cell = floor_data[y][x]
-            if cell is None:
-                row_str += f"{GREEN}{".."}{RESET}"
-            else:
-                height    = cell.get("h", 0)
-                character = cell.get("c", 0) << 4
-                if height >= 0 and height < 12:
-                    row_str +=  f"{GREEN}{format(height+character, '02x')}{RESET}"
-                else:
-                    if character >= 16: 
-                        row_str +=  f"{BLUE}{format(height+character, '02x')}{RESET}"
-                    else:
-                        row_str +=  f"{RED}{format(height+character, '02x')}{RESET}"
+        # for x in range(min_x, max_x):
+        for x in range(24):
+            row_str += f"{GREEN}{format(st.Rejilla[YY][x], '02x')}{RESET}"
+            
+        #     cell = floor_data[y][x]
+        #     if cell is None:
+        #         row_str += f"{GREEN}{"--"}{RESET}"
+        #         continue
+        #     else:
+        #         height    = cell.get("h", 0)
+        #         character = cell.get("c", 0) << 4
+                
+        #     if height >= 0 and height < 12:
+        #         tmp = f"{GREEN}{format(height+character, '02x')}{RESET}"
+            
+        #     if character >= 16: 
+        #         tmp = f"{YELLOW}{FONDO_AZUL}{format(height+character, '02x')}{RESET}"
+
+        #     if height >= 12:
+        #         tmp = f"{BLUE}{FONDO_BLANCO}{format(height+character, '02x')}{RESET}"
+        #     row_str += tmp
+
         output += row_str + "|\n"
+        YY += 1
         
     return output

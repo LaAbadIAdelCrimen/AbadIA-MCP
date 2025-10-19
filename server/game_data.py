@@ -1,6 +1,5 @@
 import os
 from server.internal_game_data import update_internal_game_data, reset_internal_game_data
-from server.map_utils import load_map, STORE_PATH, save_map
 from server.logger_config import log
 
 game_status = None
@@ -55,6 +54,7 @@ def get_game_status():
 
 def load_game_map(map_name: str):
     """Loads the game map from the storage directory."""
+    from server.map_utils import load_map
     global game_map
     game_map = load_map(map_name)
     log.info(f"Loaded map '{map_name}' with {len(game_map)} floors.")
@@ -76,6 +76,7 @@ def initialize_map():
     Initializes the game map, loading 'current_map.json' if it exists,
     otherwise falling back to 'default_map.json'.
     """
+    from server.map_utils import STORE_PATH
     current_map_path = os.path.join(STORE_PATH, "current_map.json")
     
     if os.path.exists(current_map_path):
@@ -109,7 +110,7 @@ def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     for personaje in personajes:
         p_x, p_y, p_id = personaje['posX'], personaje['posY'], personaje['id']
         cell = get_cell(planta, p_x, p_y)
-        cell['c'] = p_id
+        cell['c'] = p_id + 1
         log.info(f"personaje {personaje}")
         set_cell(planta, p_x, p_y, cell)
 
@@ -126,6 +127,7 @@ def update_map_from_game_state(game_status: dict):
     """
     Updates the absolute game_map with data from the latest game_status.
     """
+    from server.map_utils import save_map
     global game_map
     log.info("========== MAP UPDATE CYCLE START ==========")
     if not game_status or 'Rejilla' not in game_status or 'Personajes' not in game_status:
