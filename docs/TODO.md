@@ -27,3 +27,10 @@
         - Truncate the grid for `game_map[0]` to 256x256.
         - Truncate the grids for `game_map[1]` and `game_map[2]` to 100x100.
     11.5. [x] Review and confirm that the auto-save logic in `update_map_from_game_state` correctly saves the `game_map` to `current_map.json` whenever `numPantalla` changes.
+
+12. [ ] Integrate Google ADK MCPtools for Server Access
+    12.1. [ ] Analyze the existing `FastApiMCP` integration and determine the necessary changes to switch to `google.ai.generativelanguage` MCPtools.
+    12.2. [ ] Refactor the server (`server/main.py`) to expose tools using the standard `google.ai.generativelanguage` library instead of the current custom implementation.
+    12.3. [ ] Update the AI agent to use the new MCPtools for interacting with the server.
+    12.4. [x] Create a simple Python script (`scripts/check_connection.py`) to verify the connection to the AbadIA MCP server's `/status` endpoint.
+    12.5. [ ] Test the new integration to ensure all tools are correctly exposed and accessible.
