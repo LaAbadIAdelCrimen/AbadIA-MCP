@@ -71,10 +71,9 @@ def get_game_map():
         log.info("Accessing game_map, but it is currently empty.")
     return game_map
 
-def initialize_map():
+def initialize_and_truncate_map():
     """
-    Initializes the game map, loading 'current_map.json' if it exists,
-    otherwise falling back to 'default_map.json'.
+    Initializes the game map by loading it from a file and then truncates it.
     """
     from server.map_utils import STORE_PATH
     current_map_path = os.path.join(STORE_PATH, "current_map.json")
@@ -85,6 +84,25 @@ def initialize_map():
     else:
         log.info("'current_map.json' not found. Loading 'default_map.json'.")
         load_game_map("default_map")
+
+    global game_map
+    if game_map:
+        # Truncate floor 0 to 256x256
+        if len(game_map) > 0:
+            game_map[0] = [row[:256] for row in game_map[0][:256]]
+        # Truncate floor 1 to 100x100
+        if len(game_map) > 1:
+            game_map[1] = [row[:100] for row in game_map[1][:100]]
+        # Truncate floor 2 to 100x100
+        if len(game_map) > 2:
+            game_map[2] = [row[:100] for row in game_map[2][:100]]
+        log.info("Map truncated successfully.")
+
+def initialize_map():
+    """
+    Initializes and truncates the game map.
+    """
+    initialize_and_truncate_map()
 
 def _update_dynamic_entities(game_status: dict, offset_x: int, offset_y: int):
     """
