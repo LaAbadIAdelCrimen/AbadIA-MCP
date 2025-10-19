@@ -32,12 +32,12 @@ from server.map_utils import draw_map_ascii
 session_id = None
 
 def sendCmd(url, command, type="json", mode="GET"):
-        # global session_id
+        global session_id
         cmd = "{}/{}"
         headers = {}
 
-        # if session_idr:
-        #    headers['X-Session-Id'] = session_id
+        if session_id:
+           headers['X-Session-Id'] = session_id
 
         if (type == "json"):
             headers['accept'] = 'application/json'
@@ -51,9 +51,9 @@ def sendCmd(url, command, type="json", mode="GET"):
                 r = requests.post(cmd.format(url, command), headers=headers)
             log.info(f"cmd ---> {cmd.format(url, command)} {mode} {r.status_code} {r.json()}")
 
-            # if command == "abadIA/game" and r.status_code == 200:
-            #    session_id = r.headers.get('X-Session-Id')
-            #    log.info(f"New session ID: {session_id}")
+            if command == "abadIA/game" and r.status_code == 200:
+               session_id = r.headers.get('X-Session-Id')
+               log.info(f"New session ID: {session_id}")
 
         except requests.exceptions.RequestException as e:
             log.error(f"Vigasoco comm error: {e}")
