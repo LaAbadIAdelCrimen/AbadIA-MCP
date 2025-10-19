@@ -1,86 +1,48 @@
-import httpx
-import os
-import json
+import asyncio
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StreamableHTTPServerParams
 
-# Get environment variables with fallback values
-SERVER_URL = os.getenv("ABADIA_MCP_URL", "http://localhost:8000")
+# URL of the FastMCP server (must match the one in server.py)
+MCP_SERVER_URL = "http://127.0.0.1:8000/mcp"
 
-def check_server_status():
+async def connect_and_get_tools():
     """
-    Checks the status of the AbadIA MCP server.
+    Connects to the MCP server via Streamable HTTP and gets the list of tools.
     """
-    status_url = f"{SERVER_URL}/status"
-    print(f"Checking server status at: {status_url}")
-    try:
-        with httpx.Client() as client:
-            response = client.get(status_url, timeout=10.0)
-            response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
-            
-            print("✅ Server is up and running!")
-            # print("Response:")
-            # print(response.json())
-            
-    except httpx.RequestError as exc:
-        print(f"❌ An error occurred while requesting {exc.request.url!r}.")
-        print(f"Error: {exc}")
-    except httpx.HTTPStatusError as exc:
-        print(f"❌ Error response {exc.response.status_code} while requesting {exc.request.url!r}.")
-        print(f"Response content: {exc.response.text}")
-
-def extract_mcp_tools():
-    """
-    Extracts tools from the MCP server by connecting to the /mcp/tools
-    endpoint, simulating how a Google ADK agent discovers them.
-    """
-    mcp_tools_url = f"{SERVER_URL}/mcp/tools"
-    print(f"\n🔎 Fetching MCP tool definitions from: {mcp_tools_url}")
+    print(f"🔗 Connecting to MCP server at: {MCP_SERVER_URL}")
     
-    try:
-        with httpx.Client() as client:
-            response = client.get(mcp_tools_url, timeout=10.0)
-            response.raise_for_status()
-            tools_response = response.json()
+    # 1. Define the connection parameters for Streamable HTTP
+    connection_params = StreamableHTTPServerParams(
+        url=MCP_SERVER_URL 
+        # NOTE: In ADK, the 'StreamableHTTPServerParams' class encapsulates
+        # the client logic for using this protocol.
+    )
 
-        if 'tool_schemas' in tools_response:
-            print("\n--- 🛠️  Discovered Tools ---")
-            pretty_tools = json.dumps(tools_response['tool_schemas'], indent=2)
-            print(pretty_tools)
-            print("--------------------------")
+    # 2. Create an instance of MCPToolset (the ADK client)
+    # MCPToolset handles the MCP handshake and fetching capabilities (tools).
+    try:
+        mcp_toolset, exit_stack = await MCPToolset.from_server(
+            connection_params=connection_params
+        )
+
+        print("\n✅ Successful connection and Tools retrieved.")
+
+        # 3. Access the list of available tools
+        available_tools = mcp_toolset.get_tools()
+
+        print("📋 List of Tools found:")
+        if available_tools:
+            for tool in available_tools:
+                print(f"   - Name: {tool.name}")
+                print(f"     Description: {tool.description}")
         else:
-            print("⚠️ Could not find 'tool_schemas' key in the response.")
-            print("Raw response:")
-            print(json.dumps(tools_response, indent=2))
+            print("   (No tools found)")
+        
+        # 4. It's important to clean up the toolset resources
+        await exit_stack.aclose()
 
-    except httpx.RequestError as exc:
-        print(f"❌ An error occurred while requesting {exc.request.url!r}.")
-        print(f"Error: {exc}")
-    except httpx.HTTPStatusError as exc:
-        print(f"❌ Error response {exc.response.status_code} while requesting {exc.request.url!r}.")
-        print(f"Response content: {exc.response.text}")
-    except json.JSONDecodeError:
-        print("❌ Failed to decode the response as JSON. The tool specification may be invalid.")
-
-def display_agent_prompts():
-    """
-    Reads and displays the agent's prompts from the agent/prompts directory.
-    """
-    print("\n--- 🧠 Agent Prompts ---")
-    prompt_dir = "agent/prompts"
-    try:
-        prompt_files = [f for f in os.listdir(prompt_dir) if f.endswith('.txt')]
-        for file_name in sorted(prompt_files):
-            print(f"\n📜 Prompt: {file_name}")
-            print("-" * (11 + len(file_name)))
-            with open(os.path.join(prompt_dir, file_name), 'r') as f:
-                print(f.read())
-    except FileNotFoundError:
-        print(f"❌ Could not find the prompts directory at: {prompt_dir}")
     except Exception as e:
-        print(f"❌ An error occurred while reading prompts: {e}")
-    print("-----------------------")
-
+        print(f"\n❌ Error connecting or retrieving tools: {e}")
+        print("Make sure 'server.py' is running at the specified URL.")
 
 if __name__ == "__main__":
-    check_server_status()
-    extract_mcp_tools()
-    display_agent_prompts()
+    asyncio.run(connect_and_get_tools())
