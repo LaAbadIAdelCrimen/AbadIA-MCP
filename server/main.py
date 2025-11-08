@@ -32,12 +32,12 @@ from server.map_utils import draw_map_ascii
 session_id = None
 
 def sendCmd(url, command, type="json", mode="GET"):
-        global session_id
+        # global session_id
         cmd = "{}/{}"
         headers = {}
 
-        if session_id:
-           headers['X-Session-Id'] = session_id
+        # if session_idr:
+        #    headers['X-Session-Id'] = session_id
 
         if (type == "json"):
             headers['accept'] = 'application/json'
@@ -51,9 +51,9 @@ def sendCmd(url, command, type="json", mode="GET"):
                 r = requests.post(cmd.format(url, command), headers=headers)
             log.info(f"cmd ---> {cmd.format(url, command)} {mode} {r.status_code} {r.json()}")
 
-            if command == "abadIA/game" and r.status_code == 200:
-               session_id = r.headers.get('X-Session-Id')
-               log.info(f"New session ID: {session_id}")
+            # if command == "abadIA/game" and r.status_code == 200:
+            #    session_id = r.headers.get('X-Session-Id')
+            #    log.info(f"New session ID: {session_id}")
 
         except requests.exceptions.RequestException as e:
             log.error(f"Vigasoco comm error: {e}")
@@ -181,41 +181,49 @@ async def get_status():
 )
 async def reset_game():
     """
-    Resets the game by creating a new session and then sending reset commands.
+    Reset AbadIA game.
+    
+    Returns:
+        GameResponse with status and game data.
+        If there's an error, returns appropriate error status.
+    
+    Example response:
+        ```json
+        {
+            "status": "OK",
+            "data": {
+                "game_state": "reset",
+                "timestamp": "2024-03-21T10:00:00Z"
+            },
+            "message": "Game reset successfully"
+        }
+        ```
     """
-    global session_id
-    session_id = None
     try:
-        # Reset all internal MCP data first
+        # Reset all game data, including internal state
         reset_game_data()
-        initialize_map()
 
-        # Create a new game, which is essential for getting a new session ID
+        # don't touch the order of the commands
+        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
+        time.sleep(1)
+        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
         response = sendCmd(ABADIA_SERVER_URL, "abadIA/game", mode='POST')
-        
-        # Now, send the SPACE commands to navigate the game's main menu
-        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
-        time.sleep(0.5) # A small delay can help prevent race conditions
-        sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
-        time.sleep(0.5)
-
-        # Final status check
-        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", mode='GET')
         save_game_status(response)
 
         if response is None:
             raise HTTPException(
                 status_code=status.HTTP_502_BAD_GATEWAY,
-                detail="Failed to communicate with game server after reset."
+                detail="Failed to communicate with game server"
             )
         
         return GameResponse(
             status="OK",
-            data=response,
+            data=response if isinstance(response, dict) else {"raw_response": response},
             message="Game reset successfully"
         )
+    except HTTPException:
+        raise
     except Exception as e:
-        log.error(f"An error occurred during game reset: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
@@ -293,6 +301,132 @@ When you want to make an step need to send UP twice.
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
         )
+      
+@app.get(
+    "/game/move/{cmd}",
+    operation_id="send_move_cmd",
+    response_model=GameResponse,
+    status_code=status.HTTP_200_OK,
+    tags=["System"],
+    summary="Move Guillermo in a direction",
+    response_description="Move Guillermo in a direction and get the status as response"
+)
+async def send_move_cmd(cmd: str):
+    """
+    Move Guillermo in a direction.
+    
+    Args:
+        cmd: The command to send (e.g., N, NE, E, ES, S, SW, W, WN)
+    
+    N move Guillermo in the North direction 
+    NE move Guillermo in the North East direction 
+    E move Guillermo in the East direction 
+    ES move Guillermo in the East South direction 
+    S move Guillermo in the South direction 
+    SW move Guillermo in the South West direction 
+    W move Guillermo in the West direction 
+    WN move Guillermo in the West North direction 
+
+    Returns:
+        GameResponse with status and game data.
+        If there's an error, returns appropriate error status.
+    
+    Example usage:
+    
+        GET /game/move/NE
+        GET /game/move/S
+
+    """
+    path2Pos = {
+            "0N": "LEFT:UP:UP",
+            "1N": "UP:UP",
+            "2N": "RIGHT:UP:UP",
+            "3N": "RIGHT:RIGHT:UP:UP",
+
+            "0NE": "UP:UP:LEFT:UP:UP",
+            "1NE": "UP:UP:RIGHT:UP:UP",
+            "2NE": "RIGHT:UP:UP:RIGHT:UP:UP",
+            "3NE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
+
+            "0E": "UP:UP",
+            "1E": "RIGHT:UP:UP",
+            "2E": "RIGHT:RIGHT:UP:UP",
+            "3E": "LEFT:UP:UP",
+
+            "0SE": "UP:UP:RIGHT:UP:UP",
+            "1SE": "RIGHT:UP:UP:RIGHT:UP:UP",
+            "2SE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
+            "3SE": "UP:UP:LEFT:UP:UP",
+
+            "0S": "RIGHT:UP:UP",
+            "1S": "RIGHT:RIGHT:UP:UP",
+            "2S": "LEFT:UP:UP",
+            "3S": "UP:UP",
+
+            "0SW": "RIGHT:UP:UP:RIGHT:UP:UP",
+            "1SW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
+            "2SW": "UP:UP:LEFT:UP:UP",
+            "3SW": "UP:UP:RIGHT:UP:UP",
+
+            "0W": "RIGHT:RIGHT:UP:UP",
+            "1W": "LEFT:UP:UP",
+            "2W": "UP:UP",
+            "3W": "RIGHT:UP:UP",
+
+            "0NW": "LEFT:UP:UP:LEFT:UP:UP",
+            "1NW": "UP:UP:LEFT:UP:UP",
+            "2NW": "UP:UP:RIGHT:UP:UP",
+            "3NW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP"
+        }
+
+    try:
+        game_status = get_game_status()
+        if game_status and 'Personajes' in game_status:
+            personajes = game_status['Personajes']
+            guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
+            if guillermo:
+                orientation = guillermo['orientacion']
+            else:
+                log.warning(f"'move' command: Guillermo not found in game status.")
+                orientation = -1
+
+        if orientation != -1:
+            path_key = f"{orientation}{cmd}"
+            if path_key in path2Pos:
+                path_commands = path2Pos[path_key].split(':')
+                for command in path_commands:
+                    response = sendCmd(ABADIA_SERVER_URL, f"abadIA/game/current/actions/{command}", mode='POST')
+                    print(f"response CMD --> ({response})")
+                    time.sleep(0.1)
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"Invalid move command '{cmd}' for orientation '{orientation}'"
+                )
+
+        response = sendCmd(ABADIA_SERVER_URL, "abadIA/game/current", mode='GET')
+        print(f"response ---> {response}")
+        save_game_status(response)
+        if response is None:
+            raise HTTPException (
+                status_code=status.HTTP_502_BAD_GATEWAY,
+                detail="Failed to communicate with game server"
+            )
+        
+        return GameResponse(
+            status="OK",
+            data=response if isinstance(response, dict) else {"raw_response": response},
+            message=f"Command {cmd} sent successfully"
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )       
+
+
        
 @app.get("/internal_status", operation_id="get_internal_status", tags=["System"])
 def get_internal_status_data():
@@ -316,7 +450,7 @@ def get_map_ascii_data(
     floor: int = 0, 
     center_x: int = 134, 
     center_y: int = 170, 
-    cells: int = 30,
+    cells: int = 20,
     center_on_guillermo: bool = True
 ):
     """

@@ -65,6 +65,74 @@ DOWN for picking an object.
 
 When you want to make an step need to send UP twice. 
 
+#### `GET /game/move/{cmd}`
+
+*   **Description:** Sends high level command to the game.
+
+Valid moves are: "N", "NE", "E", "S" and "W"
+
+N move Guillermo in the North direction 
+NE move Guillermo in the North East direction 
+E move Guillermo in the East direction 
+ES move Guillermo in the East South direction 
+S move Guillermo in the South direction 
+SW move Guillermo in the South West direction 
+W move Guillermo in the West direction 
+WN move Guillermo in the West North direction 
+
+
+to move Guillermo is very important to take in account where is the direction he is facing. 
+the orientation field of Guillermo data tell as where is he facing. So if 
+the value is 0 he is facing E 
+the value is 1 he is facing N 
+the value is 2 he is facing W 
+the value is 3 he is facing S 
+
+So when he want to face north (1) and he is looking to E (1) he need to rotate to LEFT. 
+
+path2Pos = {
+            "0N": "LEFT:UP:UP",
+            "1N": "UP:UP",
+            "2N": "RIGHT:UP:UP",
+            "3N": "RIGHT:RIGHT:UP:UP",
+
+            "0NE": "UP:UP:LEFT:UP:UP",
+            "1NE": "UP:UP:RIGHT:UP:UP",
+            "2NE": "RIGHT:UP:UP:RIGHT:UP:UP",
+            "3NE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
+
+            "0E": "UP:UP",
+            "1E": "RIGHT:UP:UP",
+            "2E": "RIGHT:RIGHT:UP:UP",
+            "3E": "LEFT:UP:UP",
+
+            "0SE": "UP:UP:RIGHT:UP:UP",
+            "1SE": "RIGHT:UP:UP:RIGHT:UP:UP",
+            "2SE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
+            "3SE": "UP:UP:LEFT:UP:UP",
+
+            "0S": "RIGHT:UP:UP",
+            "1S": "RIGHT:RIGHT:UP:UP",
+            "2S": "LEFT:UP:UP",
+            "3S": "UP:UP",
+
+            "0SW": "RIGHT:UP:UP:RIGHT:UP:UP",
+            "1SW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
+            "2SW": "UP:UP:LEFT:UP:UP",
+            "3SW": "UP:UP:RIGHT:UP:UP",
+
+            "0W": "RIGHT:RIGHT:UP:UP",
+            "1W": "LEFT:UP:UP",
+            "2W": "UP:UP",
+            "3W": "RIGHT:UP:UP",
+
+            "0NW": "LEFT:UP:UP:LEFT:UP:UP",
+            "1NW": "UP:UP:LEFT:UP:UP",
+            "2NW": "UP:UP:RIGHT:UP:UP",
+            "3NW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP"
+
+        }
+
 ### Tool Endpoints
 
 ...
@@ -83,9 +151,10 @@ create a map of the game. Must be a json object with these features:
 
 one example of this could be: 
 map[0][23][12][{"height":12, "character": 1, "object": 0, "room": 23 }]
-the map object must be a valid json
+the map object must be a valid json and it is updated everytime we update the status of the game.
 
-we must be able to load and save a map by name from the directory named storage 
+
+we must be able to load and save a map by name from the directory named store 
 
 The server uses two main files for data management:
 

@@ -12,13 +12,12 @@ The AI agent is built primarily with these technologies:
 
 *   **Python 3.9+:** The core programming language.
 *   **Google Agents Developer Kit (ADK):** The framework used to build the AI agent. The ADK provides a structured way to define the agent's behavior, manage its tools, and interact with the underlying language model.
-*   **httpx:** A modern and fully featured HTTP client for Python, used to communicate with the MCP server's API.
+*   **MCPtools** from Google to connect with the Abadia MCP server
 
 ## 3. Project Structure
 
 The agent's code is located in the `agent/` directory and has the following structure:
 
-```
 agent/
 ├── __init__.py
 ├── agent.py
@@ -39,11 +38,7 @@ The agent's architecture is centered around the Google Agents Developer Kit and 
 
 The agent does not have hardcoded tools. Instead, it dynamically creates its tools based on the API provided by the MCP server. The `load_tools_from_mcp` function in `agent.py` is responsible for this process:
 
-1.  It makes a GET request to the `/mcp` endpoint of the MCP server to get the tool schemas.
-2.  It then iterates through the schemas and uses the `create_tool_function` to dynamically generate a Python function for each tool.
-3.  Each generated function is then registered as a tool with the ADK using the `@agent.tool` decorator.
-
-This approach makes the agent highly adaptable. If a new tool is added to the MCP server, the agent will automatically have access to it without requiring any code changes.
+For this task it will use MCPtools from google.
 
 ### The Main Execution Loop
 
