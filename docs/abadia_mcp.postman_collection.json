@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "abadia-mcp-collection",
+		"name": "AbadIA MCP Server",
+		"description": "Collection for the AbadIA MCP Server (FastAPI + SSE MCP)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "Get Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reset",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Internal Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/internal_status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"internal_status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Command",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/game/cmd/:cmd",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"game",
+								"cmd",
+								":cmd"
+							],
+							"variable": [
+								{
+									"key": "cmd",
+									"value": "UP",
+									"description": "UP, DOWN, LEFT, RIGHT, SPACE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movement",
+			"item": [
+				{
+					"name": "Move Cardinal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/game/move/:dir",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"game",
+								"move",
+								":dir"
+							],
+							"variable": [
+								{
+									"key": "dir",
+									"value": "N",
+									"description": "N, NE, E, SE, S, SW, W, NW"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Map",
+			"item": [
+				{
+					"name": "Get ASCII Map",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/map/ascii?floor=0&cells=20&center_on_guillermo=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"map",
+								"ascii"
+							],
+							"query": [
+								{
+									"key": "floor",
+									"value": "0"
+								},
+								{
+									"key": "cells",
+									"value": "20"
+								},
+								{
+									"key": "center_on_guillermo",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Map",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/map/save/:name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"map",
+								"save",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "snapshot"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Load Map",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/map/load/:name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"map",
+								"load",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "snapshot"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tools (Legacy REST)",
+			"item": [
+				{
+					"name": "Move to Location",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tools/move_to_location?location=library",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tools",
+								"move_to_location"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "library"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Investigate Location",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tools/investigate_location?location=church",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tools",
+								"investigate_location"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "church"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Talk to Character",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tools/talk_to_character?character=abbot",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tools",
+								"talk_to_character"
+							],
+							"query": [
+								{
+									"key": "character",
+									"value": "abbot"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Path",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tools/find_path_to_location?dest_x=134&dest_y=170&floor=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tools",
+								"find_path_to_location"
+							],
+							"query": [
+								{
+									"key": "dest_x",
+									"value": "134"
+								},
+								{
+									"key": "dest_y",
+									"value": "170"
+								},
+								{
+									"key": "floor",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MCP (SSE)",
+			"item": [
+				{
+					"name": "SSE Tool Stream",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/event-stream"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mcp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mcp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
