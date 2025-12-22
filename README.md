@@ -6,12 +6,19 @@ This project implements an AI agent that can play and solve the classic video ga
 
 ## Features
 
-*   **MCP Server:** A robust server that provides a clean interface for interacting with the game.
+*   **MCP Server:** A robust server that provides a clean interface for interacting with the game. The server exposes the following tools:
+    *   `move_to_location`: Moves the character to a named location.
+    *   `investigate_location`: Investigates a named location.
+    *   `talk_to_character`: Initiates a conversation with a character.
+    *   `get_full_game_state`: Gets the complete current state of the game.
+    *   `send_game_command`: Sends a single, low-level command to the game.
+
 *   **AI Agent:** An intelligent agent with capabilities for:
     *   Pathfinding
     *   Object interaction
     *   Puzzle solving
     *   Following the game's narrative
+    *   Planning different strategies based on the game context.
 *   **Real-time Game State Monitoring:** The agent has access to the complete and real-time state of the game.
 *   **Extensible Architecture:** The project is designed to be modular, allowing for the easy addition of new skills and behaviors to the agent.
 
@@ -27,6 +34,7 @@ Key responsibilities of the server include:
 *   **Executing High-Level Commands:** The server has endpoints like `/move_to/{location}` and `/investigate/{location}`. It contains the necessary logic (e.g., pathfinding, sequences of actions) to execute these commands.
 *   **Game State Management:** It provides a comprehensive view of the current game state through the `/tools/get_full_game_state` endpoint.
 *   **Abstracting the Game:** It hides the complexity of the underlying game, allowing the agent to interact with the world through a clean, high-level API.
+*   **Exposing Primitive Tools:** The server provides the fundamental building blocks for agent strategies.
 
 ### AI Agent (The "Strategic" Thinker)
 
@@ -46,6 +54,14 @@ This architecture makes the system more modular and robust. The agent can focus 
 *   **Google Agents Developer Kit (ADK):** The framework used to build the AI agent.
 *   **Pydantic:** For data validation and settings management.
 *   **Uvicorn:** An ASGI server for running the FastAPI application.
+
+## Documentation & Guidelines
+
+Detailed documentation and developer guidelines can be found in the `docs` directory:
+*   [Project Guidelines](file:///Users/juantomas/proyectos/AbadIA-MCP/docs/project.md): General project design principles.
+*   [Agent Guidelines](file:///Users/juantomas/proyectos/AbadIA-MCP/docs/agent_guidelines.md): Specifics for AI agent development.
+*   [MCP Server Guidelines](file:///Users/juantomas/proyectos/AbadIA-MCP/docs/mcp_server_guidelines.md): Technical details for the bridge server.
+*   [Specifications](file:///Users/juantomas/proyectos/AbadIA-MCP/docs/SPECS.md): Technical specs including data models and logic.
 
 ## Getting Started
 
