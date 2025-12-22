@@ -28,10 +28,10 @@
         - Truncate the grids for `game_map[1]` and `game_map[2]` to 100x100.
     11.5. [x] Review and confirm that the auto-save logic in `update_map_from_game_state` correctly saves the `game_map` to `current_map.json` whenever `numPantalla` changes.
 
-12. [ ] Integrate Google ADK MCPtools / Official MCP SDK for Server Access
-    12.1. [ ] Analyze the existing `FastApiMCP` integration and determine the necessary changes to switch to the official `mcp` SDK (FastMCP).
-    12.2. [ ] Refactor the server to use `FastMCP` while keeping FastAPI routes.
-    12.3. [ ] Implement SSE transport for better real-time support.
+12. [x] Integrate Google ADK MCPtools / Official MCP SDK for Server Access
+    12.1. [x] Analyze the existing `FastApiMCP` integration and determine the necessary changes to switch to the official `mcp` SDK (FastMCP).
+    12.2. [x] Refactor the server to use `FastMCP` while keeping FastAPI routes.
+    12.3. [x] Implement SSE transport for better real-time support.
     12.4. [x] Create a simple Python script (`scripts/check_connection.py`) to verify the connection.
     12.5. [x] Add comprehensive functional tests in `tests/test_functional_server.py`.
 
