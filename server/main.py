@@ -97,6 +97,19 @@ app = FastAPI(
 # For simplicity in this common pattern:
 # mcp.install(app) or similar if available, or just use SSE routes manually.
 # FastMCP provides an ASGI app that we can mount.
+@app.get("/mcp/tools", tags=["MCP"])
+async def list_mcp_tools():
+    """Returns the list of tools registered in FastMCP in a simple JSON format."""
+    tools = await mcp.list_tools()
+    return {"tools": [
+        {
+            "name": t.name,
+            "description": t.description,
+            "inputSchema": t.inputSchema
+        } for t in tools
+    ]}
+
+# Mounting the MCP server
 app.mount("/mcp", mcp.sse_app())
 
 @app.on_event("startup")
@@ -117,6 +130,10 @@ async def get_status():
     if response is None:
         raise HTTPException(status_code=502, detail="Failed to communicate with game server")
     return GameResponse(status="OK", data=response, message="Status fetched successfully")
+
+@app.get("/tools/get_full_game_state", response_model=GameResponse, tags=["Tools"])
+async def get_full_game_state_rest():
+    return await get_status()
 
 @app.get("/reset", response_model=GameResponse, tags=["System"])
 async def reset_game():
@@ -224,6 +241,15 @@ async def get_possible_moves_endpoint():
         return GameResponse(status="OK", data=res["data"], message="Possible moves calculated")
     else:
         return GameResponse(status="ERROR", message=res["message"])
+
+@app.get("/tools/get_possible_moves", response_model=GameResponse, tags=["Tools"])
+async def get_possible_moves_rest():
+    return await get_possible_moves_endpoint()
+
+@app.post("/tools/send_game_command", response_model=GameResponse, tags=["Tools"])
+async def send_game_command_rest(command: str):
+    send_game_command_internal(command)
+    return GameResponse(status="OK", message=f"Command {command} sent")
 
 if __name__ == "__main__":
     import uvicorn

@@ -31,7 +31,7 @@
 12. [ ] Integrate Google ADK MCPtools for Server Access
     12.1. [x] Analyze the existing `FastApiMCP` integration and determine the necessary changes to switch to the official `mcp` SDK (FastMCP).
     12.2. [x] Refactor the server to use `FastMCP` while keeping FastAPI routes.
-    12.3. [ ] Update the AI agent to use the new MCPtools for interacting with the server.
+    12.3. [x] Update the AI agent to use the new MCPtools for interacting with the server.
     12.4. [x] Create a simple Python script (`scripts/check_connection.py`) to verify the connection.
     12.5. [x] Add comprehensive functional tests in `tests/test_functional_server.py`.
 

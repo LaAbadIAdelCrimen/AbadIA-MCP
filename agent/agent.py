@@ -26,7 +26,7 @@ def create_tool_function(name, description, params):
         """A dynamically generated tool function."""
         try:
             # Make the API call to the MCP server
-            if params:
+            if params and params.get('properties'):
                 response = mcp_client.post(f"/tools/{name}", json=kwargs)
             else:
                 response = mcp_client.get(f"/tools/{name}")
@@ -42,21 +42,22 @@ def create_tool_function(name, description, params):
 def load_tools_from_mcp():
     """Fetches the tool definitions from the MCP server and creates them dynamically."""
     try:
-        headers = {"Accept": "application/mcp+json"}
-        response = mcp_client.get("/mcp", headers=headers)
+        response = mcp_client.get("/mcp/tools")
         response.raise_for_status()
-        tool_schemas = response.json()["tools"]
+        data = response.json()
+        tool_schemas = data.get("tools", [])
 
         for schema in tool_schemas:
-            tool_name = schema["function"]["name"]
-            description = schema["function"]["description"]
-            parameters = schema["function"]["parameters"]
+            tool_name = schema["name"]
+            description = schema["description"]
+            # inputSchema is the standard MCP field
+            parameters = schema.get("inputSchema", {})
             create_tool_function(tool_name, description, parameters)
 
     except httpx.RequestError as e:
         print(f"Error loading tools from MCP server: {e}")
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON from MCP server: {e}")
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"Error processing tools from MCP server: {e}")
 
 # --- Main Agent ---
 def run_abadia_agent():
