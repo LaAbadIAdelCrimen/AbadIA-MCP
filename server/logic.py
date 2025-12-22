@@ -90,14 +90,18 @@ def find_path_to_location_internal(dest_x: int, dest_y: int, floor: int = 0) -> 
 def heuristic(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-def get_neighbors(game_map, floor, node):
+def get_neighbors(game_map, floor, node, game_status, character_id, current_height):
     neighbors = []
-    for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+    # N, S, E, W
+    for dx, dy in [(0, -1), (0, 1), (1, 0), (-1, 0)]:
         x, y = node[0] + dx, node[1] + dy
-        if 0 <= x < len(game_map[floor][0]) and 0 <= y < len(game_map[floor]):
-            cell = game_map[floor][y][x]
-            if cell is None or cell.get('h', 0) < 16:
-                neighbors.append((x, y))
+        if check_volume_walkable(game_map, floor, x, y, current_height, character_id, game_status):
+            neighbors.append((x, y))
+    # Diagonal neighbors NE, SE, SW, NW
+    for dx, dy in [(1, -1), (1, 1), (-1, 1), (-1, -1)]:
+        x, y = node[0] + dx, node[1] + dy
+        if check_volume_walkable(game_map, floor, x, y, current_height, character_id, game_status):
+            neighbors.append((x, y))
     return neighbors
 
 def a_star_search(game_map, floor, start, end):
@@ -107,12 +111,18 @@ def a_star_search(game_map, floor, start, end):
     g_score = {start: 0}
     f_score = {start: heuristic(start, end)}
 
+    personajes = game_status.get('Personajes', [])
+    guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
+    if not guillermo: return None
+    gid = guillermo['id']
+    gh = guillermo.get('altura', 0)
+
     while open_list:
         _, current = heapq.heappop(open_list)
         if current == end:
             return reconstruct_path(came_from, current)
 
-        for neighbor in get_neighbors(game_map, floor, current):
+        for neighbor in get_neighbors(game_map, floor, current, game_status, gid, gh):
             tentative_g_score = g_score[current] + 1
             if tentative_g_score < g_score.get(neighbor, float('inf')):
                 came_from[neighbor] = current

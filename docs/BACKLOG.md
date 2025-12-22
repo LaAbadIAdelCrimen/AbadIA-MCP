@@ -4,9 +4,9 @@
    7.3. [x] The tool will take the destination coordinates as input and return a list of low-level commands.
    7.4. [x] Create a functional test for the new tool in `tests/test_functional_server.py`.
 
-8. [ ] Refactor the game map to reduce space.
+8. [x] Refactor the game map to reduce space.
     8.1. [x] Change the keys in the map structure from {"height":0,"character":0,"object":0,"room":0} to {"h":0,"c":0,"o":0,"r":0}.
-    8.2. [ ] If a cell has the value {"h":0,"c":0,"o":0,"r":0}, substitute it for null.
+    8.2. [x] If a cell has the value {"h":0,"c":0,"o":0,"r":0}, substitute it for null.
     8.3. [x] Refactor every part of the code that interacts with the game map to check if a cell is null and, if so, act as if it were {"h":0,"c":0,"o":0,"r":0}.
     8.4. [x] Update all the code involved in the refactoring.
 
@@ -19,8 +19,8 @@
     10.2. [x] Add the provided ANSI escape codes to the file.
     10.3. [x] Refactor the project to use the new color definitions.
 
-11. [ ] Implement map loading and truncation after game reset.
-    11.1. [ ] Modify the `reset_game` function in `server/main.py` to call a new map loading and processing function after `reset_game_data()`.
+11. [x] Implement map loading and truncation after game reset.
+    11.1. [x] Modify the `reset_game` function in `server/main.py` to call a new map loading and processing function after `reset_game_data()`.
     11.2. [x] Create a new function in `server/game_data.py` (e.g., `initialize_and_truncate_map`) that handles the loading logic.
     11.3. [x] In this new function, implement the logic to load `current_map.json` if it exists, otherwise fall back to loading `default_map.json`.
     11.4. [x] After the map is loaded, add logic to truncate the map data:

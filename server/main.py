@@ -121,6 +121,7 @@ async def get_status():
 @app.get("/reset", response_model=GameResponse, tags=["System"])
 async def reset_game():
     reset_game_data()
+    initialize_map()
     sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
     time.sleep(1)
     sendCmd(ABADIA_SERVER_URL, "abadIA/game/current/actions/SPACE", mode='POST')
