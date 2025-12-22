@@ -107,3 +107,5 @@
 
 25-10-17 01:00 - Intent: Add corrected auto-save task to TODO.md. - Action: Append to docs/TODO.md
 25-12-22 07:52 - Intent: Reorganize SPECS.md and update README.md to unify project documentation - Action: Reorganizing docs and merging specifications from GEMINI.md
+
+25-12-22 08: recruitment - Intent: Add functional tests to all server components and document server operation - Action: Creating tests/test_functional_server.py and docs/server_info.md
