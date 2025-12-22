@@ -28,7 +28,8 @@ from server.logic import (
     move_to_location_internal,
     investigate_location_internal,
     talk_to_character_internal,
-    find_path_to_location_internal
+    find_path_to_location_internal,
+    get_possible_moves_internal
 )
 
 # Load environment variables
@@ -77,6 +78,10 @@ async def find_path(dest_x: int, dest_y: int, floor: int = 0) -> str:
     if res["status"] == "OK":
         return f"Path found: {':'.join(res['data'])}"
     return f"Error: {res['message']}"
+@mcp.tool()
+async def get_possible_moves() -> Dict[str, Any]:
+    """Calculates all possible moves (basic and cardinal) for Guillermo's current state."""
+    return get_possible_moves_internal()
 
 
 # --- FastAPI Application ---
@@ -203,11 +208,21 @@ def rest_tool_talk(character: str):
     if res["status"] == "ERROR": raise HTTPException(status_code=400, detail=res["message"])
     return res
 
-@app.post("/tools/find_path_to_location", tags=["Tools"])
-def rest_tool_find_path(dest_x: int, dest_y: int, floor: int = 0):
+@app.post("/tools/find_path_to_location", response_model=GameResponse, tags=["Tools"])
+async def find_path_to_location(dest_x: int, dest_y: int, floor: int = 0):
     res = find_path_to_location_internal(dest_x, dest_y, floor)
-    if res["status"] == "ERROR": raise HTTPException(status_code=400, detail=res["message"])
-    return res
+    if res["status"] == "OK":
+        return GameResponse(status="OK", data=res["data"], message="Path found")
+    else:
+        return GameResponse(status="ERROR", message=res["message"])
+
+@app.get("/game/possible_moves", response_model=GameResponse, tags=["Tools"])
+async def get_possible_moves_endpoint():
+    res = get_possible_moves_internal()
+    if res["status"] == "OK":
+        return GameResponse(status="OK", data=res["data"], message="Possible moves calculated")
+    else:
+        return GameResponse(status="ERROR", message=res["message"])
 
 if __name__ == "__main__":
     import uvicorn

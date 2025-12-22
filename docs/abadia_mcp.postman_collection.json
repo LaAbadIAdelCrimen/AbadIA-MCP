@@ -116,6 +116,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Possible Moves",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/game/possible_moves",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"game",
+								"possible_moves"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

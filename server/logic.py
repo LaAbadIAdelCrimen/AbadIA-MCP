@@ -8,7 +8,8 @@ from server.game_data import (
     character_locations, 
     save_game_status,
     get_game_map,
-    get_game_status
+    get_game_status,
+    get_cell
 )
 
 def get_full_game_state_internal() -> dict:
@@ -138,3 +139,118 @@ def path_to_commands(path):
         elif dy == 1: commands.append("DOWN")
         elif dy == -1: commands.append("UP")
     return commands
+
+# --- New Movement Validation Logic ---
+
+def is_cell_occupied_by_any_character(x, y, floor, character_id, game_status):
+    """
+    Checks if a cell (x, y) is occupied by any character other than character_id.
+    Each character occupies a 2x2 (or 3x3 pattern as per specs) volume.
+    """
+    if not game_status or 'Personajes' not in game_status:
+        return False
+    
+    planta = game_status.get('Planta', 0)
+    if planta != floor:
+        return False
+
+    for p in game_status['Personajes']:
+        if p['id'] == character_id:
+            continue
+        
+        px, py = p['posX'], p['posY']
+        # Based on user spec: center + 4 corners
+        p_volume = [
+            (px, py),
+            (px + 1, py + 1),
+            (px - 1, py - 1),
+            (px + 1, py - 1),
+            (px - 1, py + 1)
+        ]
+        if (x, y) in p_volume:
+            return True
+    return False
+
+def check_volume_walkable(game_map, floor, x, y, current_height, character_id, game_status):
+    """
+    Checks if Guillermo's volume (5 cells) can move to a new position (x, y).
+    """
+    cells_to_check = [
+        (x, y),
+        (x + 1, y + 1),
+        (x - 1, y - 1),
+        (x + 1, y - 1),
+        (x - 1, y + 1)
+    ]
+    for cx, cy in cells_to_check:
+        # 1. Map boundaries
+        if not (0 <= floor < len(game_map) and 0 <= cy < len(game_map[floor]) and 0 <= cx < len(game_map[floor][cy])):
+            return False
+        
+        cell = get_cell(floor, cx, cy)
+        h = cell.get('h', 0)
+        
+        # 2. Height difference check (must be within +/- 2)
+        if abs(h - current_height) > 2:
+            return False
+        
+        # 3. Check for other characters
+        if is_cell_occupied_by_any_character(cx, cy, floor, character_id, game_status):
+            return False
+            
+    return True
+
+def get_possible_moves_internal() -> dict:
+    """
+    Calculates the possible moves from the current position.
+    Returns basic moves (UP, LEFT, RIGHT) and cardinal moves (N, NE, etc).
+    """
+    game_status = get_full_game_state_internal()
+    if not game_status:
+        return {"status": "ERROR", "message": "Could not fetch game status"}
+    
+    game_map = get_game_map()
+    if not game_map:
+        return {"status": "ERROR", "message": "Map not initialized"}
+
+    personajes = game_status.get('Personajes', [])
+    guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
+    if not guillermo:
+        return {"status": "ERROR", "message": "Guillermo not found"}
+
+    gx, gy = guillermo['posX'], guillermo['posY']
+    gh = guillermo.get('altura', 0)
+    go = guillermo.get('orientacion', 0) # 0:E, 1:N, 2:W, 3:S
+    floor = game_status.get('Planta', 0)
+    gid = guillermo['id']
+
+    cardinal_offsets = {
+        "N": (0, -1), "NE": (1, -1), "E": (1, 0), "SE": (1, 1),
+        "S": (0, 1), "SW": (-1, 1), "W": (-1, 0), "NW": (-1, -1)
+    }
+
+    possible_cardinal = []
+    for direction, (dx, dy) in cardinal_offsets.items():
+        if check_volume_walkable(game_map, floor, gx + dx, gy + dy, gh, gid, game_status):
+            possible_cardinal.append(direction)
+
+    # Basic moves: UP depends on orientation
+    # Orientations: 0: E, 1: N, 2: W, 3: S
+    orient_to_cardinal = {0: "E", 1: "N", 2: "W", 3: "S"}
+    forward_cardinal = orient_to_cardinal[go]
+    
+    possible_basic = []
+    if forward_cardinal in possible_cardinal:
+        possible_basic.append("UP")
+    
+    # LEFT and RIGHT just change orientation, assume always possible for now
+    possible_basic.append("LEFT")
+    possible_basic.append("RIGHT")
+
+    return {
+        "status": "OK",
+        "data": {
+            "basic_moves": possible_basic,
+            "cardinal_moves": possible_cardinal
+        }
+    }

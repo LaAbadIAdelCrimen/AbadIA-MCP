@@ -41,3 +41,8 @@
 
 14. [x] Generate Postman Collection
     14.1. [x] Create `docs/abadia_mcp.postman_collection.json` with all endpoints.
+
+15. [x] Implement Movement Validation Logic
+    15.1. [x] Update `docs/SPECS.md` with volume and height movement rules.
+    15.2. [x] Implement volume-based walkability and NPC collision logic in `server/logic.py`.
+    15.3. [x] Expose `get_possible_moves` as an MCP tool and FastAPI REST endpoint.
