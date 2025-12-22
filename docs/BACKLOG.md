@@ -46,3 +46,4 @@
     15.1. [x] Update `docs/SPECS.md` with volume and height movement rules.
     15.2. [x] Implement volume-based walkability and NPC collision logic in `server/logic.py`.
     15.3. [x] Expose `get_possible_moves` as an MCP tool and FastAPI REST endpoint.
+    15.4. [x] Refine volume logic to use 2x2 square pattern and check 8 cardinal directions.

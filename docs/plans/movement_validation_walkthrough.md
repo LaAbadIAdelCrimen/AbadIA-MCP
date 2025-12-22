@@ -4,17 +4,19 @@ I have implemented the complex movement validation logic as specified in the upd
 
 ## 1. Core Logic: `server/logic.py`
 
-### Volume-Based Collision Detection
-Implemented `check_volume_walkable` which checks a 5-cell pattern centered at the target position $(x, y)$:
+### 2x2 Square Volume Detection
+Implemented the 2x2 volume check as per `SPECS.md`, centered at the current coordinates where $(x, y)$ is the Top-Right corner of the square:
 - $(x, y)$
-- $(x+1, y+1)$
-- $(x-1, y-1)$
-- $(x+1, y-1)$
+- $(x-1, y)$
 - $(x-1, y+1)$
+- $(x, y+1)$
+
+### Bug Fix: Map Context
+Fixed a bug in `check_volume_walkable` where it was incorrectly using the global `game_map` instead of the one passed during pathfinding/analysis. This ensures that the A* search and the `get_possible_moves` tool use the exact same validated physical constraints.
 
 ### Constraints
-- **Height Delta**: The height of each of the 5 cells must be within $\pm 2$ of Guillermo's current height.
-- **NPC Collisions**: I implemented `is_cell_occupied_by_any_character` which iterates over all NPCs and checks if their 5-cell volumes overlap with Guillermo's target volume.
+- **Height Delta**: Verified that $|height_{cell} - current\_height| \le 2$ is checked for all 4 cells.
+- **NPC Collisions**: Improved `is_cell_occupied_by_any_character` to detect overlaps between the 2x2 volumes of Guillermo and any NPC.
 
 ### Move Calculation
 `get_possible_moves_internal` calculates:

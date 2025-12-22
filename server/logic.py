@@ -169,13 +169,12 @@ def is_cell_occupied_by_any_character(x, y, floor, character_id, game_status):
             continue
         
         px, py = p['posX'], p['posY']
-        # Based on user spec: center + 4 corners
+        # Based on user spec: 2x2 volume
         p_volume = [
             (px, py),
-            (px + 1, py + 1),
-            (px - 1, py - 1),
-            (px + 1, py - 1),
-            (px - 1, py + 1)
+            (px - 1, py),
+            (px - 1, py + 1),
+            (px, py + 1)
         ]
         if (x, y) in p_volume:
             return True
@@ -183,22 +182,22 @@ def is_cell_occupied_by_any_character(x, y, floor, character_id, game_status):
 
 def check_volume_walkable(game_map, floor, x, y, current_height, character_id, game_status):
     """
-    Checks if Guillermo's volume (5 cells) can move to a new position (x, y).
+    Checks if Guillermo's volume (2x2) can move to a new position (x, y).
+    The cells are: (x, y), (x-1, y), (x-1, y+1), (x, y+1)
     """
     cells_to_check = [
         (x, y),
-        (x + 1, y + 1),
-        (x - 1, y - 1),
-        (x + 1, y - 1),
-        (x - 1, y + 1)
+        (x - 1, y),
+        (x - 1, y + 1),
+        (x, y + 1)
     ]
     for cx, cy in cells_to_check:
         # 1. Map boundaries
         if not (0 <= floor < len(game_map) and 0 <= cy < len(game_map[floor]) and 0 <= cx < len(game_map[floor][cy])):
             return False
         
-        cell = get_cell(floor, cx, cy)
-        h = cell.get('h', 0)
+        cell = game_map[floor][cy][cx]
+        h = cell.get('h', 0) if cell else 0
         
         # 2. Height difference check (must be within +/- 2)
         if abs(h - current_height) > 2:

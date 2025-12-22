@@ -25,8 +25,8 @@ def test_movement_validation():
             {
                 "nombre": "Abbot",
                 "id": 1,
-                "posX": 136,
-                "posY": 165, # A few steps north
+                "posX": 137,
+                "posY": 168, # Blocks East
                 "altura": 0
             }
         ]
@@ -36,13 +36,10 @@ def test_movement_validation():
     # All height 0, except for some walls
     m_floor = [[{'h': 0, 'c': 0, 'o': 0, 'r': 23} for _ in range(256)] for _ in range(256)]
     
-    # Put a wall (height 5) at North (136, 167)
     # Guillermo is at 136, 168. To move North, he moves to 136, 167.
-    # His volume includes (136, 167), (137, 168), (135, 166), etc. (3x3 corners)
-    # Let's just make it simple: make a block of high height north of him.
-    for y in range(160, 165):
-        for x in range(130, 140):
-            m_floor[y][x]['h'] = 10 
+    # His 2x2 volume includes (136, 167), (135, 167), (135, 168), (136, 168).
+    # Let's put a wall at (135, 167) to block his volume.
+    m_floor[167][135]['h'] = 10 
 
     with patch('server.logic.get_full_game_state_internal', return_value=mock_status), \
          patch('server.logic.get_game_map', return_value=[m_floor]):
@@ -54,11 +51,17 @@ def test_movement_validation():
             print("Basic Moves:", result['data']['basic_moves'])
             print("Cardinal Moves:", result['data']['cardinal_moves'])
             
-            # Since North has characters and high height, check if North is excluded
+            # Check if North is blocked by Wall at (135, 167)
             if 'N' in result['data']['cardinal_moves']:
-                print("FAIL: North should be blocked by Abbot or Wall")
+                print("FAIL: North should be blocked by Wall")
             else:
-                print("SUCCESS: North is blocked as expected")
+                print("SUCCESS: North is blocked by Wall")
+            
+            # Check if East is blocked by Abbot at (137, 168)
+            if 'E' in result['data']['cardinal_moves']:
+                print("FAIL: East should be blocked by Abbot")
+            else:
+                print("SUCCESS: East is blocked by Abbot")
 
 if __name__ == "__main__":
     test_movement_validation()
