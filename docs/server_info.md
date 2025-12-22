@@ -4,10 +4,11 @@ This document provides a detailed technical overview of how the AbadIA MCP Serve
 
 ## 1. Architecture: FastAPI + MCP
 
-The server is built using **FastAPI** as the primary web framework. It integrates the **Model Control Program (MCP)** protocols via the `fastapi_mcp` library (or similar integration).
+The server is built using **FastAPI** as the primary web framework. It integrates the official **Model Context Protocol (MCP)** Python SDK via `FastMCP`.
 
 - **FastAPI Foundation**: Provides the REST API endpoints, automatic Swagger documentation (`/docs`), and request handling.
-- **MCP Layer**: Exposes specific endpoints as "tools" that can be dynamically called by LLM-based agents. It uses the `FastApiMCP` class to bridge FastAPI endpoints to MCP tools.
+- **MCP Layer (SSE)**: Exposes high-level tools via a dedicated **Server-Sent Events (SSE)** transport. The MCP application is mounted on `/mcp` and handles streaming communication.
+- **Dual Support**: The server maintains full compatibility with legacy REST clients while offering a modern, real-time interface for AI agents.
 
 ## 2. Core Logic
 

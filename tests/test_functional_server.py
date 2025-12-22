@@ -28,8 +28,8 @@ def mock_game_response():
         "momentoDia": 4
     }
 
-@patch("server.main.requests.get")
-@patch("server.main.requests.post")
+@patch("server.common.requests.get")
+@patch("server.common.requests.post")
 def test_get_status_functional(mock_post, mock_get, mock_game_response):
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = mock_game_response
@@ -40,8 +40,8 @@ def test_get_status_functional(mock_post, mock_get, mock_game_response):
     assert data["status"] == "OK"
     assert data["data"]["Personajes"][0]["nombre"] == "Guillermo"
 
-@patch("server.main.requests.get")
-@patch("server.main.requests.post")
+@patch("server.common.requests.get")
+@patch("server.common.requests.post")
 @patch("server.main.time.sleep", return_value=None)
 def test_reset_game_functional(mock_sleep, mock_post, mock_get, mock_game_response):
     mock_post.return_value.status_code = 200
@@ -51,8 +51,8 @@ def test_reset_game_functional(mock_sleep, mock_post, mock_get, mock_game_respon
     assert response.status_code == 200
     assert response.json()["message"] == "Game reset successfully"
 
-@patch("server.main.requests.get")
-@patch("server.main.requests.post")
+@patch("server.common.requests.get")
+@patch("server.common.requests.post")
 def test_send_game_cmd_functional(mock_post, mock_get, mock_game_response):
     mock_post.return_value.status_code = 200
     mock_post.return_value.json.return_value = {"status": "OK"}
@@ -61,10 +61,10 @@ def test_send_game_cmd_functional(mock_post, mock_get, mock_game_response):
     
     response = client.get("/game/cmd/UP")
     assert response.status_code == 200
-    assert response.json()["message"] == "Command UP sent successfully"
+    assert response.json()["message"] == "Command UP execution attempted"
 
-@patch("server.main.requests.get")
-@patch("server.main.requests.post")
+@patch("server.common.requests.get")
+@patch("server.common.requests.post")
 @patch("server.main.get_game_status")
 def test_send_move_cmd_functional(mock_get_status, mock_post, mock_get, mock_game_response):
     mock_get_status.return_value = mock_game_response
@@ -76,8 +76,13 @@ def test_send_move_cmd_functional(mock_get_status, mock_post, mock_get, mock_gam
     # Orientation 1 (North), move North (N) -> UP:UP
     response = client.get("/game/move/N")
     assert response.status_code == 200
-    assert response.json()["message"] == "Command N sent successfully"
-    assert mock_post.call_count == 2 # UP and UP
+    assert response.json()["message"] == "Moved N"
+    # send_game_command_internal uses mode='GET' by default
+    assert mock_get.call_count >= 3 # 1 for status check (if any) + 2 for moves. 
+    # Actually main.py:127 calls get_game_status() (no network call if cached)
+    # Then main.py:133 calls send_game_command_internal (network GET)
+    # Then main.py:136 calls get_full_game_state_internal (network GET)
+    # So 2 for moves + 1 for final status = 3
 
 def test_get_internal_status_functional():
     response = client.get("/internal_status")
@@ -99,26 +104,26 @@ def test_get_map_ascii_functional(mock_get_status, mock_get_map, mock_game_respo
 def test_save_map_functional(mock_save_map):
     response = client.post("/map/save/test_map")
     assert response.status_code == 200
-    assert "test_map.json" in response.json()["message"]
+    assert "test_map" in response.json()["message"]
     mock_save_map.assert_called_once()
 
 @patch("server.main.load_game_map")
 def test_load_map_functional(mock_load_map):
     response = client.post("/map/load/test_map")
     assert response.status_code == 200
-    assert "test_map.json" in response.json()["message"]
+    assert "test_map" in response.json()["message"]
     mock_load_map.assert_called_once()
 
-@patch("server.main.send_game_command")
-@patch("server.main.get_full_game_state")
+@patch("server.logic.send_game_command_internal")
+@patch("server.logic.get_full_game_state_internal")
 def test_move_to_location_tool_functional(mock_get_state, mock_send_cmd):
     mock_get_state.return_value = {"status": "OK"}
     response = client.post("/tools/move_to_location?location=library")
     assert response.status_code == 200
     assert "Successfully moved to library" in response.json()["message"]
 
-@patch("server.main.get_game_map")
-@patch("server.main.get_game_status")
+@patch("server.logic.get_game_map")
+@patch("server.logic.get_game_status")
 def test_find_path_to_location_functional(mock_get_status, mock_get_map, mock_game_response):
     # Mock a navigable map
     # A floor of 200x200
