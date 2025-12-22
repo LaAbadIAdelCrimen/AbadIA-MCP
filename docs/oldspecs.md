@@ -66,7 +66,7 @@ You must need this guidelines and the files are in the docs directory:
 
 1. On startup, you must read geminilog.md to understand the project's history.
 
-2. Before executing ANY file modification or command, you must first append a new entry to begining of the geminilog.md. This entry must include a timestamp (like this format YY-MM-DD HH:SS), your intent, and the specific action you are about to take.
+2. Before executing ANY file modification or command, you must first append a new entry to end of the geminilog.md. This entry must include a timestamp (like this format YY-MM-DD HH:SS), your intent, and the specific action you are about to take.
 
 read the TODO.md file and look for the actions not done. Propose me the task you want to execute and allow me to check it and aprove it. Just do one task each turn. 
 

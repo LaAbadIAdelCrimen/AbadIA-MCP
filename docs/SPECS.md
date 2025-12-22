@@ -82,3 +82,19 @@ The core data structure returned by the emulator:
 - **Backend**: Python 3.9+, FastAPI, Pydantic, Uvicorn.
 - **AI**: Google Agent Developer Kit (ADK), Gemini Pro.
 - **Interface**: MCP (Model Control Program) Server.
+
+## 7. Even && Odd
+
+- ** How the Guillermo character moves**: 
+    - The Guillermo character moves in a grid. 
+    - Only can move to a cell that is near him (up, down, left, right) (N,S,E,W, NW, NE, SW, SE)
+    - Need to check if the height of the cell is the more or less than 2 than the Guillermo character.
+    - If the height is more than 2, the Guillermo character can't move to that cell.
+    - If the height is less than 2, the Guillermo character can't move to that cell.
+    - The volumen of the Guillermo character is 2x2. So you need to check if the cell is free to move to it. The positions of the Guillermo character are: posX, posY and the rest of the volumen occupied by the character are:
+      posX-1, posY
+      posX-1, posY+1
+      posX, posY+1
+    - Before you move need to check the if all of the positions of the Guillermo character are free to move to it. And that is check if the height of the cell is the more or less than 2 than the Guillermo character. 
+    - If there is character near of Guillermo, apply the same logic to check if the character can move to that cell. They have a volumen of 2x2. So you can move to a cell occupied by a character. 
+  - 
