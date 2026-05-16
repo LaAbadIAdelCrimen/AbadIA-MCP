@@ -12,9 +12,13 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAIN_PROMPT_PATH = os.path.join(project_root, "agent/prompts/main.txt")
 GOALS_PATH = os.path.join(project_root, "game_data/goals.md")
 STRATEGIES_PATH = os.path.join(project_root, "game_data/strategies.md")
+PERSONA_PATH = os.path.join(project_root, "docs/specs/agent-persona.md")
+JOURNEYS_PATH = os.path.join(project_root, "docs/specs/agent-journeys.md")
 
 def load_file_content(path):
     """A helper function to load the content of a file."""
+    if not os.path.exists(path):
+        return ""
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
@@ -72,25 +76,31 @@ def run_abadia_agent():
     main_prompt = load_file_content(MAIN_PROMPT_PATH)
     goals = load_file_content(GOALS_PATH)
     strategies = load_file_content(STRATEGIES_PATH)
+    persona = load_file_content(PERSONA_PATH)
+    journeys = load_file_content(JOURNEYS_PATH)
 
     system_prompt = f"""
-    {main_prompt}
+    # YOUR IDENTITY (Agent Persona)
+    {persona if persona else main_prompt}
 
-    # Your Goals
+    # YOUR MISSION GOALS
     {goals}
 
-    # Available Strategies
+    # EXPLORATION PROTOCOLS (Agent Journeys)
+    {journeys}
+
+    # AVAILABLE STRATEGIES
     {strategies}
 
-    # Your Task
-    You must play the game to achieve your goals. You have access to a set of tools to interact with the game world.
+    # EXECUTION HARNESS
+    You must play the game to achieve your goals. You are governed by the Harness Engineering (HE v3.0) standards.
     
-    Follow these steps in a loop:
-    1.  **Analyze:** Use the `get_full_game_state` tool to understand your current situation.
-    2.  **Plan:** Based on the game state and your goals, choose a high-level strategy.
-    3.  **Execute:** Use `talk_to_character` to interact with people, `investigate_location` to explore, `move_to_location` for navigation, and `send_game_command` for other specific actions.
-
-    Now, begin.
+    Follow these steps in a continuous loop:
+    1.  **Analyze:** Use `get_full_game_state` to understand the 3D grid and NPC positions.
+    2.  **Plan:** Select an Agent Journey or Strategy based on the current Horarium.
+    3.  **Execute:** Use the appropriate tools (move_to, talk_to, investigate) respecting the 2x2 volume rule.
+    
+    Now, begin your investigation.
     """
     print("Agent initialized successfully.")
     
