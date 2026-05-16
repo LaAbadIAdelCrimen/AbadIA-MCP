@@ -11,6 +11,7 @@ Following the **Agent Legibility Gate (HE v3.0)**, the Vault is modularized into
 | [[security]] | Monastic compliance (Obsequium), data integrity, and safety policies. |
 | [[harness]] | Engineering lifecycle rules, Beyoncé Rule, and modularity constraints. |
 | [[build]] | Environment setup, deployment, and autonomous build pipeline. |
+| [[adrs/index]] | Architectural Decision Records (ADRs) - Historical decisions. |
 
 ## Purpose
 The Vault provides the **Deterministic Context** required to transform a Specification into a concrete Implementation Plan.
