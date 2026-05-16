@@ -16,5 +16,11 @@ How to transform high-level requirements into autonomous build tasks.
 - Only tools registered in `vault/services.md` are authorized for execution.
 - Ad-hoc scripts must live in `scripts/` and be documented in the Vault before use.
 
+## 4. HE v3.0 Iron Rules
+- **No Plan without Spec:** Plans (PLN) cannot be generated if the corresponding Spec is incomplete or unverified by the human-in-the-loop.
+- **Spec-to-Test Priority:** Every build task must start with a failing test derived directly from the Spec's "Verification" section.
+- **The Human Escalation:** If a task remains failing after 3 Ratchet cycles, or if a Spec is ambiguous, the agent MUST pause and ask for human clarification.
+- **Action-State Duality:** Every state change in the system MUST be traceable to an agent action (including NOP).
+
 ---
 *Ref: [[harness-taskification-protocol]]*
