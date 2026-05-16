@@ -2,7 +2,10 @@
 
 This is the canonical source of truth for all autonomous agents (Gemini-cli, Antigravity/Honcho, Claude Code, Hermes) operating on the abadIA project.
 
-## 1. The Rule of Perfect Grace
+## 1. The Karpathy Standard
+**Harness Over Prompt:** We follow Karpathy's Law: Optimizing the evaluation arnés and deterministic environment is more critical than optimizing individual prompts. An agent's capability is capped by the quality of its harness.
+
+## 2. The Rule of Perfect Grace
 **Zero Obsequium Loss Goal:** It is possible to complete the game with 100% obsequium. 
 - If `obsequium` decreases, a plan has failed retrospective validation.
 - Agents must use the **Persistence Harness** to save state before risky actions and rollback on failure.

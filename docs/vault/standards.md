@@ -2,6 +2,11 @@
 
 Persistence of visual and behavioral identity for agentic operations.
 
+## 0. Foundational Axioms (Karpathy's Laws)
+- **Harness Over Model:** The quality of the system is defined by its evaluation arnés, not just the LLM.
+- **Harness Over Prompt:** Investing in environment constraints is more durable than prompt engineering.
+- **Trajectory as Code:** Every interaction log is data for the next generation of the agent.
+
 ## 1. Lattice Design Tokens (Visual)
 Use these hex codes for all SVGs, diagrams, and UI components:
 - **Background (Deep Sea):** `#0f172a`
