@@ -11,6 +11,8 @@ These tools are exposed to the AI Agent for strategic interaction via the MCP pr
 | `get_full_game_state` | None | Retrieves the complete JSON state from the emulator. |
 | `send_game_command` | `command: str` | Sends low-level commands (UP, DOWN, LEFT, RIGHT, SPACE). |
 | `find_path` | `x, y, floor` | Calculates a path of commands to specific coordinates. |
+| `follow_character` | `character: str` | Continuously calculates paths to stay within 2-3 cells of an NPC. |
+| `toggle_adso` | None | Toggles Adso's state between Follow and Wait (S key). |
 | `get_possible_moves` | None | Calculates walkable directions from the current position. |
 
 ## 2. Endpoints (Legacy REST)
@@ -34,7 +36,7 @@ Implementation is **Done** when:
    curl -s http://localhost:8000/mcp/tools | jq .
    ```
    **Success Criteria:**
-   - The JSON output must list `move_to_location`, `investigate_location`, `talk_to_character`, `get_full_game_state`, `send_game_command`, `find_path`, `get_possible_moves`, and `toggle_adso`.
+   - The JSON output must list `move_to_location`, `investigate_location`, `talk_to_character`, `get_full_game_state`, `send_game_command`, `find_path`, `follow_character`, `get_possible_moves`, and `toggle_adso`.
 
 2. **Connectivity & Roundtrip:**
    Run the connection diagnostic:

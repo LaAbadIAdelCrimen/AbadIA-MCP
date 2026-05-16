@@ -4,8 +4,8 @@ The AbadIA environment is not just a 3D grid; it is a multisensory world. Follow
 
 ## 1. Acoustic Sensors (Sonidos)
 The game state returns a `sonidos` array. These correspond to acoustic signals (beeps, bells, steps).
-- **Bell (Campana):** Indicates a change in the `momentoDia`. Triggers an immediate "Plan Re-evaluation".
-- **NPC Steps:** Proximity of a monk outside the visual field. High risk in prohibited areas.
+- **Bell (Campana):** Indicates a change in the `momentoDia`. **Trigger:** Must interrupt any active pathfinding and force a "Plan Re-evaluation".
+- **NPC Steps:** Proximity of a monk outside the visual field. **Trigger:** Increase scanning frequency of NPC coordinates.
 
 ## 2. Narrative Sensors (Frases)
 The `frases` array contains IDs of text messages displayed in the game.
