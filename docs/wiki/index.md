@@ -6,6 +6,7 @@ Welcome to the central knowledge base of the **AbadIA** project. This wiki follo
 - [[harness-engineering-v3]]: Applying the 7 steps to a 1987 retro game.
 - [[monastic-dreamer]]: How the agent learns while "sleeping" via log analysis.
 - [[agent-sovereignty]]: Why the arnés rules the model, not the other way around.
+- [[agent-ux-methodology]]: User Personas & Journeys applied to Autonomous Agents.
 
 ## 2. Lore & Literature
 - [[the-name-of-the-rose]]: Comparisons between Umberto Eco's book and the game's implementation.
