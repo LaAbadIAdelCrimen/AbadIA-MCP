@@ -18,6 +18,7 @@ from server.game_data import (
     initialize_map,
     get_game_map,
     get_game_status,
+    get_cell,
     load_game_map
 )
 from server.internal_game_data import get_internal_game_data
@@ -43,6 +44,12 @@ mcp = FastMCP("AbadIA-MCP", instructions="Master Control Program for AbadIA Syst
 
 # Define MCP Tools using decorators
 @mcp.tool()
+async def toggle_adso() -> str:
+    """Toggles Adso between 'Follow' and 'Wait' states using the 'S' command."""
+    send_game_command_internal("S")
+    return "Adso toggle command 'S' sent."
+
+@mcp.tool()
 async def move_to_location(location: str) -> str:
     """Moves Guillermo to a named location (e.g., 'library', 'church')."""
     res = move_to_location_internal(location)
@@ -67,7 +74,7 @@ async def get_full_game_state() -> Dict[str, Any]:
 
 @mcp.tool()
 async def send_game_command(command: str) -> str:
-    """Sends a low-level command like UP, DOWN, LEFT, RIGHT, SPACE."""
+    """Sends a low-level command like UP, DOWN, LEFT, RIGHT, SPACE, S."""
     send_game_command_internal(command)
     return f"Command {command} sent."
 
@@ -78,6 +85,7 @@ async def find_path(dest_x: int, dest_y: int, floor: int = 0) -> str:
     if res["status"] == "OK":
         return f"Path found: {':'.join(res['data'])}"
     return f"Error: {res['message']}"
+
 @mcp.tool()
 async def get_possible_moves() -> Dict[str, Any]:
     """Calculates all possible moves (basic and cardinal) for Guillermo's current state."""
@@ -92,11 +100,6 @@ app = FastAPI(
 )
 
 # Mounting the MCP server (This enables SSE and other MCP routes)
-# In many FastMCP versions, you can mount it directly or use its ASGI app.
-# If FastMCP.mount() is available, we use it. Otherwise, we mount the ASGI.
-# For simplicity in this common pattern:
-# mcp.install(app) or similar if available, or just use SSE routes manually.
-# FastMCP provides an ASGI app that we can mount.
 @app.get("/mcp/tools", tags=["MCP"])
 async def list_mcp_tools():
     """Returns the list of tools registered in FastMCP in a simple JSON format."""
@@ -155,7 +158,6 @@ async def get_game_cmd(cmd: str):
 
 @app.get("/game/move/{cmd}", response_model=GameResponse, tags=["Movement"])
 async def move_cardinal(cmd: str):
-    # This logic still uses path2Pos for cardinal movement
     path2Pos = {
             "0N": "LEFT:UP:UP", "1N": "UP:UP", "2N": "RIGHT:UP:UP", "3N": "RIGHT:RIGHT:UP:UP",
             "0NE": "UP:UP:LEFT:UP:UP", "1NE": "UP:UP:RIGHT:UP:UP", "2NE": "RIGHT:UP:UP:RIGHT:UP:UP", "3NE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
@@ -250,6 +252,11 @@ async def get_possible_moves_rest():
 async def send_game_command_rest(command: str):
     send_game_command_internal(command)
     return GameResponse(status="OK", message=f"Command {command} sent")
+
+@app.post("/tools/toggle_adso", response_model=GameResponse, tags=["Tools"])
+async def toggle_adso_rest():
+    send_game_command_internal("S")
+    return GameResponse(status="OK", message="Adso toggle command 'S' sent")
 
 if __name__ == "__main__":
     import uvicorn
