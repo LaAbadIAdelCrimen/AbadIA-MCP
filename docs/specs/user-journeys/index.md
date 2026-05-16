@@ -9,6 +9,9 @@ Evolutive patterns of behavior based on game mechanics and HE v3.0 logic.
 | [[guillermo-03-reconocimiento-matutino]] | Morning Recon | Daily mapping of NPC shifts. |
 | [[guillermo-04-incursion-nocturna]] | Nightly Incursion | Stealth exploration of forbidden areas. |
 | [[guillermo-05-seguimiento-npc]] | NPC Shadowing | Following targets to discover secrets. |
+| [[adso-01-vigilancia-de-recursos]] | Resource Sentinel | Monitoring lamp and obsequium health. |
+| [[adso-02-sincronizacion-horarium]] | Monastic Clock | Syncing with bells and schedule changes. |
+| [[adso-03-seguimiento-y-seguridad]] | Context Keeper | Managing proximity to Guillermo. |
 | [[el-cronista-01-tamizado-causal]] | Causal Sieve | Processing logs for state changes. |
 | [[el-cronista-02-autopsia-del-fallo]] | Failure Autopsy | Post-mortem analysis of expelled sessions. |
 
