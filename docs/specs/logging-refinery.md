@@ -27,12 +27,37 @@ Each line must contain:
 - **Definition:** A NOP (No Operation) command must be sent if the agent needs to wait.
 - **Impact:** The log must capture how NPCs move during that NOP tick.
 
-## 4. Verification & DoD
-1. **Schema Validation:** `scripts/validate_logs.py` must pass with 0 errors.
-2. **Beyoncé Rule (Test):** `tests/test_logging_trigger.py` must prove that:
-   - A command results in exactly one log entry.
-   - A NOP command results in a state snapshot even if Guillermo is static.
-3. **Storage Efficiency:** Logs must be rotated if they exceed 50MB.
+## 4. Verification & Validation (Detailed)
+
+To verify the Logging Refinery implementation:
+
+1. **Trigger Validation:**
+   Execute a command and check the log file:
+   ```bash
+   curl -s http://localhost:8000/game/cmd/UP
+   tail -n 1 logs/game_trajectory.jsonl | jq .
+   ```
+   **Success Criteria:**
+   - A new line is appended to the log.
+   - The `action` field matches the command sent.
+   - Both `state_before` and `state_after` are populated and different (if Guillermo moved).
+
+2. **NOP Rule Test:**
+   Run the NOP validation script:
+   ```bash
+   python3 scripts/st_loop.py --nop-only --ticks 5
+   ```
+   **Success Criteria:**
+   - The log must contain 5 entries.
+   - The entries must show NPC movements in `state_after` while Guillermo's position remains constant in `state_before` and `state_after`.
+
+3. **Schema Compliance:**
+   Run the log validator:
+   ```bash
+   python3 scripts/validate_logs.py
+   ```
+   **Success Criteria:**
+   - 0 errors reported for the current `game_trajectory.jsonl`.
 
 ---
 *Status: Technical Contract | Ref: [[logging-refinery-spec]]*

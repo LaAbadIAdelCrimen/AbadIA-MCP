@@ -30,8 +30,29 @@ Guillermo and NPCs occupy a volume of 2x2 cells. A movement to `(x, y)` is only 
 - `(x-1, y+1)`
 - `(x, y+1)`
 
-## 4. Verification & Definition of Done (DoD)
-A movement implementation is considered **Done** only if:
-1. **Automated Unit Tests:** `tests/test_monastic_navigation.py` passes 100% of cases.
-2. **Cardinal Accuracy:** Command sequences result in correct emulator orientation.
-3. **Volume Integrity:** Guillermo never occupies a 1x1 gap.
+## 4. Verification & Validation (Detailed)
+
+To verify the correct implementation of the movement logic, follow these steps:
+
+1. **Static Validation (A* and Volume):**
+   Run the movement logic test script:
+   ```bash
+   python3 scripts/test_movement_logic.py
+   ```
+   **Success Criteria:**
+   - Output must show `SUCCESS: North is blocked by Wall` and `SUCCESS: East is blocked by Abbot`.
+   - The cardinal moves list must exclude directions that violate the 2x2 volume rule.
+
+2. **Functional Validation (Emulator Integration):**
+   Run the functional server tests:
+   ```bash
+   pytest tests/test_functional_server.py
+   ```
+   **Success Criteria:**
+   - `test_send_move_cmd_functional` must pass.
+   - Verify that sending a move command (e.g., `GET /game/move/N`) results in the correct sequence of `UP`, `LEFT`, or `RIGHT` commands being sent to the emulator (observed in `logs/server.log`).
+
+3. **In-Game Verification:**
+   - Use the `get_possible_moves` tool via the MCP client.
+   - Move Guillermo next to a character or a wall.
+   - Verify that the tool correctly identifies the blocked direction.

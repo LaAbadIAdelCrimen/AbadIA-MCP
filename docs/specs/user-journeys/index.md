@@ -9,6 +9,8 @@ Evolutive patterns of behavior based on game mechanics and HE v3.0 logic.
 | [[guillermo-03-reconocimiento-matutino]] | Morning Recon | Daily mapping of NPC shifts. |
 | [[guillermo-04-incursion-nocturna]] | Nightly Incursion | Stealth exploration of forbidden areas. |
 | [[guillermo-05-seguimiento-npc]] | NPC Shadowing | Following targets to discover secrets. |
+| [[guillermo-adso-04-el-hilo-de-ariadna]] | Ariadne's Thread | Using Adso as a landmark in the labyrinth. |
+| [[guillermo-adso-05-el-centinela-y-tapon]] | Sentinel & Bottleneck | Tactical blocking of corridors with Adso. |
 | [[adso-01-vigilancia-de-recursos]] | Resource Sentinel | Monitoring lamp and obsequium health. |
 | [[adso-02-sincronizacion-horarium]] | Monastic Clock | Syncing with bells and schedule changes. |
 | [[adso-03-seguimiento-y-seguridad]] | Context Keeper | Managing proximity to Guillermo. |

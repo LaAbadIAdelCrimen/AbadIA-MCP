@@ -24,8 +24,32 @@ The server uses **FastAPI** with **FastMCP** for SSE (Server-Sent Events) suppor
 - **Default Port:** 8000
 - **MCP Mount Point:** `/mcp`
 
-## 4. Verification & DoD
+## 4. Verification & Validation (Detailed)
+
 Implementation is **Done** when:
-1. **Tool Discovery:** `GET /mcp/tools` returns all tools with correct schemas.
-2. **Connectivity:** `scripts/check_connection.py` reports 100% success.
-3. **Payload Consistency:** Endpoints handle both CamelCase and lowercase keys gracefully.
+
+1. **Tool Discovery:**
+   Verify that the MCP server exposes all required tools:
+   ```bash
+   curl -s http://localhost:8000/mcp/tools | jq .
+   ```
+   **Success Criteria:**
+   - The JSON output must list `move_to_location`, `investigate_location`, `talk_to_character`, `get_full_game_state`, `send_game_command`, `find_path`, `get_possible_moves`, and `toggle_adso`.
+
+2. **Connectivity & Roundtrip:**
+   Run the connection diagnostic:
+   ```bash
+   python3 scripts/check_connection.py
+   ```
+   **Success Criteria:**
+   - 100% success rate for all endpoints.
+   - Latency for the roundtrip must be < 500ms.
+
+3. **Tool Functionality:**
+   Test a high-level tool via the REST fallback:
+   ```bash
+   curl -s -X POST "http://localhost:8000/tools/move_to_location?location=library"
+   ```
+   **Success Criteria:**
+   - The response message must indicate success.
+   - The game state (`GET /status`) must reflect that commands were sent.

@@ -16,10 +16,29 @@ The `frases` array contains IDs of text messages displayed in the game.
 Tracking the state of inventory as a survival constraint.
 - **The Lamp:** If objects include `lámpara`, check for state changes in the environment (luminosity).
 
-## 4. Verification & DoD
-- **Sound Mapping:** A dictionary mapping `sonido_id` to its meaning exists and is verified by the Dreamer.
-- **Dialogue Reaction:** Agent demonstrates a reaction to a specific `frase_id` (e.g., stopping movement when told "¡Guillermo!").
-- **Audit:** Post-session logs show that no more than 2 command cycles passed between an acoustic signal and the agent's acknowledgment.
+## 4. Verification & Validation (Detailed)
+
+To verify the experiential sensor integration:
+
+1. **Acoustic Trigger Test:**
+   Manually trigger a bell in the game or use a mock state with a `sonido_id` corresponding to a bell.
+   **Success Criteria:**
+   - The agent's log must show a log entry with the label `[RE-EVALUATION] Reason: Bell signal detected`.
+   - The goal stack must update based on the new `momentoDia`.
+
+2. **Dialogue Reaction:**
+   Wait for the Abbot to say "Sígueme" or "A la iglesia" (look for the specific `frase_id` in the game state).
+   **Success Criteria:**
+   - The agent must interrupt its current journey and switch to `guillermo-05-seguimiento-npc`.
+   - The distance between Guillermo and the Abbot must remain < 5 cells.
+
+3. **Sensor Log Audit:**
+   Run the experiential auditor:
+   ```bash
+   python3 scripts/dreamer.py --analyze-sensory
+   ```
+   **Success Criteria:**
+   - The report confirms that the delay between a sensor event (Sound/Phrase) and the corresponding agent action was < 3 command cycles.
 
 ---
 *Status: Multisensory Harness | Ref: [[experiential-sensors]]*
