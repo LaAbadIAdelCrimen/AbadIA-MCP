@@ -23,3 +23,9 @@ These tools are exposed to the AI Agent for strategic interaction via the MCP pr
 The server uses **FastAPI** with **FastMCP** for SSE (Server-Sent Events) support.
 - **Default Port:** 8000
 - **MCP Mount Point:** `/mcp`
+
+## 4. Verification & DoD
+Implementation is **Done** when:
+1. **Tool Discovery:** `GET /mcp/tools` returns all tools with correct schemas.
+2. **Connectivity:** `scripts/check_connection.py` reports 100% success.
+3. **Payload Consistency:** Endpoints handle both CamelCase and lowercase keys gracefully.

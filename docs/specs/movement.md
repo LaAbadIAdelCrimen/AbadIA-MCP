@@ -29,3 +29,9 @@ Guillermo and NPCs occupy a volume of 2x2 cells. A movement to `(x, y)` is only 
 - `(x-1, y)`
 - `(x-1, y+1)`
 - `(x, y+1)`
+
+## 4. Verification & Definition of Done (DoD)
+A movement implementation is considered **Done** only if:
+1. **Automated Unit Tests:** `tests/test_monastic_navigation.py` passes 100% of cases.
+2. **Cardinal Accuracy:** Command sequences result in correct emulator orientation.
+3. **Volume Integrity:** Guillermo never occupies a 1x1 gap.

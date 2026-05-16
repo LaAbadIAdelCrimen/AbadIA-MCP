@@ -11,6 +11,7 @@ This directory contains the historical record of architectural decisions for the
 | [[003-agent-ux-persona]] | Agent UX: Persona & Journeys for Autonomous Logic | Accepted |
 | [[004-mcp-server-spec]] | MCP Server as the Monastic Action Layer | Accepted |
 | [[005-st-loop-engine]] | Autonomous Planning Engine (ST-Loop) | Proposed |
+| [[006-experiential-harness]] | Multisensory Sensors and Evolutive Learning | Accepted |
 
 ---
 *Identity: Decision Traceability | Ref: [[adr-index]]*
