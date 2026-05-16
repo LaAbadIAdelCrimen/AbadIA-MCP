@@ -10,6 +10,7 @@ Welcome to the central knowledge base of the **AbadIA** project. This wiki follo
 
 ## 2. Lore & Literature
 - [[the-name-of-the-rose]]: Comparisons between Umberto Eco's book and the game's implementation.
+- [[los-creadores]]: Biografías de Paco Menéndez y Juan Delcán, los autores del juego.
 - [[william-of-baskerville]]: Analysis of the protagonist as an autonomous agent.
 - [[monastic-life]]: Historical context of Benedictine rules vs. game mechanics.
 
@@ -18,8 +19,9 @@ Welcome to the central knowledge base of the **AbadIA** project. This wiki follo
 - [[characters]]: NPC behavior patterns (The Abad, Jorge, Berengario).
 - [[objects]]: The lamp, the keys, and the manuscript.
 
-## 4. Operational Logs
+## 4. Operational Logs & Decisions
 - [[log]]: Daily progress of the project and the books' production.
+- [[adrs/index]]: Architecture Decision Records (ADRs) and technical history.
 
 ---
 *Identity: Knowledge-First Engineering*
