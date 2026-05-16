@@ -1,21 +1,26 @@
-# Vault: Standards & Design System
+# Vault: Standards & Lattice Design System
 
-This document governs the visual identity and behavioral consistency of the project.
+Persistence of visual and behavioral identity for agentic operations.
 
-## 1. Lattice Visual System
-- **Background:** `#0f172a` (Dark Navy)
-- **Primary (Action):** `#22d3ee` (Cyan)
-- **Success (Knowledge):** `#34d399` (Emerald)
-- **Strategic (Identity):** `#a78bfa` (Violet)
-- **Text:** `#f8fafc` (Slate)
+## 1. Lattice Design Tokens (Visual)
+Use these hex codes for all SVGs, diagrams, and UI components:
+- **Background (Deep Sea):** `#0f172a`
+- **Action (Neon Cyan):** `#22d3ee`
+- **Knowledge (Emerald Gate):** `#34d399`
+- **Strategy (Mystic Violet):** `#a78bfa`
+- **Alert (Amber Warning):** `#f59e0b`
+- **Error (Crimson Failure):** `#ef4444`
 
-## 2. Agent Identity
-- **Persona Contract:** Referenced in `docs/specs/agent-persona.md`.
-- **Constraint:** All agent outputs must align with the tone of William of Baskerville.
+## 2. Agent UX Components
+When the agent generates an interface or report:
+- **Header:** Title in JetBrains Mono, Bold.
+- **Charts:** Use Dark Mode by default.
+- **Tone:** William of Baskerville (Analytical/Sober).
 
-## 3. UX Protocols
-- **Agent Journeys:** Referenced in `docs/specs/agent-journeys.md`.
-- **Policy:** Exploration must be systematic and evolutive, not hardcoded.
+## 3. Naming Conventions
+- **Files:** `kebab-case` (e.g., `monastic-schedule.md`).
+- **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`).
+- **Tasks:** `[ID] Action: Target` (e.g., `[T-001] Refactor: MCP API`).
 
 ---
-*Ref: [[lattice-standards]]*
+*Ref: [[lattice-design-system]]*

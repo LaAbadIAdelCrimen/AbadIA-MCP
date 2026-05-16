@@ -1,20 +1,17 @@
-# Vault: Security & Compliance
+# Vault: Security & Monastic Policies
 
-Operational safety and game-rule compliance standards for the agent.
+Enforcing the "Safe Investigation" boundaries for the agent.
 
-## 1. Monastic Compliance (Obsequium)
-- **Threshold (Normal):** `> 15`. Safe for exploration.
-- **Threshold (Warning):** `10 - 15`. Prioritize rule-following (Mass/Cell).
-- **Threshold (Critical):** `< 10`. Mandatory return to cell or church. Immediate suspension of investigation.
+## 1. Monastic Safety (The Obsequium Harness)
+The agent is restricted by the abbey's rules.
+- **Rule A (Schedule):** No movement outside the cell during "Nocturnes" unless a `Forbidden_Exploration` protocol is active.
+- **Rule B (Adso):** Never move more than 5 cells away from Adso (`id: 1` in characters).
+- **Rule C (Abbot):** If the Abbot is in the same `numPantalla`, movement must be restricted to "Standard Compliance" (heading towards the church or refectory).
 
-## 2. Data Integrity
-- **JSON Schema Validation:** All responses from `/abadIA/game/current` must be validated against the `data-models.md` spec to prevent "hallucination loops".
-- **Path Verification:** No movement command is sent without 2x2 volume validation.
-
-## 3. Failure States
-- **Expulsion:** When Obsequium reaches 0.
-- **Capture:** Detection by the Abbot in forbidden areas (Library at night).
-- **Starvation:** Running out of "oil" for the lamp.
+## 2. Technical Security
+- **Command Gating:** `send_game_command` is rate-limited to 1 command per 200ms to prevent emulator desync.
+- **Data Gating:** Any state where `haFracasado: true` must trigger an immediate `Monastic_Dreamer` session to analyze the death-cause and update the Vault.
+- **Path Validation:** All `move_to` actions must be pre-validated by the `check_volume_walkable` logic in the Action Layer.
 
 ---
-*Ref: [[monastic-compliance]]*
+*Ref: [[monastic-security-policies]]*

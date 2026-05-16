@@ -10,6 +10,7 @@ Following the **Agent Legibility Gate (HE v3.0)**, the Vault is modularized into
 | [[standards]] | UI/UX (Lattice), Design Systems, and Agent Behavioral standards. |
 | [[security]] | Monastic compliance (Obsequium), data integrity, and safety policies. |
 | [[harness]] | Engineering lifecycle rules, Beyoncé Rule, and modularity constraints. |
+| [[build]] | Environment setup, deployment, and autonomous build pipeline. |
 
 ## Purpose
 The Vault provides the **Deterministic Context** required to transform a Specification into a concrete Implementation Plan.

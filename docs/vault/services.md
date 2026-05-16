@@ -1,23 +1,24 @@
-# Vault: Services & Infrastructure
+# Vault: Services & Infrastructure (Deep Technical)
 
-This document defines the connection contracts for all external and internal services required by the AbadIA Agent.
+Detailed connection contracts for the AbadIA environment.
 
 ## 1. Game Emulator (AbadIA-Server)
-- **Primary Endpoint:** `http://localhost:4477`
-- **Protocol:** REST / JSON
-- **Health Check:** `GET /abadIA/game/current`
-- **Responsibilities:** Emulates the original 1987 game logic and 3D grid.
+- **URL:** `http://localhost:4477`
+- **Primary Endpoint:** `GET /abadIA/game/current`
+- **Actions Endpoint:** `POST /abadIA/game/current/actions/{CMD}`
+  - Valid CMDs: `UP`, `DOWN`, `LEFT`, `RIGHT`, `SPACE`.
+- **Map Endpoint:** `GET /abadIA/game/map` (Returns the full 3D matrix).
 
 ## 2. MCP Bridge (AbadIA-MCP)
-- **Primary Endpoint:** `http://localhost:8000`
-- **Protocol:** MCP (Model Control Program) over SSE
-- **Mount Point:** `/mcp`
-- **Responsibilities:** Translates high-level agent tools into emulator actions.
+- **URL:** `http://localhost:8000`
+- **Spec:** SSE (Server-Sent Events) via FastMCP.
+- **Tools Schema:** Available at `GET /mcp/tools`.
+- **SSE Stream:** `GET /mcp/sse`.
 
-## 3. Storage & Persistence
-- **Map Data:** `~/abadIA-MCP/game_data/map.json`
-- **State Logs:** `~/abadIA-MCP/storage/`
-- **Format:** Standard JSON (case-sensitive characters/personajes).
+## 3. Knowledge Context
+- **Wiki Root:** `~/abadIA-MCP/docs/wiki/`
+- **Vault Root:** `~/abadIA-MCP/docs/vault/`
+- **Log Sink:** `~/abadIA-MCP/storage/session_logs.jsonl`
 
 ---
-*Ref: [[service-contracts]]*
+*Ref: [[service-contracts-detailed]]*

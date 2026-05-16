@@ -1,23 +1,20 @@
-# Vault: Harness Engineering Policies
+# Vault: Harness & Taskification Protocol
 
-The engineering lifecycle rules for the abadIA project.
+How to transform high-level requirements into autonomous build tasks.
 
-## 1. The Beyoncé Rule
-- **Standard:** "If you liked it, you should have put a test on it."
-- **Policy:** No logic is implemented without a corresponding failing test in `tests/`.
+## 1. The Spec-to-Task Loop (ST-Loop)
+1. **Spec Identification:** Locate the modular spec in `docs/specs/`.
+2. **ADR Link:** Verify the architectural decision in `docs/adrs/`.
+3. **Task Decomposition:** Split the build into tasks < 50 lines of code change.
+4. **Harness First:** Define the success criteria (tests) in the `TODO.md`.
 
-## 2. Agent Legibility Gate
-- **Standard:** Files must be strictly under 200 lines.
-- **Policy:** If a file exceeds 150 lines, it must be audited for refactoring into a modular "Index-Pointer" pattern.
+## 2. The Ratchet Mechanism (Quality Control)
+- **Standard:** If a task fails 3 times, it must be "demoted" back to a Research task in the Hub.
+- **Refinement:** The agent must update the corresponding `docs/specs/` file with the pitfall found before attempting the task again.
 
-## 3. HE v3.0 Steps
-1. **Anti-rationalization** (Question the current state).
-2. **Spec** (Contracting).
-3. **Plan** (Atomicity).
-4. **Harness** (Testing).
-5. **Build** (Modular implementation).
-6. **Test** (Verification).
-7. **Distill** (Skillify).
+## 3. Toolset Authorization
+- Only tools registered in `vault/services.md` are authorized for execution.
+- Ad-hoc scripts must live in `scripts/` and be documented in the Vault before use.
 
 ---
-*Ref: [[harness-policies]]*
+*Ref: [[harness-taskification-protocol]]*
