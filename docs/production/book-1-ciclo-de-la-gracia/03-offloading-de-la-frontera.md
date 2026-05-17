@@ -1,11 +1,20 @@
-# Capítulo 2: El Offloading de la Frontera
+# Capítulo 3: El Offloading de la Frontera (Descarga Cognitiva)
 
-La eficiencia agéntica depende de saber qué tareas debe realizar el modelo y cuáles deben ser delegadas al **Harnés Determinista**.
+En la Ingeniería de Arnés (HE) v3.0, la descarga cognitiva no es un lujo, es una estrategia de supervivencia para agentes soberanos. Un agente que intenta procesar todo internamente acaba sufriendo de "Cognitive Overload".
 
-## Descarga de Cognición
-El modelo (LLM) es excelente para razonar pero propenso a errores en cálculos o procesos repetitivos. El Offloading consiste en:
-1. **Herramientas de Verificación:** Delegar el análisis de tipos o linting a herramientas externas (Ruff, Pytest).
-2. **Scripts Deterministas:** Usar Python para parsear logs complejos en lugar de pedirle al LLM que los "resuma".
-3. **Caché de Contexto:** Mantener el Vault y los ADRs actualizados para que el agente no tenga que "redescubrir" la arquitectura en cada turno.
+## 1. El Catálogo de Herramientas Deterministas
+Debemos delegar toda tarea que tenga un resultado binario o estructural a herramientas externas al LLM:
+- **Linting (Ruff/ESLint):** No le pidas al modelo que "revise el estilo". Pídele que ejecute el linter y corrija según el output.
+- **Tipado Estático (Mypy/Pyright):** Delegamos la consistencia de tipos al compilador o analizador.
+- **Seguridad (Safety/Bandit):** La detección de vulnerabilidades es una tarea de escaneo, no de inferencia.
 
-Al descargar la frontera de ejecución en el harnés, liberamos el contexto del agente para lo que realmente importa: la resolución de problemas de alto nivel.
+## 2. El ROI del Offloading
+Cada token que el agente no usa para "pensar" en la sintaxis, lo usa para "razonar" sobre la arquitectura. 
+- **Ahorro de Contexto:** 40% de reducción en el uso de la ventana de contexto.
+- **Fiabilidad:** Las herramientas deterministas tienen un 100% de precisión en su dominio, frente al ~85% del LLM en tareas mecánicas.
+
+## 3. Implementación del "Harnés de Herramientas"
+El agente debe tener un skill de `tool-orchestrator` que:
+1. Detecte el lenguaje del archivo.
+2. Identifique las herramientas instaladas en el entorno.
+3. Ejecute la cadena de mando (Scan -> Report -> Fix).

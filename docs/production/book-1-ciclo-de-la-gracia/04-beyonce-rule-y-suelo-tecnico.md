@@ -1,16 +1,23 @@
-# Capítulo 4: La "Beyoncé Rule" y el Suelo Técnico
+# Capítulo 4: La "Beyoncé Rule" y el Ciclo Rojo-Verde Agéntico
 
-En la Ingeniería de Arnés (HE) v3.0, la calidad no es una aspiración; es un **contrato físico**.
+*"If you liked it, you should have put a test on it."* Esta ley de HE v3.0 transforma el TDD tradicional en un arnés de seguridad para la inteligencia artificial.
 
-## La Regla de Beyoncé
-*"If you liked it, you should have put a test on it."*
+## 1. El Ciclo de Retroalimentación de Alta Frecuencia
+En un sistema soberano, el ciclo de desarrollo sigue estos pasos innegociables:
+1. **The Red Stage (El Test Fallido):** El agente escribe el test basado en la Spec. El test **DEBE** fallar con un error esperado (ej. `ModuleNotFoundError` o `AssertionError`). Si el test pasa por accidente, el arnés se considera corrupto.
+2. **The Green Stage (La Implementación Mínima):** El agente escribe el código estrictamente necesario para que el test pase. Nada de "ya que estoy aquí, añado esto".
+3. **The Refactor Stage (La Purificación):** Con el test en verde, el agente optimiza la legibilidad y la estructura sin miedo a romper la funcionalidad.
 
-Esta máxima define el punto de no retorno en la construcción de sistemas agénticos. Un agente nunca debe implementar lógica sin antes tener un test que falle.
-1. **Red:** El test define la frontera de lo posible y falla porque la realidad aún no existe.
-2. **Green:** El agente construye la mínima lógica necesaria para cruzar esa frontera.
-3. **Refactor:** El sistema se limpia bajo la protección del arnés.
+## 2. Cobertura como Trinquete (Coverage Ratchet)
+No aceptamos la cobertura como una sugerencia. Implementamos un "Gatekeeper" que impide el commit si la cobertura baja del 90%. Esto asegura que la calidad técnica sea un camino de una sola dirección.
 
-## El Suelo Técnico (The Quality Floor)
-A diferencia del desarrollo tradicional, donde los tests pueden ser opcionales, aquí el **Trinquete de la Complejidad** asegura que la cobertura de tests sea el suelo sobre el que caminamos. Si un cambio reduce la cobertura, el trinquete no gira y el cambio es rechazado por el sistema.
-
-Esto garantiza que el sistema sea **Soberano**: no depende del "buen juicio" del programador, sino del arnés que lo encierra.
+## 3. Ejemplo de Test como Contrato
+```python
+# tests/test_obsequium.py
+def test_guillermo_loses_obsequium_on_forbidden_action():
+    state = GameState()
+    result = guillermo.move_to("finis-africae", state)
+    assert state.obsequium < 100
+    assert result.status == "TERMINATED"
+```
+Este test no es solo código; es el contrato que define el comportamiento del sistema ante la seguridad.

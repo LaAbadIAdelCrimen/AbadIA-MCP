@@ -1,20 +1,21 @@
-# Capítulo 6: La Autopsia del Error y el Linter de Arquitectura
+# Capítulo 5: La Autopsia del Error y el Rol de El Cronista
 
-El Cronista no duerme, o más bien, su sueño es una vigilia analítica. En este capítulo exploramos cómo el sistema realiza su propia autopsia técnica.
+Cuando el arnés falla, el agente no debe intentar "arreglarlo rápido". Debe iniciar un procedimiento técnico-forense: la **Autopsia del Error**.
 
-## El Linter de Arquitectura
-Un repositorio agéntico es un ecosistema vivo. Si el código crece sin control, el agente pierde la **Legibilidad**. El Cronista aplica el **Gatekeeper de las 200 líneas** para asegurar que cada átomo de conocimiento sea procesable.
+## 1. El Rol de El Cronista de la Arquitectura
+El Cronista es un rol agéntico especializado en el análisis de causalidad. Su flujo de trabajo es:
+- **Punto de Impacto:** Identificar el tick exacto o la línea de log donde el sistema divergió de la Spec.
+- **Rastro de Tracing:** Seguir el identificador de correlación a través de los subagentes involucrados.
+- **Análisis de Raíz (RCA):** Clasificar el error (¿Fallo de Spec? ¿Alucinación de herramienta? ¿Regresión de código?).
 
-## Resultados de la Primera Auditoría
-# Reporte de Sueño (Capa 8): Auditoría Técnica de El Cronista
+## 2. El Informe de Autopsia
+Cada fallo crítico debe generar un `docs/wiki/post-mortems/YYYYMMDD-error-report.md`. Este informe alimenta la **Capa 8** durante el ciclo de sueño.
 
-## 1. Verificación de Legibilidad Agéntica (< 200 líneas)
-✅ Todos los archivos cumplen la regla de las 200 líneas.
-
-## 2. Detección de Deuda de Skillify
-- **GITHUB_AUTH**: El proceso de actualización del PAT fue manual e iterativo. Se propone crear `skills/github-credential-manager` para automatizar la limpieza de caches y la inyección de tokens.
-
-## 3. Registro de Decisiones (ADRs)
-- **Falta ADR**: Decisión de unificación de repositorios (Consolidación en MCP).
-- **Falta ADR**: Implementación de la Capa 8 (GBrain Layer 8).
-
+## 3. Ejemplo de Procedimiento Forense
+```bash
+# Comando de El Cronista para detectar el origen del mal
+grep -r "ERROR" logs/ | sort | head -n 10
+# Comparar log de ejecución con el grafo de navegación esperado
+diff logs/actual_path.json specs/expected_path.json
+```
+La autopsia es lo que permite que el error de hoy sea el skill de mañana.
