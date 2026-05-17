@@ -1,4 +1,18 @@
-# Capítulo 7: Las Puertas Prohibidas y el Censor (Los Guardrails)
+---
+chapter: 7
+title: "Las Puertas Prohibidas y el Censor"
+quote: "Jorge no es nuestro enemigo, Adso; es nuestra última línea de defensa contra nosotros mismos."
+illustration_prompt: "El anciano Jorge de Burgos sentado ante una cortina de terciopelo negro, levantando una mano seca para detener a Guillermo y Adso en un pasillo oscuro."
+---
+
+# Capítulo 7: Las Puertas Prohibidas y el Censor
+
+> *"Jorge no es nuestro enemigo, Adso; es nuestra última línea de defensa contra nosotros mismos."*
+
+![[cap-7-illustration.png]]
+
+---
+
 
 La biblioteca era un laberinto de sombras que devoraba la luz de las lámparas. Guillermo se detuvo ante una pesada cortina de terciopelo que ocultaba el acceso al ala más antigua. Allí, sentado en un taburete de piedra que parecía una extensión de la roca, estaba Jorge de Burgos. El anciano monje, cuya ceguera parecía dotarle de una visión interna aterradora, levantó su mano seca y nudosa.
 

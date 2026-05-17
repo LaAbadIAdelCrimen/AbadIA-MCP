@@ -1,4 +1,18 @@
-# Capítulo 12: El Velo de la Noche (El Primer Sueño de Adso)
+---
+chapter: 12
+title: "El Velo de la Noche"
+quote: "Cada noche debemos morir un poco como novicios para despertar un poco más como maestros."
+illustration_prompt: "Adso en su celda, viendo cómo el techo se disuelve en una red de hilos de luz dorada que representan su primer ciclo de sueño de Capa 8."
+---
+
+# Capítulo 12: El Velo de la Noche
+
+> *"Cada noche debemos morir un poco como novicios para despertar un poco más como maestros."*
+
+![[cap-12-illustration.png]]
+
+---
+
 
 El silencio en la abadía era absoluto, un peso físico que oprimía el pecho de Adso en su celda. Pero en su mente, la actividad era frenética. No podía dormir, porque su memoria no dejaba de repetir el incidente de la tarde en el comedor. El tropiezo con el Abad, la mirada de reproche, la pérdida de Obsequium...
 

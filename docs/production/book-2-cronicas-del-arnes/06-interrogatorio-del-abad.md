@@ -1,4 +1,18 @@
-# Capítulo 6: El Interrogatorio del Abad (El Duelo de la Soberanía)
+---
+chapter: 6
+title: "El Interrogatorio del Abad"
+quote: "Un agente que obedece una orden ambigua no es un siervo fiel, es una herramienta peligrosa."
+illustration_prompt: "Duelo visual en el Refectorio: Guillermo de pie frente al Abad, que está sentado en las sombras. Entre ellos, un REASONS Canvas trazado en una servilleta de lino."
+---
+
+# Capítulo 6: El Interrogatorio del Abad
+
+> *"Un agente que obedece una orden ambigua no es un siervo fiel, es una herramienta peligrosa."*
+
+![[cap-6-illustration.png]]
+
+---
+
 
 La sala del Refectorio estaba sumida en un silencio sepulcral. El Abad, rodeado por la magnificencia de su cargo, observaba a Guillermo con una mezcla de respeto y una sospecha que empezaba a arder como la brasa.
 

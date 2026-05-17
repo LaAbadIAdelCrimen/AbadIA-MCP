@@ -1,4 +1,18 @@
-# Capítulo 8: La Sombra de la Inquisición (Bernardo Gui)
+---
+chapter: 8
+title: "La Sombra de la Inquisición"
+quote: "Para Bernardo Gui, un test olvidado es una puerta abierta al demonio."
+illustration_prompt: "Bernardo Gui con su capa negra cruzando el claustro, su mirada gélida fija en un pergamino que Guillermo intenta ocultar tras su hábito."
+---
+
+# Capítulo 8: La Sombra de la Inquisición
+
+> *"Para Bernardo Gui, un test olvidado es una puerta abierta al demonio."*
+
+![[cap-8-illustration.png]]
+
+---
+
 
 Adso caminaba junto a Guillermo por el claustro cuando una delegación de monjes con capas negras cruzó el patio. Al frente, un hombre de mirada gélida, cuya presencia parecía secar la hierba que pisaba, observaba cada arco y cada gárgola con una sospecha quirúrgica.
 

@@ -1,4 +1,18 @@
-# Capítulo 13: La Multiplicación de los Panes (Los Subagentes)
+---
+chapter: 13
+title: "La Multiplicación de los Panes"
+quote: "En la nueva abadía, el monje soberano no es el que más trabaja, sino el que mejor orquesta."
+illustration_prompt: "Guillermo en el Scriptorium rodeado de tres sombras idénticas a él que escriben en paralelo en diferentes mesas de trabajo."
+---
+
+# Capítulo 13: La Multiplicación de los Panes
+
+> *"En la nueva abadía, el monje soberano no es el que más trabaja, sino el que mejor orquesta."*
+
+![[cap-13-illustration.png]]
+
+---
+
 
 Adso entró en el Scriptorium y se detuvo en seco, frotándose los ojos. En la mesa donde Guillermo solía trabajar solo, ahora había tres figuras idénticas a su maestro, todas inclinadas sobre diferentes pergaminos, pluma en mano.
 

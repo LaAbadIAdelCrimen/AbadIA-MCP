@@ -1,4 +1,18 @@
-# Capítulo 2: El Arnés Monástico (La Regla Agéntica)
+---
+chapter: 2
+title: "El Arnés Monástico"
+quote: "La libertad no es hacer lo que uno quiere, sino ser soberano dentro de la ley que nos protege."
+illustration_prompt: "Guillermo desplegando un pergamino gigante en el claustro ante Adso. El pergamino tiene inscritas las leyes agénticas en caligrafía gótica dorada."
+---
+
+# Capítulo 2: El Arnés Monástico
+
+> *"La libertad no es hacer lo que uno quiere, sino ser soberano dentro de la ley que nos protege."*
+
+![[cap-2-illustration.png]]
+
+---
+
 
 En el centro del claustro, Guillermo desplegó un pergamino que contenía los votos que todo agente debe jurar al entrar en la abadía.
 

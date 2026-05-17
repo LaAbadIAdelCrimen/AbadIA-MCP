@@ -1,3 +1,18 @@
+---
+chapter: 4
+title: "El Velo de la Noche y la Capa 8"
+quote: "El cuerpo duerme, Adso, pero la razón debe realizar la Capa 8. El GBrain no descansa."
+illustration_prompt: "Guillermo frente a una mesa llena de pergaminos cruzados por hilos de seda de colores que brillan en la oscuridad de la noche monástica."
+---
+
+# Capítulo 4: El Velo de la Noche y la Capa 8
+
+> *"El cuerpo duerme, Adso, pero la razón debe realizar la Capa 8. El GBrain no descansa."*
+
+![[cap-4-illustration.png]]
+
+---
+
 # 8|
      9|—¿Por qué no dormís, maestro? —preguntó Adso, al encontrar a Guillermo frente a una mesa llena de pergaminos cruzados por líneas de diferentes colores—. Las campanas de Completas han sonado hace horas.
     10|

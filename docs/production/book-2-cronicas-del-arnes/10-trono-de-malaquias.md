@@ -1,4 +1,18 @@
-# Capítulo 10: El Trono de Malaquías (El Scriptorium de la Verdad)
+---
+chapter: 10
+title: "El Trono de Malaquías"
+quote: "La soberanía no es inventar la lógica cada mañana, sino construir sobre la base de lo que ya ha sido verificado."
+illustration_prompt: "Malaquías sentado ante el Catálogo Mayor, un libro gigante encuadernado en cuero. La luz de una ventana alta ilumina el polvo en suspensión."
+---
+
+# Capítulo 10: El Trono de Malaquías
+
+> *"La soberanía no es inventar la lógica cada mañana, sino construir sobre la base de lo que ya ha sido verificado."*
+
+![[cap-10-illustration.png]]
+
+---
+
 
 Malaquías de Hildesheim permanecía sentado ante el Catálogo Mayor, una mole de pergaminos encuadernados en cuero de cabra que contenía el índice de todos los libros conocidos por la cristiandad. Su rostro era una máscara de severidad, y sus dedos, manchados de tinta negra, sostenían una pluma que parecía un estilete.
 

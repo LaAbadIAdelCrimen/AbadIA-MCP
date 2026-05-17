@@ -1,4 +1,18 @@
-# Capítulo 9: El Laboratorio de Severino (La Clasificación de las Almas)
+---
+chapter: 9
+title: "El Laboratorio de Severino"
+quote: "El error invisible es el más letal. Debemos auditar cada ingrediente con el mismo rigor que Severino aplica a sus tinturas."
+illustration_prompt: "Un boticario medieval lleno de frascos de colores. Severino machacando plantas mientras Guillermo examina una hoja con una lente de aumento."
+---
+
+# Capítulo 9: El Laboratorio de Severino
+
+> *"El error invisible es el más letal. Debemos auditar cada ingrediente con el mismo rigor que Severino aplica a sus tinturas."*
+
+![[cap-9-illustration.png]]
+
+---
+
 
 Guillermo y Adso cruzaron el umbral del laboratorio de Severino. El aire estaba saturado de un aroma complejo: la frescura de la menta salvaje mezclada con el olor dulzón de la resina y un rastro acre de raíces húmedas. Frascos de vidrio de colores ambarinos, verdes y azules se alineaban en estanterías que parecían sostener el techo de piedra.
 

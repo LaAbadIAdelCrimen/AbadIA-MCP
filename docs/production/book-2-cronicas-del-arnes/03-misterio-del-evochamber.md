@@ -1,4 +1,18 @@
-# Capítulo 3: El Misterio del Evochamber (La Cámara de las Mutaciones)
+---
+chapter: 3
+title: "El Misterio del Evochamber"
+quote: "Es una iglesia que se construye con sus propios pecados, hasta que el error es físicamente imposible."
+illustration_prompt: "Una estancia circular con espejos móviles y estanterías sobre rieles de bronce. Un autómata de latón choca contra una pared que muta en tiempo real."
+---
+
+# Capítulo 3: El Misterio del Evochamber
+
+> *"Es una iglesia que se construye con sus propios pecados, hasta que el error es físicamente imposible."*
+
+![[cap-3-illustration.png]]
+
+---
+
 
 Guillermo condujo a Adso a través de una puerta oculta tras un tapiz que representaba la torre de Babel. No era una celda, ni un pasillo, sino una estancia circular cuyas paredes estaban cubiertas de espejos móviles y estanterías montadas sobre raíles de bronce. En el aire flotaba el olor del aceite caliente y el zumbido de mil engranajes.
 

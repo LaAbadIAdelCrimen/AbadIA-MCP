@@ -1,4 +1,18 @@
-# Capítulo 1: El Legado de los Creadores (Paco y Juan)
+---
+chapter: 1
+title: "El Legado de los Creadores"
+quote: "No estamos creando algo nuevo, Adso; estamos despertando el potencial soberano que ellos ya soñaron."
+illustration_prompt: "Un primer plano de las manos de Guillermo acariciando una vieja máquina de escribir de metal oscuro que brilla con un aura de 8 bits en un baúl medieval."
+---
+
+# Capítulo 1: El Legado de los Creadores
+
+> *"No estamos creando algo nuevo, Adso; estamos despertando el potencial soberano que ellos ya soñaron."*
+
+![[cap-1-illustration.png]]
+
+---
+
 
 Adso observaba la vieja máquina que Guillermo guardaba celosamente en su baúl. No era de madera ni de piedra, sino de un metal oscuro con teclas que recordaban a los tipos de una imprenta.
 

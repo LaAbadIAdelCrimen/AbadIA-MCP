@@ -1,4 +1,18 @@
-# Capítulo 11: El Centinela que todo lo observa (Observabilidad)
+---
+chapter: 11
+title: "El Centinela que todo lo observa"
+quote: "Para salir del laberinto, no miréis hacia adelante con esperanza; mirad hacia atrás con rigor."
+illustration_prompt: "Alinardo de Grottaferrata en lo alto de una torre, mirando al horizonte con ojos lechosos mientras Adso le muestra una lámpara de aceite."
+---
+
+# Capítulo 11: El Centinela que todo lo observa
+
+> *"Para salir del laberinto, no miréis hacia adelante con esperanza; mirad hacia atrás con rigor."*
+
+![[cap-11-illustration.png]]
+
+---
+
 
 Guillermo y Adso subieron a la torre más alta, un lugar donde el viento silbaba entre las almenas como el susurro de almas antiguas. Allí, sentado en un banco de piedra, Alinardo de Grottaferrata miraba al vacío con ojos lechosos.
 

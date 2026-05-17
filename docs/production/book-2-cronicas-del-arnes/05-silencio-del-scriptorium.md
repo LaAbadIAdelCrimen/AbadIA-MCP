@@ -1,4 +1,18 @@
-# Capítulo 5: El Silencio del Scriptorium (La Regla de la Beyoncé)
+---
+chapter: 5
+title: "El Silencio del Scriptorium"
+quote: "Si valoras la verdad, Adso, debes ponerle un test antes de buscarla."
+illustration_prompt: "Guillermo dibujando un círculo rojo (el test fallido) en un mapa de la biblioteca mientras Adso sostiene una lámpara de aceite temblorosa."
+---
+
+# Capítulo 5: El Silencio del Scriptorium
+
+> *"Si valoras la verdad, Adso, debes ponerle un test antes de buscarla."*
+
+![[cap-5-illustration.png]]
+
+---
+
 
 Adso caminaba tras Guillermo por el oscuro pasillo que conducía al Scriptorium. El joven novicio sostenía la lámpara con manos temblorosas, observando cómo su maestro se detenía ante una puerta de roble. Guillermo no buscaba la llave; buscaba una idea.
 
