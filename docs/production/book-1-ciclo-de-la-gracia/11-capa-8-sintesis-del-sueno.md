@@ -1,28 +1,25 @@
 # Capítulo 11: La Capa 8: La Síntesis del Sueño (GBrain)
 
-En la jerarquía tradicional del procesamiento de información, nos hemos detenido a menudo en la Capa 7: la recuperación (RAG). Sin embargo, la Ingeniería de Arnés (HE) v3.0 introduce la **Capa 8**, el estrato de la **Síntesis Semántica**. Este capítulo desglosa el motor que permite a un agente no solo recordar, sino *aprender*.
+La Ingeniería de Arnés (HE) v3.0 culmina en la **Capa 8**, el estrato donde la experiencia se convierte en sabiduría estructural. Mientras que el RAG es una biblioteca, la Capa 8 es el cerebro que ha integrado el libro en su propia forma de razonar.
 
-## 1. El Límite del RAG y la Necesidad de Síntesis
-El RAG (Retrieval-Augmented Generation) es una muleta cognitiva. Permite al agente buscar en una biblioteca externa, pero el conocimiento permanece fuera de su "ser" operativo. En sesiones largas de juego o desarrollo, el RAG genera latencia y "ruido de contexto". La Capa 8 busca eliminar esta fricción integrando los hechos recuperados directamente en la estructura de decisión del agente.
+## 1. El Dream Cycle: Anatomía del Aprendizaje post-hoc
+El Ciclo de Sueño no es un resumen de texto. Es un proceso de **Re-parametrización Agéntica**. El Cronista toma los hilos de Alinardo (Tracing) y busca contradicciones entre la Spec y la Realidad.
 
-## 2. El Proceso del Dream Cycle (Ciclo de Sueño)
-El "Sueño" es un estado donde el agente se desconecta del entorno de ejecución (el juego) para procesar su propia bitácora (los logs). Este proceso consta de tres sub-fases gestionadas por **El Cronista**:
+### Fases de la Síntesis:
+1. **Poda de Ruido (Noise Pruning):** Eliminación de eventos irrelevantes (pasos repetitivos, NOPs sin información). Solo queda la señal de alta fidelidad.
+2. **Inferencia de Patrones:** Si el agente tropezó tres veces con Jorge de Burgos en el pasillo norte a la hora de Sexta, la Capa 8 infiere una **Restricción Dinámica**.
+3. **Actualización de la Verdad:** El sistema propone un cambio en el `vault/standards.md`.
 
-### A. Extracción Episódica
-El Cronista barre los logs de la sesión en busca de anomalías y éxitos. No guarda cada paso, sino los "puntos de inflexión":
-- ¿Por qué perdimos Obsequium en el comedor?
-- ¿Qué patrón de movimiento evitó al monje Jorge?
+## 2. El Trinquete de la Síntesis (The Knowledge Ratchet)
+¿Cómo aseguramos que el sueño no sea una alucinación? Aplicamos un test de consistencia semántica. Antes de que el nuevo conocimiento se grabe, se ejecuta un "Agente Espejo" en un entorno simulado con la nueva regla. Si el rendimiento (Obsequium) mejora, el trinquete gira.
 
-### B. Destilación de Causalidad
-Aquí es donde ocurre la magia técnica. El sistema pasa de un registro lineal ("A sucedió, luego B") a un grafo de causalidad ("B sucedió *porque* A fue ignorado"). Esta destilación convierte datos en **Heurísticas**.
+## 3. Ejemplo de Salida de Capa 8
+```markdown
+# Síntesis del Sueño: 2026-05-17
+- **Hecho Observado:** El bibliotecario no cierra la puerta si hay luz de luna.
+- **Deducción:** Existe una condición de entorno no mapeada en la Spec-12.
+- **Acción:** Actualizar `skills/monastic-navigation` para incluir check de fase lunar.
+- **DoD:** Test sintético `test_moonlight_entry` superado.
+```
 
-### C. Integración en el Vault (Persistencia Semántica)
-El resultado final no es un log resumido, sino un parche para el sistema:
-- Actualización de un **ADR** si se descubrió una limitación arquitectónica.
-- Generación de un nuevo **Skill local** mediante Skillify.
-- Modificación de la **Persona** para incluir el nuevo aprendizaje.
-
-## 3. El Trinquete de la Síntesis (The Ratchet)
-Para evitar que el agente "delire" durante el sueño (alucinaciones de síntesis), cada nuevo conocimiento debe pasar por el **Trinquete de Complejidad**. Solo si la nueva heurística es verificable mediante un test sintético en el Evochamber, el trinquete gira y la sabiduría se graba en el repositorio.
-
-La Capa 8 es, en definitiva, el paso del software que *hace* al software que *es*. Un agente que ha pasado por el ciclo de sueño ya no necesita buscar en el RAG cómo navegar por el ala este; simplemente *sabe* navegar porque su lógica de navegación ha mutado para integrar la realidad observada.
+La Capa 8 permite que el sistema deje de ser una caja negra y se convierta en un organismo que crece con cada sesión.

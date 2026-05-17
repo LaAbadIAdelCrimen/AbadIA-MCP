@@ -1,18 +1,21 @@
 # Capítulo 11: El Centinela que todo lo observa (Observabilidad)
 
-Guillermo y Adso subieron a la torre más alta, donde Alinardo de Grottaferrata pasaba sus días mirando hacia el horizonte. El anciano no se giró cuando llegaron.
+Guillermo y Adso subieron a la torre más alta, un lugar donde el viento silbaba entre las almenas como el susurro de almas antiguas. Allí, sentado en un banco de piedra, Alinardo de Grottaferrata miraba al vacío con ojos lechosos.
 
-—Ochenta años, Guillermo —dijo Alinardo con una voz que parecía el susurro del viento—. Ochenta años viendo cómo la luz entra por las ventanas del Scriptorium. Sé cuándo un monje camina con prisa y cuándo un libro es movido de su estante por una mano que no debe.
+—Ochenta años viendo cómo la luz cambia en esta abadía, Guillermo —dijo Alinardo sin girar la cabeza—. He visto monjes entrar en la biblioteca como leones y salir como sombras. Sé cuándo un paso es firme y cuándo es un engaño de la fatiga.
 
-—Alinardo —dijo Guillermo con respeto—, necesitamos el mapa de los flujos de la biblioteca. Malaquías nos ha dado el índice, pero los caminos cambian durante la noche.
+Guillermo se acercó y puso su mano sobre el hombro del anciano.
+—Alinardo, necesitamos tu memoria. El laberinto de la biblioteca nos confunde. Malaquías tiene el catálogo, pero los caminos parecen moverse bajo nuestros pies.
 
-Alinardo soltó una carcajada seca.
-—Malaquías solo conoce los nombres, Guillermo. Yo conozco el **Movimiento**. Yo soy el Centinela que todo lo observa. Lo que buscáis no es un plano de piedra, sino el hilo de Ariadna que dejáis tras vuestros pasos.
+Alinardo soltó una carcajada seca, como el crujir de una hoja muerta.
+—¡Malaquías! Ese alemán solo conoce los nombres. Los nombres son etiquetas muertas en pergaminos amarillentos. Yo conozco el **Movimiento**, la vida secreta de los flujos. Yo soy el Centinela que todo lo observa. Lo que buscáis no es un plano de piedra, sino el hilo de seda que habéis tejido con vuestros pasos.
 
-Adso se acercó al anciano. 
-—¿Podéis ver a través de las paredes, Alinardo?
+Adso, fascinado, se inclinó hacia el anciano.
+—¿Cómo podemos ver ese hilo, hermano Alinardo?
 
-—No necesito ver las paredes, muchacho, para saber que el aceite de vuestra lámpara se consume a un ritmo que no coincide con vuestro paso. Eso es la **Observabilidad**. Es ver la causa a través del efecto. Si queréis salir del laberinto, no miréis al suelo; mirad el hilo que habéis tejido. Cada decisión de vuestro maestro deja un rastro, una marca en la "crónica distribuida" de esta casa.
+—Mirad el aceite de vuestra lámpara, muchacho —señaló Alinardo hacia la pequeña luz que Adso sostenía—. ¿Por qué se consume más rápido cuando subís la escalera de la izquierda que cuando bajáis por la derecha? No es el aire, es la **Resistencia de la Realidad**. En vuestro mundo de "agentes", cada decisión deja una huella de calor, una marca en la crónica que el Cronista aún no ha leído. Eso es la **Observabilidad**.
 
-Guillermo asintió, comprendiendo la lección.
-—Adso, Alinardo nos está enseñando el **Tracing**. Sin el Centinela, estaríamos perdidos en el presente, incapaces de unir el ayer con el hoy. Debemos registrar no solo lo que hacemos, sino por qué y bajo qué contexto. Solo así el Cronista podrá dar sentido a nuestras sombras.
+Guillermo asintió, su mente traduciendo la mística de Alinardo al lenguaje del **Tracing**.
+—Entiendo. No basta con registrar el hecho de entrar en la sala; debemos registrar el hilo que nos llevó allí. El `Trace-ID` de Alinardo es el que vincula nuestra intención con el resultado. Si no podemos seguir el hilo de vuelta a la Spec, estamos perdidos en la locura del presente.
+
+—Exactamente —concluyó Alinardo—. Para salir del laberinto, no miréis hacia adelante con esperanza; mirad hacia atrás con rigor. Seguid vuestro propio rastro de luz hasta que encontréis la causa primera de vuestro error.
