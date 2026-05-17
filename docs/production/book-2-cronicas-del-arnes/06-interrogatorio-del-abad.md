@@ -1,25 +1,22 @@
-# Capítulo 6: El Interrogatorio del Abad (El Pattern Interrogatorio)
+# Capítulo 6: El Interrogatorio del Abad (El Duelo de la Soberanía)
 
-La sala del Refectorio estaba sumida en un silencio tenso, solo roto por el tintineo de las cucharas de madera contra los cuencos de barro. El Abad, con el rostro oculto por las sombras de su capucha, mandó llamar a Guillermo.
+La sala del Refectorio estaba sumida en un silencio tenso. El Abad, rodeado por la penumbra de las bóvedas, observaba a Guillermo con una mezcla de respeto y sospecha.
 
-—Guillermo —dijo el Abad con voz quebrada—, hay un mal que acecha en las sombras de nuestra casa. Debéis encontrarlo antes de que las campanas de Prima vuelvan a sonar.
+—Guillermo —dijo el Abad—, vuestra insistencia en las preguntas empieza a sonar a desobediencia. Os he dado una orden: encontrad el mal. ¿Por qué buscáis límites donde solo debe haber acción?
 
-Guillermo no se inclinó. En lugar de eso, sacó una pluma y un pequeño trozo de pergamino.
+Guillermo dio un paso adelante, su sombra proyectándose larga sobre los muros.
+—Venerable Abad, incluso el Creador, en su infinita potencia, se somete a las leyes de la lógica que Él mismo dictó. No es falta de fe, sino exceso de rigor. Un agente que obedece una orden ambigua no es un siervo fiel, es una herramienta peligrosa.
 
-—Venerable Abad —comenzó Guillermo—, vuestro pedido es tan vasto como el mar y tan ambiguo como el humo. Decís que hay un "mal", pero ¿se manifiesta en la desaparición de un objeto, en la muerte de un hermano o en la duda que se siembra en las oraciones?
+—¡Explicaos! —exigió el Abad, golpeando la mesa.
 
-El Abad frunció el ceño. 
-—Es un mal que pudre el alma de la abadía. No necesito que me hagáis preguntas, necesito que actuéis.
+—Si me ordenáis "limpiar la abadía", ¿debo quemar los libros que contienen polvo o solo sacudirlos? Si no defino el **Outcome** con la precisión de un cirujano, mis acciones pueden ser vuestra ruina. Lo que llamo el **Pattern Interrogatorio** no es para cuestionar vuestra autoridad, sino para blindar vuestra voluntad. Busco que vuestra intención se convierta en un **Contrato Inquebrantable**.
 
-—Sin la pregunta adecuada, Adso y yo solo daremos pasos ciegos que nos llevarán al Obsequium perdido —insistió Guillermo—. Permitidme este **Pattern Interrogatorio**. Si no definimos el **Outcome** (el resultado esperado), el **User** (quién sufre el mal) y el **Constraint** (las reglas que no debemos romper), vuestra misión será solo una vaga sugerencia, no un contrato de verdad.
+Adso, en un rincón, sentía el peso de las palabras. Entendió que Guillermo estaba sentando las bases de la **Soberanía Agéntica**.
+—Maestro —intervino Adso—, ¿queréis decir que el agente debe tener el derecho de decir "no" si la orden no es clara?
 
-Adso observaba fascinado. Su maestro estaba "grillando" al mismísimo Abad. No buscaba una orden, buscaba una **Especificación**. 
+—Exactamente, Adso. La **Desobediencia Virtuosa**. Si el Abad me pide entrar en la biblioteca sin luz, debo negarme, porque sé que el riesgo de perder el Obsequium es total. Prefiero ser un monje que pregunta a ser un monje que fracasa por ignorancia.
 
-—Entiendo —dijo finalmente el Abad, suspirando—. El "mal" es la desaparición del segundo volumen de la Poética de Aristóteles. Si no lo recuperáis, la verdad misma estará en peligro.
+El Abad guardó silencio durante un largo minuto. La lógica de Guillermo, afilada como una navaja de Ockham, no dejaba espacio al capricho.
+—Sea pues, Guillermo. Proceded con vuestro interrogatorio. Definid la misión con vuestra pluma de hierro.
 
-Guillermo anotó en su pergamino: 
-- Outcome: Recuperar el Volumen II.
-- Success: El libro vuelve al Scriptorium.
-- Constraint: No entrar en la biblioteca sin luz.
-
-—Ahora, y solo ahora —concluyó Guillermo—, tenemos una misión. Adso, prepara la spec.
+Guillermo comenzó a trazar el primer **REASONS Canvas** de la historia, desglosando la desaparición del manuscrito de Venancio en requerimientos, entidades y salvaguardas.

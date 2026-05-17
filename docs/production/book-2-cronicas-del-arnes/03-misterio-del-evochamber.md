@@ -1,11 +1,9 @@
 # Capítulo 3: El Misterio del Evochamber (La Cámara de los Ecos)
 
-Guillermo condujo a Adso a través de una puerta oculta tras un tapiz que representaba la torre de Babel. No era una celda, ni un pasillo, sino una estancia circular cuyas paredes estaban cubiertas de espejos móviles y estanterías montadas sobre raíles de bronce.
+... (contenido anterior)
 
-—Bienvenidos al **Evochamber**, Adso. O como yo prefiero llamarlo: la Cámara de las Mutaciones —anunció Guillermo, su voz resonando con una extraña reverberación.
+Adso vio cómo el autómata de latón intentaba cruzar un arco. Al chocar contra la jamba, un pequeño resorte saltó y una aguja grabó una marca en una placa de cera. Instantáneamente, la pared de la sala crujió y se desplazó dos pulgadas hacia la izquierda.
 
-En el centro de la sala, un monje autómata intentaba caminar hacia un atril. Cada vez que el autómata tropezaba, un martillo hidráulico golpeaba la piedra, allanándola, o un engranaje movía una estantería para cerrar el camino erróneo.
+—¡Mirad, maestro! —exclamó Adso—. ¡La pared se ha apartado para dejarle paso!
 
-—¿La estancia se mueve por sí sola, maestro? —preguntó Adso.
-
-—Se mueve en respuesta al error, Adso. El autómata es el agente, pero la estancia es el **Arnés**. Lo que ves es la co-evolución: el laberinto aprende del monje tanto como el monje del laberinto. Aquí, el éxito se convierte en infraestructura mediante el proceso de **Skillify**. Ya nadie podrá tropezar de nuevo donde el autómata ha dejado su huella.
+—No se ha apartado, Adso. Ha **mutado**. El error de la colisión ha generado un nuevo requerimiento de espacio que el Arnés ha satisfecho. Es la **Infraestructura como Experiencia**. El laberinto ya no es el mismo que hace un segundo. Ha sido "Skillificado" por el propio fallo del autómata.

@@ -1,20 +1,16 @@
 # Capítulo 1: El Ciclo de Osmani (Spec-Plan-Build-Verify)
 
-El estándar de Addy Osmani no es una sugerencia, es el **Harnés de Proceso** que impide el "Vibe Coding". En este capítulo desglosamos las 4 fases deterministas.
+... (contenido anterior)
 
-## 1. SPEC (Especificación)
-Antes de tocar una sola línea de código, el agente debe definir el **Contrato**. 
-- **Entrada:** La intención confirmada del usuario.
-- **Salida:** Un archivo `SPEC.md` con criterios de aceptación y comandos de verificación (DoD).
+## El Átomo de la Verdad: Ejemplo de Spec
+Para que el agente no alucine, la Spec debe ser ejecutable en el pensamiento.
 
-## 2. PLAN (Planificación)
-El agente descompone la Spec en tareas atómicas.
-- **Regla de Oro:** Cada tarea debe representar menos de 50 líneas de cambio para mantener la legibilidad.
+```markdown
+# SPEC-001: Navegación de Adso
+- **Goal:** Adso debe seguir a Guillermo manteniendo una distancia de 5 celdas.
+- **Verification:**
+  - `pytest tests/test_proximity.py`
+  - Output esperado: `PASSED` si distancia <= 5.
+```
 
-## 3. BUILD (Construcción)
-Siguiendo la **Regla de Beyoncé**, se implementa la lógica solo tras tener un test fallido.
-
-## 4. VERIFY (Verificación)
-Se ejecutan los comandos definidos en la Spec. La evidencia (logs/tests) es lo único que permite cerrar la tarea.
-
-Este ciclo crea un **Trinquete de Calidad**: cada paso está verificado y no hay vuelta atrás hacia el desorden.
+Este nivel de detalle impide que el agente "vibre" y le obliga a construir sobre roca firme.
