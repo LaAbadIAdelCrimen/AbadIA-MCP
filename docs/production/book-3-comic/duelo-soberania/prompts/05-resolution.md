@@ -1,0 +1,4 @@
+---
+id: 05-resolution
+---
+Medium shot showing An aged Franciscan monk (likeness of Sean Connery), with a grey-white beard, intense intelligent eyes, wearing a coarse brown hooded habit. and A tall, authoritative Abbot (likeness of Michael Lonsdale), somber face partially hidden in shadows, wearing a heavy black habit with an ornate cross. across a table. The Abbot looks down at the napkin with a look of defeated respect. Guillermo stands with his hands tucked into his sleeves. In the background, A young Benedictine novice (likeness of young Christian Slater), with a smooth face, tonsured hair, looking on with awe. watches from the shadows. Cinematic 35mm film photography, 1986 movie aesthetic, heavy chiaroscuro lighting, flickering candle light, dusty atmosphere, muted medieval colors, sharp focus on faces, high detail, historical accuracy.

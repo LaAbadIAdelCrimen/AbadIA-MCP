@@ -1,15 +1,18 @@
 # Capítulo 13: Evaluación Continua (El Evals Harness)
 
-En HE v3.0, el rendimiento de un agente no es una "sensación", es un **Dataset de Verificación**. Este capítulo desglosa cómo implementar el arnés de evaluación (Evals).
+El rendimiento de un sistema agéntico no es una cualidad mística; es una métrica de ingeniería. En este capítulo desglosamos cómo construir el arnés que mide el **Obsequium** técnico.
 
-## 1. El Obsequium como Métrica de Precisión
-Definimos el **Obsequium** como la inversa del error de alucinación. Se calcula mediante:
-- **Consistencia de Spec:** ¿El código generado cumple el 100% de los Criterios de Aceptación?
-- **Beyoncé Score:** ¿Todos los tests escritos fallaron antes de la implementación?
-- **Eficiencia de Contexto:** ¿Se resolvió el problema usando el mínimo número de archivos/tokens?
+## 1. Los Tres Ejes de la Evaluación (The Triple Crown)
+1. **Fidelidad Contractual:** ¿Qué porcentaje de los Criterios de Aceptación (AC) de la Spec se han cumplido sin intervención humana?
+2. **Eficiencia de Recurso:** ¿Cuántos tokens y cuántas llamadas a herramientas se han necesitado? Un agente que resuelve el problema en 10 pasos es más "sabio" que uno que necesita 100.
+3. **Resiliencia ante el Error:** ¿Cómo se recupera el agente tras un fallo de herramienta? (Métrica del Cronista).
 
-## 2. Los Datasets de Oro (Golden Sets)
-Mantenemos un conjunto de "Verdades Inmutables" en `tests/golden_sets/`. Son escenarios de juego donde el éxito ya ha sido verificado por un humano. El agente debe pasar estos escenarios tras cada cambio estructural (Regression Testing).
+## 2. Los Golden Sets (Verdades de Referencia)
+Mantenemos una colección de escenarios de alta dificultad (ej. "Encuentra el libro de Aristóteles con la lámpara al 10%").
+- **Evaluación Comparativa:** Cada nueva versión del Arnés o del Modelo debe superar el "Golden Set" con una puntuación igual o superior a la anterior. Esto evita la regresión de inteligencia.
 
-## 3. Automatización de Evals con Subagentes
-Usamos a **Bernardo Gui** (el Auditor) para ejecutar estos datasets. El reporte resultante genera el trinquete que permite o bloquea el merge en la rama principal.
+## 3. El Obsequium como Puntuación de Confianza
+El sistema asigna un valor de 0 a 100 a cada sesión.
+- **90-100:** Soberanía confirmada.
+- **70-89:** Necesita revisión de la Capa 8.
+- **<70:** Fallo del Arnés. Se requiere intervención del Abad.

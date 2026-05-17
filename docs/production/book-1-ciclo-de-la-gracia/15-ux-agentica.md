@@ -1,24 +1,17 @@
 # Capítulo 15: La Interfaz Humano-Agente (UX Agéntica)
 
-En HE v3.0, el humano no es un "usuario" pasivo, sino una **Entidad de Gobierno** (El Abad). La UX agéntica no se trata de botones o pantallas, sino de la calidad de la conversación técnica y el intercambio de intenciones.
+La UX agéntica es el arte de la **Gestión de la Intención**. El objetivo es que el humano (El Abad) y el agente (Guillermo) compartan un modelo mental idéntico del éxito.
 
-## 1. El Humano como Oráculo de Intención
-La principal fricción en los sistemas agénticos es la "Desalineación de Corto Plazo". El humano sabe lo que quiere, pero no sabe cómo pedirlo de forma determinista. El sistema de UX debe estar diseñado para extraer esa intención mediante el **Pattern Interrogatorio**.
+## 1. El Humano como Entidad de Gobierno
+En HE v3.0, el humano no "usa" el sistema; lo **Gobierna**.
+- **Governance Gates:** El sistema se detiene en puntos críticos y pregunta: "¿Este es el resultado que esperabas?".
+- **Feedback Semántico:** El humano no corrige el código, corrige la **Spec**. Esto asegura que el agente aprenda el "Por qué" y no solo el "Cómo".
 
-### Componentes de la UX Agéntica:
-- **Clarificación Proactiva:** El agente debe detectar la ambigüedad *antes* de actuar.
-- **Transparencia de Razonamiento:** Mostrar el "Pensamiento" del agente no como un log crudo, sino como una justificación de la Spec.
-- **Gating Humano:** Puntos de control donde el "Abad" debe dar un "Yes" explícito antes de tareas de alto impacto (escritura de archivos, despliegues).
+## 2. Transparencia de Proceso (White-Box UX)
+El agente debe mostrar su flujo de trabajo de forma legible:
+- **Plan View:** Visualización de las tareas pendientes y completadas.
+- **Thought Trace:** Breve explicación de la lógica detrás de una decisión compleja.
+- **Error Autopsy:** Cuando algo falla, el agente presenta al humano la causa raíz identificada por el Cronista.
 
-## 2. El REASONS Canvas como Interfaz de Usuario
-El REASONS Canvas es la "pantalla" de nuestro sistema. Proporciona un marco visual y conceptual donde humano y agente acuerdan los términos del contrato:
-- **R**equirements (Requerimientos)
-- **E**ntities (Entidades)
-- **A**pproach (Estrategia)
-- **S**tructure (Estructura de archivos)
-- **O**perations (Operaciones)
-- **N**orms (Normas/ADRs)
-- **S**afeguards (Salvaguardas/Jorge)
-
-## 3. Feedback Loop: La Corrección Virtuosa
-Cuando el humano corrige al agente, esa corrección debe ser tratada como un **Test Sintético**. Si el Abad dice "No quería que borraras ese archivo", el sistema genera una regla de seguridad inmediata que se graba en el Vault para que el error no se repita.
+## 3. El REASONS Canvas como Contrato Visual
+El Canvas es la herramienta de alineación definitiva. Antes de cada gran hito, el humano y el agente revisan el Canvas. Si el humano detecta que una restricción (Constraint) falta, la añade y el agente recalcula su Plan inmediatamente.
