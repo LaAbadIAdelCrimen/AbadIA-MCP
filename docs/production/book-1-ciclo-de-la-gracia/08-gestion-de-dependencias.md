@@ -1,24 +1,21 @@
-# Capítulo 8: El Scriptorium de los Ingredientes (Gestión de Dependencias)
+# Capítulo 8: El Scriptorium de los Ingredientes (Gestión de Dependencias y SBOM)
 
-En un sistema agéntico soberano, las librerías externas no son "utilidades", son **Inquilinos de Riesgo**. Este capítulo detalla el protocolo técnico para la gestión de dependencias (SBOM).
+En un entorno soberano, las librerías externas se consideran **"Inquilinos de Riesgo"**. Una dependencia es código que el agente no ha escrito pero que tiene permiso para ejecutar en la médula ósea del sistema.
 
-## 1. La Paradoja de la Taza de Té
-Una sola dependencia vulnerable puede comprometer todo el arnés. Al igual que Severino clasifica sus hierbas, el agente debe auditar cada paquete.
+## 1. SBOM: El Inventario de Almas
+Todo proyecto HE v3.0 debe generar un **Software Bill of Materials (SBOM)**. Es el equivalente técnico a la lista de hierbas de Severino.
+- **Pinning de Versiones:** Uso de hashes (`sha256`) en lugar de versiones simples para evitar ataques de sustitución.
+- **Auditoría de Vulnerabilidades:** Integración de `safety` en el pre-commit.
 
-## 2. Protocolo de Pinning y Auditoría
-- **Pinning Estricto:** Prohibido el uso de versiones flotantes (ej. `requests>=2.0`). Todas las versiones deben estar ancladas en `requirements.txt`.
-- **Análisis de Vulnerabilidades:** Integración de `safety` y `pip-audit` en el ciclo de Build.
-- **Herramientas de Limpieza:** Uso de `Ruff` para eliminar código muerto que atraiga dependencias innecesarias.
+## 2. La Paradoja de la Taza de Té (Vulnerabilidades Transitivas)
+Un sistema puede ser seguro, pero si su dependencia A usa la dependencia B, y B tiene un veneno, el sistema está envenenado. El agente debe ser capaz de trazar el árbol completo de dependencias.
 
-## 3. Ejemplo de Configuración de Seguridad
-```yaml
-# .github/workflows/security.yml
-jobs:
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Safety
-        run: safety check
+### Ejemplo de Auditoría Automática:
+```bash
+# El agente ejecuta este escaneo antes de proponer un cambio en requirements.txt
+pip-audit --format json > audit_report.json
+# Si hay vulnerabilidades de nivel 'Critical', el trinquete bloquea el Build.
 ```
-Al tratar las dependencias como parte del contrato de seguridad, blindamos la abadía contra ataques de cadena de suministro.
+
+## 3. Política de "Hierbas Prohibidas"
+El agente mantiene un registro en el Vault de librerías con licencias incompatibles o historiales de seguridad dudosos. Ninguna "hierba" entra en el laboratorio sin pasar el filtro de Severino.

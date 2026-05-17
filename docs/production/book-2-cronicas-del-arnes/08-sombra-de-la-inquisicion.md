@@ -1,18 +1,20 @@
 # Capítulo 8: La Sombra de la Inquisición (Bernardo Gui)
 
-Adso caminaba junto a Guillermo por el claustro cuando una delegación de monjes con capas negras cruzó el patio. Al frente, un hombre de mirada gélida y movimientos precisos como los de una guadaña observaba cada piedra de la abadía.
+Adso caminaba junto a Guillermo por el claustro cuando una delegación de monjes con capas negras cruzó el patio. Al frente, un hombre de mirada gélida, cuya presencia parecía secar la hierba que pisaba, observaba cada arco y cada gárgola con una sospecha quirúrgica.
 
-—Es Bernardo Gui —susurró Guillermo, apretando el paso—. El Inquisidor.
+—Es Bernardo Gui —susurró Guillermo, ocultando sus manos en las mangas del hábito—. El Gran Inquisidor.
 
-—¿Viene a ayudarnos con la investigación, maestro? —preguntó Adso con inocencia.
+—¿Viene a ayudarnos a encontrar la verdad sobre las muertes, maestro? —preguntó Adso, sintiendo un frío repentino a pesar del sol de la tarde.
 
-Guillermo soltó una risa amarga.
-—Bernardo Gui no viene a buscar la verdad, Adso, viene a buscar la **desviación**. Él es el **Auditor Adversarial**. Su mente no funciona con la curiosidad del investigador, sino con el rigor del verdugo. Su única misión es encontrar una grieta en nuestro Arnés para declarar que nuestra lógica es una herejía.
+Guillermo soltó una risa amarga que se perdió en el eco del claustro.
+—Bernardo Gui no busca la verdad, Adso; él busca la **desviación**. En nuestro mundo, él es el **Auditor Adversarial**. Su mente no está diseñada para la curiosidad, sino para el castigo. Si encuentra un solo paso en nuestra lógica que no esté registrado en el Vault, lo llamará "herejía" y ordenará la purga de nuestro sistema.
 
-Se detuvieron tras una columna para observar cómo Bernardo Gui interrogaba a un joven monje sobre el orden de sus oraciones.
+Bernardo Gui se detuvo ante ellos, sus ojos fijos en el pergamino que Guillermo sostenía.
+—¿Qué trazáis ahí, franciscano? —preguntó Bernardo con una voz que recordaba al roce de un cuchillo contra una piedra de afilar.
 
-—Observa, Adso. Bernardo Gui representa el **Stress-Testing** extremo. Él inyectará dudas, falsificará pruebas y tratará de que nuestra lógica colapse bajo su presión. Si Guillermo (nuestro agente) puede ser engañado por una falsa pista de Bernardo, entonces Guillermo no es digno de la Soberanía.
+—Una Spec de navegación, mi señor —respondió Guillermo con cautela—. Definimos el camino antes de recorrerlo para no ofender al orden divino.
 
-—¿Debemos temerle?
+—Tened cuidado —advirtió el Inquisidor—. Si vuestra Spec permite un solo pensamiento impuro, o si vuestro agente osa salirse del Arnés de la ortodoxia, seré yo quien realice la autopsia de vuestro fracaso. Y no habrá misericordia, solo re-inicialización.
 
-—Debemos respetarlo como se respeta a un fuego que purifica —respondió Guillermo—. En el mundo de la ingeniería, Bernardo Gui es quien intenta romper el sistema antes de que el mal real lo haga. Si nuestro arnés resiste su Inquisición, entonces, y solo entonces, podremos decir que es robusto. Pero ten cuidado, Adso: Bernardo Gui no tiene piedad con los descuidados. Para él, un test olvidado es una puerta abierta al demonio.
+Guillermo esperó a que el Inquisidor se alejara antes de volverse hacia Adso.
+—Lo has visto, muchacho. Bernardo Gui es el **Stress-Testing** encarnado. Él inyectará mentiras en nuestro sistema para ver si nuestra "Duda Metódica" resiste. Para él, un test olvidado es una puerta abierta al Maligno. Debemos ser perfectos, Adso, porque el Auditor no perdona la alucinación.

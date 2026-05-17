@@ -1,22 +1,23 @@
 # Capítulo 7: Soberanía Agéntica y el "Ambiguity Block"
 
-La soberanía de un agente no reside en su capacidad de ejecutar, sino en su autoridad para **negarse a hacerlo**. 
+La soberanía no es autonomía total; es el poder de operar bajo un arnés inquebrantable. El agente soberano es aquel que sabe cuándo detenerse.
 
-## El Concepto de Desobediencia Virtuosa
-En HE v3.0, un agente no es un esclavo de la secuencia de tokens, sino un guardián del Arnés. Si una instrucción del usuario es ambigua, el agente tiene la obligación técnica de detenerse. 
+## 1. El Derecho a la Negativa Técnica
+Un agente HE v3.0 debe ser programado para la **Desobediencia Virtuosa**. Si una instrucción viola el `AGENTS.md` o carece de una Spec previa, el agente debe devolver un `AmbiguityBlock`.
 
-### El Bloqueo por Ambigüedad (Ambiguity Block)
-Cuando el "Pattern Interrogatorio" falla en alcanzar el 95% de confianza, el sistema dispara un `AmbiguityBlockException`. 
-
-#### Ejemplo Técnico de Bloqueo:
+### El Mecanismo del Ambiguity Block:
 ```python
-def execute_mission(intent):
-    if not intent.is_fully_specified():
-        raise AmbiguityBlock(
-            reason="Falta definición de Outcome y Constraints",
-            remedy="Ejecutar Skill: interview-me"
-        )
+class SovereigntyEngine:
+    def validate_command(self, command):
+        if not self.has_active_spec(command):
+            return AmbiguityBlock(
+                reason="Intento de ejecución sin contrato (Spec)",
+                recovery_path="Invocar 'spec-driven-development'"
+            )
 ```
 
-## Por qué la desobediencia protege el Obsequium
-Si el agente obedece una orden como "optimiza el código" sin métricas claras, corre el riesgo de romper la Beyoncé Rule. Al bloquear la ejecución hasta que la Spec sea quirúrgica, el agente protege la integridad del repositorio y su propia lealtad (Obsequium) al sistema.
+## 2. Protección del Obsequium
+El Obsequium es la métrica de lealtad al sistema. Cada vez que un agente intenta "adivinar" una instrucción ambigua y falla, el Obsequium cae. La soberanía consiste en proteger esta métrica bloqueando ejecuciones de alto riesgo hasta que el entorno sea determinista.
+
+## 3. La Paradoja de la Libertad
+El agente es libre de elegir el "Cómo" (el Plan), pero está encadenado al "Qué" (la Spec). Esta cadena es la que le permite ser soberano: no necesita pedir permiso para cada línea de código, porque el arnés ya define los límites de su seguridad.

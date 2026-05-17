@@ -1,17 +1,15 @@
 # Capítulo 9: El Laboratorio de Severino (La Clasificación de las Almas)
 
-Guillermo y Adso cruzaron el umbral del laboratorio de Severino. El aire estaba saturado de un aroma penetrante a menta, resina y algo más oscuro que Adso no supo identificar. Frascos de vidrio de colores ambarinos se amontonaban en estanterías que llegaban hasta el techo.
+Guillermo y Adso cruzaron el umbral del laboratorio de Severino. El aire estaba saturado de un aroma complejo: la frescura de la menta salvaje mezclada con el olor dulzón de la resina y un rastro acre de raíces húmedas. Frascos de vidrio de colores ambarinos, verdes y azules se alineaban en estanterías que parecían sostener el techo de piedra.
 
-—Tened cuidado donde pisáis, muchacho —advirtió Severino, sin levantar la vista de un mortero donde machacaba unas hojas secas—. En esta estancia, la línea entre la cura y el veneno es más fina que el filo de un cuchillo.
+—¡Cuidado con esa redoma, Adso! —exclamó Severino, apareciendo entre las sombras con un delantal de cuero manchado de jugos vegetales—. Contiene esencia de *Aconitum*. Una gota en el lugar equivocado y el corazón se detiene antes de que puedas pedir perdón por tus pecados.
 
-Adso observó un frasco con una etiqueta que rezaba *Digitalis Purpurea*. 
-—¿Es esto una medicina, hermano Severino?
+Severino señaló un grupo de frascos que permanecían apartados, bajo una tela negra.
+—Esas son las "Plantas de la Frontera", Guillermo. Han llegado de Oriente. Parecen curar la fiebre, pero no conocemos su origen exacto. No permitiré que entren en mi boticario general hasta que no haya verificado cada una de sus raíces.
 
-—Para un corazón débil, es la salvación. Para un hombre sano, es la muerte —respondió el herbolario—. Todo depende de la **Clasificación**. Si no sé exactamente qué hay en este frasco, no puedo sanar a nadie.
+Guillermo se acercó, examinando una de las hojas con su lente.
+—Adso, escucha bien al hermano herbolario. Lo que él llama "verificar raíces" es lo que nosotros llamamos **Auditoría de Dependencias**. Estas plantas son como las librerías externas que traemos a nuestro Scriptorium. Si confiamos en una "hierba" solo porque su flor es hermosa (o su código parece rápido), corremos el riesgo de envenenar todo el sistema.
 
-Guillermo se acercó a una de las estanterías. 
-—Adso, escucha bien a Severino. Lo que él hace con las hierbas es lo que nosotros debemos hacer con las **Dependencias** de nuestro sistema. Una librería externa es como una planta traída de tierras lejanas. Si no conocemos su pureza y su dosis, puede envenenar todo el Scriptorium. 
+—¿Incluso si la planta ha curado a otros antes? —preguntó Adso.
 
-—¿Incluso si el código parece útil, maestro? —preguntó Adso.
-
-—Especialmente si parece útil —sentenció Guillermo—. El error invisible es el más letal. Debemos auditar cada "ingrediente" que entra en nuestra abadía con el mismo rigor que Severino aplica a sus tinturas. Un test olvidado es una semilla de cicuta en nuestro pan.
+—Especialmente entonces —sentenció Guillermo—. El error invisible, la dependencia que trae consigo otra dependencia oculta, es la raíz de cicuta en nuestro pan. En esta abadía, nada se ejecuta sin pasar por el filtro de Severino. El **SBOM** es nuestra lista de ingredientes sagrados, y el Pinning es el sello que asegura que el veneno no cambie de rostro durante la noche.
