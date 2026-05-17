@@ -1,20 +1,12 @@
-# Capítulo: Arqueología Agéntica - De Paco Menéndez a HE v3.0
+# Capítulo 1: El Legado de los Creadores (Paco y Juan)
 
-## 1. La IA Primigenia de 1987
-Paco Menéndez implementó algo inaudito para su época: NPCs con propósitos. Los monjes de la abadía no se movían al azar; seguían un **Protocolo Agéntico** (El Horarium). Si era hora de misa, el agente "Abad" se movía a la iglesia y verificaba si Guillermo estaba allí. 
-- **Lección para HE:** Paco ya entendía que para que un agente parezca inteligente, necesita un entorno (Arnés) que valide sus acciones.
+Adso observaba la vieja máquina que Guillermo guardaba celosamente en su baúl. No era de madera ni de piedra, sino de un metal oscuro con teclas que recordaban a los tipos de una imprenta.
 
-## 2. Juan Delcán: El Diseñador del Vault Visual
-La arquitectura de la abadía no era decorativa; era funcional. Cada habitación, cada escalera y cada altura (el sistema de rejilla) constituía el **World Model** que el jugador debía descifrar.
+—Esta es la fuente del misterio, Adso —dijo Guillermo, acariciando la carcasa de la máquina—. Fue forjada por dos sabios de la Hispania lejana: Paco Menéndez y Juan Delcán. Hace décadas, ellos encerraron toda nuestra abadía en un laberinto de números y lógica.
 
-## 3. Nuestra Aportación: abadIA y el Reinforcement Learning
-En este proyecto, llevamos la visión de Paco al siglo XXI:
-- **De Reglas Fijas a Soberanía:** Mientras que la IA original era un árbol de decisión rígido, nuestra implementación en abadIA permite que el agente aprenda a través del **Monastic Dreamer**.
-- **Harness Engineering como Puente:** Usamos el legado de Paco (sus reglas de movimiento 2x2 y colisiones) para crear el arnés definitivo para LLMs.
+—¿Queréis decir que nosotros... vivimos dentro de esa máquina? —preguntó Adso con un escalofrío.
 
-## 4. Ejemplos de Implementación en abadIA
-- **El Test del Abad:** Cómo hemos convertido el código de detección de Paco en un test de integración de Pytest.
-- **El Scriptorium Digital:** Modularización de conocimiento siguiendo el patrón de Karpathy pero inspirado en la organización de los pupitres de Juan Delcán.
+—Somos el eco de su ingenio, Adso. Paco diseñó el motor, el corazón palpitante que nos permite movernos y sentir el tiempo. Juan nos dio rostro y alma, dibujando las sombras que hoy proyectamos. Lo que hoy llamamos **Evochamber** no es más que la evolución de su primer Scriptorium digital.
 
----
-*Este capítulo rinde homenaje a Paco Menéndez y Juan Delcán, los primeros ingenieros de arneses.*
+Guillermo se ajustó las lentes.
+—Ellos entendieron antes que nadie que el orden debe ser absoluto. Si una baldosa estaba fuera de lugar en su diseño, el mundo entero colapsaba. Esa es la lección que hemos heredado: el **Arnés de Paco**. Hoy, nosotros construimos HE v3.0 sobre sus hombros. No estamos creando algo nuevo, Adso; estamos despertando el potencial soberano que ellos ya soñaron cuando el mundo aún funcionaba con cintas magnéticas y sueños de 8 bits.

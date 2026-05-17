@@ -1,9 +1,18 @@
-# Capítulo 3: El Misterio del Evochamber (La Cámara de los Ecos)
+# Capítulo 3: El Misterio del Evochamber (La Cámara de las Mutaciones)
 
-... (contenido anterior)
+Guillermo condujo a Adso a través de una puerta oculta tras un tapiz que representaba la torre de Babel. No era una celda, ni un pasillo, sino una estancia circular cuyas paredes estaban cubiertas de espejos móviles y estanterías montadas sobre raíles de bronce. En el aire flotaba el olor del aceite caliente y el zumbido de mil engranajes.
 
-Adso vio cómo el autómata de latón intentaba cruzar un arco. Al chocar contra la jamba, un pequeño resorte saltó y una aguja grabó una marca en una placa de cera. Instantáneamente, la pared de la sala crujió y se desplazó dos pulgadas hacia la izquierda.
+—Bienvenidos al **Evochamber**, Adso. O como yo prefiero llamarlo: la Cámara de las Mutaciones —anunció Guillermo, su voz resonando con una extraña reverberación.
 
-—¡Mirad, maestro! —exclamó Adso—. ¡La pared se ha apartado para dejarle paso!
+En el centro de la sala, un monje autómata intentaba caminar hacia un atril. Adso vio cómo el autómata de latón tropezaba con un saliente del suelo. Instantáneamente, un pequeño martillo hidráulico golpeó la piedra, allanándola, mientras una aguja grababa una marca en una placa de cera.
 
-—No se ha apartado, Adso. Ha **mutado**. El error de la colisión ha generado un nuevo requerimiento de espacio que el Arnés ha satisfecho. Es la **Infraestructura como Experiencia**. El laberinto ya no es el mismo que hace un segundo. Ha sido "Skillificado" por el propio fallo del autómata.
+—¿La estancia se mueve por sí sola, maestro? —preguntó Adso, retrocediendo ante el crujido de una estantería que se desplazaba sobre sus rieles.
+
+—Se mueve en respuesta al error, Adso. Observa: el autómata es el agente de nuestra voluntad, pero la estancia es el **Arnés**. Lo que ves es la co-evolución. El monje aprende del laberinto, pero el laberinto también aprende del monje. Si el autómata choca contra una jamba, el Arnés muta para ensanchar el marco. 
+
+Adso observó una placa de metal donde un escriba anotaba febrilmente.
+—Ese es el proceso de **Skillify**, Adso. Cuando el autómata descubre un camino seguro o una forma eficiente de abrir una puerta, el éxito se graba en esa placa. Una vez grabada, esa placa se convierte en parte permanente del suelo. El éxito se vuelve infraestructura. Ya nadie podrá tropezar de nuevo allí.
+
+—¿Y si el autómata rompe algo importante?
+
+—Para eso tenemos la Persistencia, Adso. En el Evochamber, el tiempo puede volver atrás hasta el último **Checkpoint**. El error se analiza, el Cronista extrae la lección, y el experimento vuelve a empezar. Es una iglesia que se construye con sus propios pecados, hasta que el error es físicamente imposible.

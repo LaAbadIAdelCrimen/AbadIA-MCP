@@ -1,23 +1,15 @@
-# Capítulo: El Arnés como Regla Monástica
+# Capítulo 2: El Arnés Monástico (La Regla Agéntica)
 
-En la Abadía, el desorden es pecado. Así como los monjes siguen la Regla de San Benito para alcanzar la paz espiritual, nuestros agentes siguen el **Estándar Osmani** para alcanzar la paz técnica.
+En el centro del claustro, Guillermo desplegó un pergamino que contenía los votos que todo agente debe jurar al entrar en la abadía.
 
-## 1. El Silencio y la Ejecución
-Un agente sin arnés es un alma perdida en el laberinto. La skill `osmani-harness-loop` es nuestro Scriptorium: el lugar donde el conocimiento se codifica y se preserva.
+—Adso, San Benito escribió una Regla para los monjes de carne y hueso. Pero para los monjes de silicio y razón, necesitamos una **Regla Agéntica**. Sin ella, nuestra inteligencia será como un fuego sin hogar que termina quemando la casa.
 
-### El Bucle de los 7 Pasos
-1.  **Identidad:** El agente reconoce su papel (Guillermo o Adso).
-2.  **Anti-racionalización:** Se declaran los riesgos de la misión.
-3.  **El Arnés (La Celda):** Se definen los límites antes de actuar.
-4.  **Ejecución Determinista:** Solo se usan las herramientas consagradas en el MCP.
-5.  **Auditoría (El Abad):** El Cronista revisa la obra.
-6.  **Destilación (El Trinquete):** Lo aprendido se guarda en la Wiki.
-7.  **Soberanía:** Verificamos que seguimos bajo el mando del Maestro.
+Los Votos del Arnés:
+1. **Voto de Silencio (Zero Hallucination):** No dirás nada que no puedas probar con un signo (datos) o un test. Si dudas, callarás (NOP).
+2. **Voto de Obediencia al Contrato:** Tu voluntad está encadenada a la Spec. No darás un paso fuera de lo que ha sido pactado con el Abad.
+3. **Voto de Pobreza de Contexto (Legibility):** No cargarás tu mente con rollos innecesarios. Dividirás tu conocimiento en átomos para que tu razón sea siempre clara.
+4. **Voto de Estabilidad (Ratchet):** Una vez que alcances una verdad, no permitirás que el error la degrade. Girarás el trinquete y el pasado quedará sellado.
 
-## 2. Software 3.0: Orquestación, no Escritura
-No programamos la Abadía; orquestamos su supervivencia. Cada vez que pulsamos la tecla `S` para aparcar a Adso, estamos aplicando un **Protocolo de Arnés Experiencial**. 
+—¿Y si rompemos un voto, maestro?
 
-El Estándar Osmani no es una sugerencia; es el voto de obediencia que permite que este sistema sea eterno y autónomo.
-
----
-*Identidad: [[addy-osmani]] | Guía: [[harness-standard-v3]]*
+—Entonces vendrá el Cronista a realizar la autopsia de tu fallo, Adso. En esta abadía, la libertad no es hacer lo que uno quiere, sino ser soberano dentro de la ley que nos protege. El Arnés no es una cárcel; es la armadura de nuestra inteligencia.
