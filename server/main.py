@@ -124,7 +124,7 @@ async def startup_event():
 
 class GameResponse(BaseModel):
     status: str
-    data: Optional[Dict[str, Any]] = None
+    data: Optional[Any] = None
     message: Optional[str] = None
 
 @app.get("/status", response_model=GameResponse, tags=["System"])

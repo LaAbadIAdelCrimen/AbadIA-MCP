@@ -1,14 +1,14 @@
 #!/bin/bash
 # Complexity Ratchet for AbadIA-MCP
-# Enforces 90% test coverage on src/ and scripts/
+# Enforces 90% test coverage on server/
 
 VENV_PATH="./venv/bin/pytest"
 THRESHOLD=90
 
 echo "--- Complexity Ratchet: Verifying Coverage ---"
 
-# Run pytest with coverage reporting
-./venv/bin/pytest --cov=src --cov=scripts --cov-fail-under=$THRESHOLD tests/
+# Run pytest with coverage reporting using pyproject.toml configuration
+./venv/bin/pytest --cov=server tests/
 
 EXIT_CODE=$?
 
