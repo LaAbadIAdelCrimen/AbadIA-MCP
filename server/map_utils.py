@@ -1,4 +1,6 @@
+import os
 import json
+from server.config import STORE_PATH
 
 # Terminal colors
 RED = "\033[31m"
@@ -9,11 +11,18 @@ WHITE = "\033[37m"
 RESET = "\033[0m"
 FONDO_BLANCO = "\033[47m"
 
-def save_map(map_data: list, file_path: str = "map.json"):
-    """
-    Saves the map data to a JSON file.
-    """
-    with open(file_path, "w") as f:
+def load_map(map_name: str) -> list:
+    """Loads a map from the storage directory."""
+    path = os.path.join(STORE_PATH, f"{map_name}.json")
+    if not os.path.exists(path):
+        return []
+    with open(path, 'r') as f:
+        return json.load(f)
+
+def save_map(map_name: str, map_data: list):
+    """Saves a map to the storage directory."""
+    path = os.path.join(STORE_PATH, f"{map_name}.json")
+    with open(path, 'w') as f:
         json.dump(map_data, f, indent=4)
 
 def draw_map_ascii(map_data: list, floor: int = 0, center_x: int = 5, center_y: int = 5, cells: int = 10) -> str:

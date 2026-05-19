@@ -132,8 +132,8 @@ def a_star_search(game_map, floor, start, end):
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
                 f_score[neighbor] = tentative_g_score + heuristic(neighbor, end)
-                if neighbor not in [i[1] for i in open_list]:
-                    heapq.heappush(open_list, (f_score[neighbor], neighbor))
+                # Correcting potential check if neighbor is already in open_list more efficiently
+                heapq.heappush(open_list, (f_score[neighbor], neighbor))
     return None
 
 def reconstruct_path(came_from, current):
