@@ -1,14 +1,8 @@
-import os
 import requests
+from server.config import ABADIA_SERVER_URL
 from server.logger_config import log
 
 session_id = None
-
-# Get environment variables with fallback values
-ABADIA_SERVER_URL = os.getenv("ABADIA_SERVER_URL")
-if not ABADIA_SERVER_URL:
-    # We'll allow it to be None for testing, but log a warning
-    log.warning("ABADIA_SERVER_URL environment variable is not set.")
 
 def sendCmd(url, command, type="json", mode="GET"):
     global session_id

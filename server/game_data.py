@@ -75,7 +75,7 @@ def initialize_and_truncate_map():
     """
     Initializes the game map by loading it from a file and then truncates it.
     """
-    from server.map_utils import STORE_PATH
+    from server.config import STORE_PATH
     current_map_path = os.path.join(STORE_PATH, "current_map.json")
     
     if os.path.exists(current_map_path):

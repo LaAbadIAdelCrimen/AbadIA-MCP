@@ -111,6 +111,10 @@ def a_star_search(game_map, floor, start, end):
     g_score = {start: 0}
     f_score = {start: heuristic(start, end)}
 
+    game_status = get_game_status()
+    if not game_status:
+        return None
+    
     personajes = game_status.get('Personajes', [])
     guillermo = next((p for p in personajes if p['nombre'] == 'Guillermo'), None)
     if not guillermo: return None

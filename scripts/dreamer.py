@@ -1,39 +1,56 @@
-import json
 import os
+import re
+import json
+import sys
+from datetime import datetime
 
-def dream_about_abbey(game_state_path, map_data_path):
+# GBrain Layer 8: The Dreamer (Alpha v1.0)
+# Purpose: Semantic synthesis of session logs into the Research Hub (~/wiki)
+
+WIKI_PATH = os.path.expanduser("~/wiki")
+LOG_DIR = os.path.join(WIKI_PATH, "logs")
+CONCEPTS_DIR = os.path.join(WIKI_PATH, "concepts")
+ENTITIES_DIR = os.path.join(WIKI_PATH, "entities")
+
+def ensure_dirs():
+    for d in [CONCEPTS_DIR, ENTITIES_DIR]:
+        if not os.path.exists(d):
+            os.makedirs(d)
+
+def synthesize_log(log_path):
     """
-    Analyzes the game state and compares it with the map to find 'new knowledge'.
+    In a real production environment, this would call an LLM to extract signal.
+    For this harness-alpha, we use a structured heuristic that simulates the 
+    semantic extraction based on the latest HE v3.0 session patterns.
     """
-    if not os.path.exists(game_state_path) or not os.path.exists(map_data_path):
-        print("Missing state or map files.")
-        return
-
-    with open(game_state_path, 'r') as f:
-        state = json.load(f)
+    print(f"Dreaming over {log_path}...")
+    with open(log_path, 'r') as f:
+        content = f.read()
     
-    with open(map_data_path, 'r') as f:
-        abbey_map = json.load(f)
-
-    # Example: Check if Guillermo is in a room not previously detailed in goals.md
-    characters = state.get('Personajes', [])
-    guillermo = next((p for p in characters if p['nombre'] == 'Guillermo'), None)
+    # Simulate extraction of potential concepts (Markdown headers or bold terms)
+    concepts = re.findall(r'\*\*([^*]{3,20})\*\*', content)
     
-    if guillermo:
-        x, y = guillermo['posX'], guillermo['posY']
-        print(f"Guillermo is at ({x}, {y}). Dreaming...")
+    for concept in set(concepts):
+        # Normalize name for file
+        clean_name = re.sub(r'[^a-z0-9]', '-', concept.lower()).strip('-')
+        if not clean_name: continue
         
-        # In a real scenario, we'd check against a 'known_locations' database
-        # For now, we simulate finding a 'secret' height
-        # Logic: If height > 10, it's a high tower!
-        height = guillermo.get('altura', 0)
-        if height > 10:
-            print(f"DREAM FINDING: Guillermo reached a high point ({height}). Potential for a new 'Viewpoint' skill.")
+        target_path = os.path.join(CONCEPTS_DIR, f"{clean_name}.md")
+        
+        # Check if exists to avoid overwriting metadata
+        if os.path.exists(target_path):
+            print(f"Updating concept: {clean_name}")
+            with open(target_path, 'a') as f:
+                f.write(f"\n- Updated during Dream Cycle: {datetime.now().isoformat()}\n")
         else:
-            print("Guillermo is in the usual cloisters. No new strategic insights.")
+            print(f"Discovering new concept: {clean_name}")
+            with open(target_path, 'w') as f:
+                f.write(f"# {concept}\n\nStatus: Synthesized\nSource: {os.path.basename(log_path)}\n\n## Description\nGenerated via GBrain Layer 8 Synthesis.\n")
 
 if __name__ == "__main__":
-    # Using the storage/sample_game_status.json from the cloned repo
-    state_file = "/root/abadIA-MCP/storage/sample_game_status.json"
-    map_file = "/root/abadIA-MCP/game_data/map.json"
-    dream_about_abbey(state_file, map_file)
+    ensure_dirs()
+    # Process the latest logs from today
+    today_str = datetime.now().strftime("%Y%m%d")
+    for log_file in os.listdir(LOG_DIR):
+        if today_str in log_file and log_file.endswith(".md"):
+            synthesize_log(os.path.join(LOG_DIR, log_file))

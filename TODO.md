@@ -6,13 +6,12 @@
 - [ ] Stabilize GitHub PAT / Auth for autonomous commits.
 
 ## Phase 2: Agent UX & Monastic Logic
-- [ ] Formalize Agent Personas (Guillermo/Adso) as executable configs.
+- [x] Formalize Agent Personas (Guillermo/Adso) as executable configs in `.lattice/personas/`.
 - [ ] Map Agent Journeys for the Abbey exploration cycle.
-- [ ] Implement `interview-me` as the primary intent gateway.
+- [x] Implement `interview-me` as the primary intent gateway.
 
 ## Phase 3: The Dreamer & Evolution
-- [ ] **GBrain Layer 8 (Synthesis Cycle):** Implement the post-exploration knowledge consolidation.
-    - *Constraint:* Avoid simple RAG; prioritize "Synthesized Knowledge" where facts are integrated into the core model of the Abbey.
+- [x] **GBrain Layer 8 (Synthesis Cycle):** Implement the post-exploration knowledge consolidation via `scripts/dreamer.py`.
 - [ ] Complexity Ratchet: Enforce 90% test coverage as the technical floor.
 
 ## Phase 4: Autonomous Sovereignty

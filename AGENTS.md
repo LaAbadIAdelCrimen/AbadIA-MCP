@@ -11,8 +11,9 @@ This is the canonical source of truth for all autonomous agents (Gemini-cli, Ant
 
 ## 2. Operating Standards (HE v3.0)
 All agents must adhere to the **Osmani Standard (Spec-Plan-Build-Verify)** and the 7-step deterministic cycle:
-1. **Declaration:** Identify yourself and state your assumptions before acting.
-2. **Contracting:** Create/update `SPEC.md` or a Service-Level ADR in `docs/adr/`.
+1. **The Interview Gateway:** Before creating a `SPEC.md` or `PLAN.md`, the agent MUST invoke the `interview-me` skill. Action is forbidden until user intent is extracted with 95% confidence.
+2. **Declaration:** Identify yourself and state your assumptions before acting.
+3. **Contracting:** Create/update `SPEC.md` or a Service-Level ADR in `docs/adr/`.
 3. **The Beyoncé Rule:** Tests in `tests/` MUST exist and FAIL before logic is implemented.
 4. **Agent Legibility Gate:** 
    - Files must be < 200 lines. 
