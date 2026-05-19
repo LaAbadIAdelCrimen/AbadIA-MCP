@@ -32,3 +32,14 @@ El Cronista es la identidad encargada de realizar la "Autopsia del Error". Su mi
 3.  **Inyectar el Trinquete (Ratcheting):** Crear una nueva regla o test que impida que *ese* error específico vuelva a ocurrir jamás.
 
 Este es el verdadero motor de evolución de **abadIA**: convertir cada fallo en una mejora permanente del arnés. No corregimos el código; evolucionamos el entorno.
+
+## Capítulo 3: La Inducción Agéntica de Conocimiento (AKI)
+
+### De la Observación a la Inducción: Robo-Cortex y WorldString
+El siguiente salto en el arnés de abadIA es la integración de **AKI (Autonomous Knowledge Induction)**. No basta con que el arnés detecte errores; el agente debe ser capaz de *inducir* sus propias reglas de supervivencia.
+
+1.  **Robo-Cortex (AKI):** Implementamos un córtex robótico agéntico que analiza los resultados de cada acción. Si el Obsequium aumenta, el sistema refuerza la trayectoria como una "Heurística de Éxito". Si el agente amanece en un nuevo día tras una jornada exitosa, el sistema consolida el conocimiento.
+2.  **WorldString:** Representamos la Abadía no solo como coordenadas, sino como un "WorldString" (una representación de mundo accionable). Esto permite al agente realizar un **Imagine-then-verify-loop**: imaginar el resultado de una transgresión (ej. entrar en la biblioteca de noche) y verificar si la recompensa de conocimiento justifica el riesgo del arnés.
+3.  **Inducción Humana de Reglas:** El sistema ahora correlaciona eventos temporales (Campanas, Horarium) con estados del juego. "Si suena la campana de Sext y no estoy en el refectorio, el Obsequium caerá". Esta regla no está programada; es *inducida* por la observación continuada.
+
+En Software 3.0, el aprendizaje es un trinquete que solo gira en una dirección: hacia la soberanía agéntica total.

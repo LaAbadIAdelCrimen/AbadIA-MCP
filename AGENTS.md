@@ -21,9 +21,19 @@ All agents must adhere to the **Osmani Standard (Spec-Plan-Build-Verify)** and t
    - Refactor if complexity exceeds agentic context efficiency.
 
 ## 3. The Rule of Perfect Grace (Monastic Logic)
-**Zero Obsequium Loss Goal:** It is possible to complete the game with 100% obsequium. 
-- If `obsequium` decreases, a plan has failed retrospective validation.
-- Agents must use the **Persistence Harness** to save state before risky actions and rollback on failure.
+**Zero Obsequium Loss Goal:** It is possible to complete the game with 100% obsequium (Value: 31).
+
+### Obsequium Runtime Modes (Max: 31):
+1. **Exploration Mode:**
+   - **Goal:** Discovery and Mapping.
+   - **Behavior:** The agent is allowed to "sacrifice" Obsequium to access dangerous areas or test movement boundaries.
+   - **Hard Limit:** 0 (Game Over). If `obsequium <= 27`, Adso must flag that a mistake was made, but mapping continues until 0. At 0, the agent MUST stop and perform a final `save_map`.
+2. **Exploitation Mode:**
+   - **Goal:** Solving/Perfect Run.
+   - **Behavior:** ZERO tolerance for Obsequium loss.
+   - **Hard Limit:** If `obsequium < 31`, the execution is aborted immediately to prevent a non-perfect state.
+
+- If a hard limit is hit, the agent must use the **Persistence Harness** to rollback or report the failure to The Abbot.
 
 ## 4. Naming Conventions & Relationships
 To ensure HE validation, all documentation must follow this schema:

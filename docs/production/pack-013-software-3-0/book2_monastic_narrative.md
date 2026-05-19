@@ -27,3 +27,21 @@ Guillermo señaló una serie de marcas que se repetían cíclicamente al final d
 Guillermo cerró el pergamino con un gesto seco.
 
 —Ya no escribimos el camino, Adso. Construimos el arnés que impide que nos salgamos de él. Los errores ya no son fracasos; son la tinta con la que escribimos la seguridad de nuestro futuro. A esto lo llamamos el **Trinquete del Cronista**. Cada fallo es una muesca que impide que el sistema retroceda.
+
+## Capítulo 3: La Inducción de Adso (El Secreto de las Horas)
+
+Adso observaba a Guillermo mientras este trazaba líneas entre los eventos del día.
+
+—Maestro, he notado algo —dijo el joven, señalando el Horarium de la abadía—. Cada vez que las campanas de Nona suenan mientras estamos en el huerto, el monje herbolario nos mira con sospecha. Pero si estamos en el claustro, nos ignora.
+
+Guillermo se detuvo, sorprendido por la agudeza de su pupilo.
+
+—Eso que acabas de hacer, Adso, es lo que los filósofos del futuro llamarán **AKI (Autonomous Knowledge Induction)**. No has leído una regla que diga \"no estar en el huerto en Nona\", pero has *inducido* la ley a partir de la observación de la señal y el ruido.
+
+—Pero maestro —insistió Adso—, anoche fuimos a la biblioteca cuando las reglas de San Benito lo prohíben. ¿Por qué romper la regla si nuestro objetivo es la obediencia?
+
+Guillermo se acercó a la ventana, mirando hacia el edificio prohibido de la biblioteca.
+
+—Porque existe una jerarquía de verdades, Adso. A veces, para salvar el Monasterio (el Sistema), debemos realizar una **Transgresión Estratégica**. Es el bucle de **Imagine-then-verify**. Imaginamos que en la biblioteca reside la clave del misterio y verificamos que el riesgo de perder Obsequium es menor que el valor de la verdad encontrada.
+
+Adso asintió, aunque el miedo no abandonaba sus ojos. Ahora comprendía que aprender no era solo obedecer, sino entender cuándo la desobediencia era la única forma de progreso. La Abadía ya no era solo piedra y silencio; era una red de leyes que ellos, y solo ellos, estaban aprendiendo a reescribir.
