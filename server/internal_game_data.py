@@ -1,5 +1,6 @@
 from typing import Dict, Any, List
 import time
+import os
 
 # Initialize the internal game data structure with AKI (ADR-011)
 internal_game_data: Dict[str, Any] = {
@@ -54,14 +55,22 @@ def update_internal_game_data(game_state: Dict[str, Any]):
         prev_o = internal_game_data["obsequium_history"][-1][1]
         if current_obsequium < prev_o:
             # We lost honor! Induce a risk rule
+            drop_amount = prev_o - current_obsequium
+            context_log = f"Día {current_day}, {current_time}. Pantalla {game_state.get('numPantalla', 0)}. Obsequium: {prev_o} -> {current_obsequium} (Pérdida: {drop_amount})"
+            
             risk_entry = {
                 "day": current_day,
                 "time": current_time,
                 "location": game_state.get("numPantalla", 0),
-                "drop": prev_o - current_obsequium
+                "drop": drop_amount
             }
             if risk_entry not in internal_game_data["death_zones"]:
                 internal_game_data["death_zones"].append(risk_entry)
+                
+                # Trigger DeepSeek Analysis (Agentic Automation)
+                import subprocess
+                script_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts/analyze_sin.py")
+                subprocess.Popen(["python3", script_path, context_log])
 
     internal_game_data["obsequium_history"].append((time.time(), current_obsequium))
     # Keep history manageable

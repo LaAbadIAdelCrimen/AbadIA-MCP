@@ -22,7 +22,7 @@
     22|
     23|—¿Y de qué nos sirve saber que falló, maestro? —preguntó el novicio, confundido.
     24|
-    25|—Esa es la clave de Software 3.0, mi pequeño Adso. Antaño, hubiéramos intentado "corregir" al monje, darle mejores instrucciones. Pero ahora, lo que haremos será **corregir el laberinto**. Usaremos este registro —esta "autopsia del error"— para colocar un nuevo sensor en el espejo. A partir de mañana, cuando un monje se acerque demasiado a esa trampa, una campana sonará, interrumpiendo su plan.
+    25|—Esa es la clave de Software 3.0, joven Adso. Antaño, hubiéramos intentado "corregir" al monje, darle mejores instrucciones. Pero ahora, lo que haremos será **corregir el laberinto**. Usaremos este registro —esta "autopsia del error"— para colocar un nuevo sensor en el espejo. A partir de mañana, cuando un monje se acerque demasiado a esa trampa, una campana sonará, interrumpiendo su plan.
     26|
     27|Guillermo cerró el pergamino con un gesto seco.
     28|
@@ -55,7 +55,7 @@ La luz de la mañana entraba hiriente por las ventanas del scriptorium, pero Ads
 
 Guillermo de Baskerville, que examinaba un pequeño astrolabio con una calma exasperante, levantó la vista. Su rostro no mostraba cansancio, sino una especie de compasión distante.
 
-—Lo que sientes, pequeño Adso, es el **Vértigo del Scriptorium**. Es el precio que pagamos por invocar a seres que no necesitan dormir para pensar. Tú intentas ser como ellos, intentas contener el océano en un cubo de madera.
+—Lo que sientes, joven Adso, es el **Vértigo del Scriptorium**. Es el precio que pagamos por invocar a seres que no necesitan dormir para pensar. Tú intentas ser como ellos, intentas contener el océano en un cubo de madera.
 
 —¡Pero usted me dijo que debíamos saber! —exclamó Adso con desesperación—. ¡Que el secreto para salvar la Abadía estaba en los registros! Si no los leo todos, si no entiendo cada pequeña marca roja de Obsequium perdido, ¿cómo sabré si estamos en el camino correcto? Siento que si cierro los ojos un segundo, el laberinto cambiará y yo seguiré atrapado en el mapa de ayer.
 
