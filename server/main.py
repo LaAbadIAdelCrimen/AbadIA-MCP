@@ -30,7 +30,9 @@ from server.logic import (
     investigate_location_internal,
     talk_to_character_internal,
     find_path_to_location_internal,
-    get_possible_moves_internal
+    get_possible_moves_internal,
+    move_cardinal_internal,
+    wait_internal
 )
 
 # Load environment variables
@@ -77,6 +79,24 @@ async def send_game_command(command: str) -> str:
     """Sends a low-level command like UP, DOWN, LEFT, RIGHT, SPACE, S."""
     send_game_command_internal(command)
     return f"Command {command} sent."
+
+@mcp.tool()
+async def move_cardinal(direction: str) -> str:
+    """
+    Moves Guillermo in a cardinal (N, S, E, W) or diagonal (NE, SE, SW, NW) direction.
+    Automatically handles orientation and forward movement.
+    """
+    res = move_cardinal_internal(direction)
+    return res["message"]
+
+@mcp.tool()
+async def nop() -> str:
+    """
+    Executes a 'No Operation' (wait). Refreshes the game state without sending keys.
+    Use this to wait for events (mass, conversations) or let time pass.
+    """
+    res = wait_internal()
+    return res["message"]
 
 @mcp.tool()
 async def find_path(dest_x: int, dest_y: int, floor: int = 0) -> str:
@@ -157,33 +177,9 @@ async def get_game_cmd(cmd: str):
     return GameResponse(status="OK", data=response, message=f"Command {cmd} execution attempted")
 
 @app.get("/game/move/{cmd}", response_model=GameResponse, tags=["Movement"])
-async def move_cardinal(cmd: str):
-    path2Pos = {
-            "0N": "LEFT:UP:UP", "1N": "UP:UP", "2N": "RIGHT:UP:UP", "3N": "RIGHT:RIGHT:UP:UP",
-            "0NE": "UP:UP:LEFT:UP:UP", "1NE": "UP:UP:RIGHT:UP:UP", "2NE": "RIGHT:UP:UP:RIGHT:UP:UP", "3NE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP",
-            "0E": "UP:UP", "1E": "RIGHT:UP:UP", "2E": "RIGHT:RIGHT:UP:UP", "3E": "LEFT:UP:UP",
-            "0SE": "UP:UP:RIGHT:UP:UP", "1SE": "RIGHT:UP:UP:RIGHT:UP:UP", "2SE": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP", "3SE": "UP:UP:LEFT:UP:UP",
-            "0S": "RIGHT:UP:UP", "1S": "RIGHT:RIGHT:UP:UP", "2S": "LEFT:UP:UP", "3S": "UP:UP",
-            "0SW": "RIGHT:UP:UP:RIGHT:UP:UP", "1SW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP", "2SW": "UP:UP:LEFT:UP:UP", "3SW": "UP:UP:RIGHT:UP:UP",
-            "0W": "RIGHT:RIGHT:UP:UP", "1W": "LEFT:UP:UP", "2W": "UP:UP", "3W": "RIGHT:UP:UP",
-            "0NW": "LEFT:UP:UP:LEFT:UP:UP", "1NW": "UP:UP:LEFT:UP:UP", "2NW": "UP:UP:RIGHT:UP:UP", "3NW": "RIGHT:RIGHT:UP:UP:RIGHT:UP:UP"
-    }
-    
-    status_now = get_game_status()
-    orientation = -1
-    if status_now and 'Personajes' in status_now:
-        guillermo = next((p for p in status_now['Personajes'] if p['nombre'] == 'Guillermo'), None)
-        if guillermo: orientation = guillermo['orientacion']
-
-    if orientation != -1:
-        path_key = f"{orientation}{cmd}"
-        if path_key in path2Pos:
-            for command in path2Pos[path_key].split(':'):
-                send_game_command_internal(command)
-                time.sleep(0.1)
-    
-    new_status = get_full_game_state_internal()
-    return GameResponse(status="OK", data=new_status, message=f"Moved {cmd}")
+async def move_cardinal_rest(cmd: str):
+    res = move_cardinal_internal(cmd)
+    return GameResponse(status=res["status"], data=get_game_status(), message=res["message"])
 
 @app.get("/internal_status", tags=["System"])
 def rest_internal_status():
@@ -229,7 +225,7 @@ def rest_tool_talk(character: str):
     return res
 
 @app.post("/tools/find_path_to_location", response_model=GameResponse, tags=["Tools"])
-async def find_path_to_location(dest_x: int, dest_y: int, floor: int = 0):
+async def find_path_to_location_rest(dest_x: int, dest_y: int, floor: int = 0):
     res = find_path_to_location_internal(dest_x, dest_y, floor)
     if res["status"] == "OK":
         return GameResponse(status="OK", data=res["data"], message="Path found")
