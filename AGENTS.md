@@ -50,7 +50,10 @@ To ensure HE validation, all documentation must follow this schema:
 ## 5. Toolchain & Interaction
 - **Primary Interface:** `gemini-cli` + `antigravity`.
 - **Memory:** `antigravity` (Honcho) captures the "Dreamer" state.
-- **Skills:** This repository contains local skills in `.hermes/skills/`. Agents MUST load these skills (e.g., using `skill_view`) to handle project-specific workflows like `skillify`.
+- **Skills:** This repository contains local skills in `.hermes/skills/`.
+  - **Osmani Block (21+ Skills):** Located in `.hermes/skills/osmani/`. These are the mandatory engineering workflows.
+  - **Project Skills:** Local logic validators and sensors.
+  - **Action:** Agents MUST load these skills (e.g., using `skill_view`) to handle project-specific workflows like `skillify`.
 
 ## 6. Atomic Teaching Protocol
 No task is "Done" until the educational artifacts are generated:
